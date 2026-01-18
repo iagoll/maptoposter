@@ -213,7 +213,7 @@ def get_coordinates(city, country):
     else:
         raise ValueError(f"Could not find coordinates for {city}, {country}")
 
-def create_poster(city, country, point, dist, output_file):
+def create_poster(city, country, point, dist, output_file, orientation='vertical', title=None, full_borders=False, title_pos='bottom-center'):
     print(f"\nGenerating map for {city}, {country}...")
     
     # Progress bar for data fetching
@@ -245,7 +245,13 @@ def create_poster(city, country, point, dist, output_file):
     
     # 2. Setup Plot
     print("Rendering map...")
-    fig, ax = plt.subplots(figsize=(12, 16), facecolor=THEME['bg'])
+    # Set figure size based on orientation
+    if orientation == 'horizontal':
+        figsize = (16, 12)
+    else:  # vertical (default)
+        figsize = (12, 16)
+    
+    fig, ax = plt.subplots(figsize=figsize, facecolor=THEME['bg'])
     ax.set_facecolor(THEME['bg'])
     ax.set_position([0, 0, 1, 1])
     
@@ -269,9 +275,10 @@ def create_poster(city, country, point, dist, output_file):
         show=False, close=False
     )
     
-    # Layer 3: Gradients (Top and Bottom)
-    create_gradient_fade(ax, THEME['gradient_color'], location='bottom', zorder=10)
-    create_gradient_fade(ax, THEME['gradient_color'], location='top', zorder=10)
+    # Layer 3: Gradients (Top and Bottom) - optional
+    if not full_borders:
+        create_gradient_fade(ax, THEME['gradient_color'], location='bottom', zorder=10)
+        create_gradient_fade(ax, THEME['gradient_color'], location='top', zorder=10)
     
     # 4. Typography using Roboto font
     if FONTS:
@@ -286,24 +293,38 @@ def create_poster(city, country, point, dist, output_file):
         font_sub = FontProperties(family='monospace', weight='normal', size=22)
         font_coords = FontProperties(family='monospace', size=14)
     
-    spaced_city = "  ".join(list(city.upper()))
+    # Use title parameter if provided, otherwise use city name
+    display_name = title if title else city
+    spaced_name = "  ".join(list(display_name.upper()))
 
-    # --- BOTTOM TEXT ---
-    ax.text(0.5, 0.14, spaced_city, transform=ax.transAxes,
-            color=THEME['text'], ha='center', fontproperties=font_main, zorder=11)
+    # Determine text positioning based on title_pos parameter
+    position_configs = {
+        'bottom-left': {'x': 0.05, 'y_main': 0.14, 'y_sub': 0.10, 'y_coords': 0.07, 'y_line': 0.125, 'ha': 'left', 'line_x': [0.05, 0.25]},
+        'bottom-center': {'x': 0.5, 'y_main': 0.14, 'y_sub': 0.10, 'y_coords': 0.07, 'y_line': 0.125, 'ha': 'center', 'line_x': [0.4, 0.6]},
+        'bottom-right': {'x': 0.95, 'y_main': 0.14, 'y_sub': 0.10, 'y_coords': 0.07, 'y_line': 0.125, 'ha': 'right', 'line_x': [0.75, 0.95]},
+        'top-left': {'x': 0.05, 'y_main': 0.93, 'y_sub': 0.89, 'y_coords': 0.86, 'y_line': 0.915, 'ha': 'left', 'line_x': [0.05, 0.25]},
+        'top-center': {'x': 0.5, 'y_main': 0.93, 'y_sub': 0.89, 'y_coords': 0.86, 'y_line': 0.915, 'ha': 'center', 'line_x': [0.4, 0.6]},
+        'top-right': {'x': 0.95, 'y_main': 0.93, 'y_sub': 0.89, 'y_coords': 0.86, 'y_line': 0.915, 'ha': 'right', 'line_x': [0.75, 0.95]}
+    }
     
-    ax.text(0.5, 0.10, country.upper(), transform=ax.transAxes,
-            color=THEME['text'], ha='center', fontproperties=font_sub, zorder=11)
+    pos_config = position_configs.get(title_pos, position_configs['bottom-center'])
+    
+    # --- TEXT POSITIONING ---
+    ax.text(pos_config['x'], pos_config['y_main'], spaced_name, transform=ax.transAxes,
+            color=THEME['text'], ha=pos_config['ha'], fontproperties=font_main, zorder=11)
+    
+    ax.text(pos_config['x'], pos_config['y_sub'], country.upper(), transform=ax.transAxes,
+            color=THEME['text'], ha=pos_config['ha'], fontproperties=font_sub, zorder=11)
     
     lat, lon = point
     coords = f"{lat:.4f}° N / {lon:.4f}° E" if lat >= 0 else f"{abs(lat):.4f}° S / {lon:.4f}° E"
     if lon < 0:
         coords = coords.replace("E", "W")
     
-    ax.text(0.5, 0.07, coords, transform=ax.transAxes,
-            color=THEME['text'], alpha=0.7, ha='center', fontproperties=font_coords, zorder=11)
+    ax.text(pos_config['x'], pos_config['y_coords'], coords, transform=ax.transAxes,
+            color=THEME['text'], alpha=0.7, ha=pos_config['ha'], fontproperties=font_coords, zorder=11)
     
-    ax.plot([0.4, 0.6], [0.125, 0.125], transform=ax.transAxes, 
+    ax.plot(pos_config['line_x'], [pos_config['y_line'], pos_config['y_line']], transform=ax.transAxes, 
             color=THEME['text'], linewidth=1, zorder=11)
 
     # --- ATTRIBUTION (bottom right) ---
@@ -363,16 +384,38 @@ Examples:
   python create_map_poster.py --list-themes
 
 Options:
-  --city, -c        City name (required)
-  --country, -C     Country name (required)
-  --theme, -t       Theme name (default: feature_based)
-  --distance, -d    Map radius in meters (default: 29000)
-  --list-themes     List all available themes
+  --city, -c          City name (required unless using --coords)
+  --country, -C       Country name (required)
+  --theme, -t         Theme name (default: feature_based)
+  --distance, -d      Map radius in meters (default: 29000)
+  --orientation, -o   Poster orientation: vertical or horizontal (default: vertical)
+  --coords            Coordinates as "latitude,longitude" (skips city lookup)
+  --title             Custom title to display instead of city name
+  --title-pos         Title position: top-left, top-center, top-right, 
+                      bottom-left, bottom-center, bottom-right (default: bottom-center)
+  --full-borders      Disable gradient fade effect on borders (shows full map)
+  --list-themes       List all available themes
 
 Distance guide:
   4000-6000m   Small/dense cities (Venice, Amsterdam old center)
   8000-12000m  Medium cities, focused downtown (Paris, Barcelona)
   15000-20000m Large metros, full city view (Tokyo, Mumbai)
+
+Advanced examples:
+  # Horizontal orientation for wide areas
+  python create_map_poster.py -c "San Francisco" -C "USA" -o horizontal -d 15000
+  
+  # Direct coordinates (bypassing geocoding)
+  python create_map_poster.py --coords "40.7128,-74.0060" -C "USA" --title "NYC" -t noir
+  
+  # Custom title for long city names
+  python create_map_poster.py -c "San Cristobal de La Laguna" -C "Spain" --title "La Laguna" -t ocean
+  
+  # Full borders without gradient fade
+  python create_map_poster.py -c "Tokyo" -C "Japan" --full-borders -t japanese_ink
+  
+  # Custom title position
+  python create_map_poster.py -c "Paris" -C "France" --title-pos top-center -t pastel_dream
 
 Available themes can be found in the 'themes/' directory.
 Generated posters are saved to 'posters/' directory.
@@ -420,6 +463,14 @@ Examples:
     parser.add_argument('--country', '-C', type=str, help='Country name')
     parser.add_argument('--theme', '-t', type=str, default='feature_based', help='Theme name (default: feature_based)')
     parser.add_argument('--distance', '-d', type=int, default=29000, help='Map radius in meters (default: 29000)')
+    parser.add_argument('--orientation', '-o', type=str, default='vertical', choices=['vertical', 'horizontal'], 
+                        help='Poster orientation (default: vertical)')
+    parser.add_argument('--coords', type=str, help='Coordinates as "latitude,longitude" (e.g., "40.7128,-74.0060")')
+    parser.add_argument('--title', type=str, help='Custom title to display instead of city name')
+    parser.add_argument('--title-pos', type=str, default='bottom-center', 
+                        choices=['top-left', 'top-center', 'top-right', 'bottom-left', 'bottom-center', 'bottom-right'],
+                        help='Title position on poster (default: bottom-center)')
+    parser.add_argument('--full-borders', action='store_true', help='Disable gradient fade effect on top/bottom borders')
     parser.add_argument('--list-themes', action='store_true', help='List all available themes')
     
     args = parser.parse_args()
@@ -435,10 +486,17 @@ Examples:
         os.sys.exit(0)
     
     # Validate required arguments
-    if not args.city or not args.country:
-        print("Error: --city and --country are required.\n")
-        print_examples()
-        os.sys.exit(1)
+    # If coords are provided, only country is required (city becomes optional)
+    if args.coords:
+        if not args.country:
+            print("Error: --country is required when using --coords.\n")
+            print_examples()
+            os.sys.exit(1)
+    else:
+        if not args.city or not args.country:
+            print("Error: --city and --country are required (unless using --coords).\n")
+            print_examples()
+            os.sys.exit(1)
     
     # Validate theme exists
     available_themes = get_available_themes()
@@ -456,9 +514,32 @@ Examples:
     
     # Get coordinates and generate poster
     try:
-        coords = get_coordinates(args.city, args.country)
-        output_file = generate_output_filename(args.city, args.theme)
-        create_poster(args.city, args.country, coords, args.distance, output_file)
+        # Handle coordinates
+        if args.coords:
+            # Parse coordinates from string
+            try:
+                lat_str, lon_str = args.coords.split(',')
+                coords = (float(lat_str.strip()), float(lon_str.strip()))
+                print(f"✓ Using provided coordinates: {coords[0]}, {coords[1]}")
+            except ValueError:
+                print("Error: --coords must be in format 'latitude,longitude' (e.g., '40.7128,-74.0060')")
+                os.sys.exit(1)
+            
+            # Use title or city as filename base
+            filename_base = args.title if args.title else args.city if args.city else "map"
+        else:
+            # Get coordinates from city/country lookup
+            coords = get_coordinates(args.city, args.country)
+            filename_base = args.city
+        
+        output_file = generate_output_filename(filename_base, args.theme)
+        
+        # Determine city name for display (use city if provided, otherwise use title)
+        display_city = args.city if args.city else (args.title if args.title else "Location")
+        
+        create_poster(display_city, args.country, coords, args.distance, output_file, 
+                     orientation=args.orientation, title=args.title, full_borders=args.full_borders,
+                     title_pos=args.title_pos)
         
         print("\n" + "=" * 50)
         print("✓ Poster generation complete!")
