@@ -34,7 +34,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // Serve static files from the posters directory
-const postersPath = path.join(__dirname, '../python_logic/posters');
+const postersPath = path.join(__dirname, '../../python_logic/posters');
 app.use('/posters', express.static(postersPath));
 
 // Routes

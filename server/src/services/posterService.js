@@ -2,8 +2,8 @@ const { spawn } = require('child_process');
 const path = require('path');
 
 // Path to Python virtual environment
-const pythonPath = path.join(__dirname, '../../python_logic/venv/bin/python3');
-const scriptPath = path.join(__dirname, '../../python_logic/create_map_poster.py');
+const pythonPath = path.join(__dirname, '../../../python_logic/venv/bin/python3');
+const scriptPath = path.join(__dirname, '../../../python_logic/create_map_poster.py');
 
 // Store active processes and their event emitters
 const activeProcesses = new Map();
@@ -50,7 +50,7 @@ const startGeneration = (config) => {
 
   // Spawn Python process
   const pythonProcess = spawn(pythonPath, args, {
-    cwd: path.join(__dirname, '../../python_logic')
+    cwd: path.join(__dirname, '../../../python_logic')
   });
 
   // Store process data

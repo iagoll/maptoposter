@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const themesPath = path.join(__dirname, '../../python_logic/themes');
+const themesPath = path.join(__dirname, '../../../python_logic/themes');
 
 /**
  * Get all available themes
