@@ -1,0 +1,12 @@
+cache/*
+env/
+.env/
+
+# Folders
+posters/
+cache/
+env/
+.env/
+
+# Files 
+.DS_Store

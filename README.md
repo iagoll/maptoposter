@@ -1,254 +1,610 @@
-# City Map Poster Generator
+# 🗺️ Map Poster Generator
 
-Generate beautiful, minimalist map posters for any city in the world.
+A full-stack application for generating beautiful, customizable map posters of any city in the world using OpenStreetMap data.
 
-<img src="posters/singapore_neon_cyberpunk_20260108_184503.png" width="250">
-<img src="posters/dubai_midnight_blue_20260108_174920.png" width="250">
+![Vue 3](https://img.shields.io/badge/Vue-3-4FC08D?logo=vue.js) ![Node.js](https://img.shields.io/badge/Node.js-Express-339933?logo=node.js) ![Python](https://img.shields.io/badge/Python-3.8+-3776AB?logo=python) ![Vuetify](https://img.shields.io/badge/Vuetify-3-1867C0?logo=vuetify)
 
-## Examples
+## 🎯 Features
 
+- 🎨 **17+ Beautiful Themes** - Noir, Ocean, Sunset, Japanese Ink, Cyberpunk, and more
+- 🌍 **Global Coverage** - Any city worldwide using OpenStreetMap data
+- ⚙️ **Fully Customizable** - Orientation, distance, title position, borders
+- 🔄 **Real-time Generation** - Live terminal logs via Server-Sent Events
+- 📱 **Responsive Design** - Works on desktop, tablet, and mobile
+- 🔒 **Secure Authentication** - Firebase Google Login
+- 💳 **Payment Integration** - Stripe checkout for high-res downloads
+- 📧 **Email Delivery** - Send posters via email using Resend
+- 📊 **User History** - Track previews and purchases
 
-| Country      | City           | Theme           | Poster |
-|:------------:|:--------------:|:---------------:|:------:|
-| USA          | San Francisco  | sunset          | <img src="posters/san_francisco_sunset_20260108_184122.png" width="250"> |
-| Spain        | Barcelona      | warm_beige      | <img src="posters/barcelona_warm_beige_20260108_172924.png" width="250"> |
-| Italy        | Venice         | blueprint       | <img src="posters/venice_blueprint_20260108_165527.png" width="250"> |
-| Japan        | Tokyo          | japanese_ink    | <img src="posters/tokyo_japanese_ink_20260108_165830.png" width="250"> |
-| India        | Mumbai         | contrast_zones  | <img src="posters/mumbai_contrast_zones_20260108_170325.png" width="250"> |
-| Morocco      | Marrakech      | terracotta      | <img src="posters/marrakech_terracotta_20260108_180821.png" width="250"> |
-| Singapore    | Singapore      | neon_cyberpunk  | <img src="posters/singapore_neon_cyberpunk_20260108_184503.png" width="250"> |
-| Australia    | Melbourne      | forest          | <img src="posters/melbourne_forest_20260108_181459.png" width="250"> |
-| UAE          | Dubai          | midnight_blue   | <img src="posters/dubai_midnight_blue_20260108_174920.png" width="250"> |
+## 🏗️ Architecture
 
-## Installation
+```
+┌────────────────────────────────────────────────────────┐
+│                   FRONTEND (Vue 3)                     │
+│  Vercel Hosting                                        │
+│  - Vuetify 3 UI │ Pinia State │ Vue Router            │
+│  - Real-time SSE Logs │ Firebase Auth                 │
+└──────────────────────┬─────────────────────────────────┘
+                       │ HTTPS/CORS
+                       ▼
+┌────────────────────────────────────────────────────────┐
+│              BACKEND (Node.js + Express)               │
+│  Digital Ocean Server                                  │
+│  - REST API │ MVC Architecture │ SQLite Database       │
+│  - Authentication │ Payments │ Email Delivery         │
+└──────────────────────┬─────────────────────────────────┘
+                       │ child_process.spawn
+                       ▼
+┌────────────────────────────────────────────────────────┐
+│             PYTHON LOGIC (OSMnx + Matplotlib)          │
+│  - Map Data (OpenStreetMap) │ Image Generation        │
+│  - Geocoding │ 17+ Themes │ Multi-DPI Support         │
+└────────────────────────────────────────────────────────┘
+```
+
+## 📁 Project Structure
+
+```
+maptoposter/
+├── client/                   # Vue 3 Frontend (Vercel)
+│   ├── src/
+│   │   ├── components/       # Reusable UI components
+│   │   ├── views/           # Page-level components
+│   │   ├── services/        # API client & utilities
+│   │   ├── store/           # Pinia state management
+│   │   ├── router/          # Vue Router configuration
+│   │   ├── App.vue          # Main layout component
+│   │   └── main.js          # Entry point
+│   ├── package.json
+│   ├── vite.config.js
+│   └── vercel.json          # Vercel deployment config
+│
+├── server/                   # Node.js Backend (Digital Ocean)
+│   ├── config/              # Firebase, Stripe, Resend configs
+│   ├── controllers/         # Request handlers
+│   ├── database/            # SQLite database setup
+│   ├── middleware/          # Auth & payment middleware
+│   ├── models/              # Database models
+│   ├── routes/              # API routes
+│   ├── services/            # Business logic
+│   ├── app.js               # Express application
+│   └── package.json
+│
+├── python_logic/            # Python Map Generation
+│   ├── create_map_poster.py # Main generation script
+│   ├── themes/              # Theme JSON files
+│   ├── fonts/               # Roboto fonts
+│   ├── posters/             # Generated high-res images
+│   ├── cache/               # Preview cache
+│   ├── venv/                # Python virtual environment
+│   └── requirements.txt
+│
+└── README.md                # This file
+```
+
+## 🚀 Quick Start
+
+### Prerequisites
+
+- **Node.js** 20+ and npm
+- **Python** 3.8+
+- **Git**
+- **Firebase** project (for authentication)
+- **Stripe** account (for payments)
+- **Resend** account (for email delivery)
+
+### 1. Clone the Repository
 
 ```bash
+git clone https://github.com/yourusername/maptoposter.git
+cd maptoposter
+```
+
+### 2. Setup Python Environment
+
+```bash
+cd python_logic
+python3 -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
+deactivate
+cd ..
 ```
 
-## Usage
+### 3. Setup Backend
 
 ```bash
-python create_map_poster.py --city <city> --country <country> [options]
+cd server
+npm install
+
+# Copy environment template
+cp .env.example .env
+
+# Edit .env and add your credentials (see Environment Variables section)
+nano .env
 ```
 
-### Options
+**Required `.env` variables:**
+```bash
+PORT=3000
+FRONTEND_URL=http://localhost:5173
+FIREBASE_PROJECT_ID=your-project-id
+STRIPE_SECRET_KEY=sk_test_xxxxx
+RESEND_API_KEY=re_xxxxx
+EMAIL_FROM=noreply@yourdomain.com
+```
 
-| Option | Short | Description | Default |
-|--------|-------|-------------|---------|
-| `--city` | `-c` | City name | required |
-| `--country` | `-C` | Country name | required |
-| `--theme` | `-t` | Theme name | feature_based |
-| `--distance` | `-d` | Map radius in meters | 29000 |
-| `--list-themes` | | List all available themes | |
-
-### Examples
+See [Environment Variables](#-environment-variables) section for complete list.
 
 ```bash
-# Iconic grid patterns
-python create_map_poster.py -c "New York" -C "USA" -t noir -d 12000           # Manhattan grid
-python create_map_poster.py -c "Barcelona" -C "Spain" -t warm_beige -d 8000   # Eixample district
-
-# Waterfront & canals
-python create_map_poster.py -c "Venice" -C "Italy" -t blueprint -d 4000       # Canal network
-python create_map_poster.py -c "Amsterdam" -C "Netherlands" -t ocean -d 6000  # Concentric canals
-python create_map_poster.py -c "Dubai" -C "UAE" -t midnight_blue -d 15000     # Palm & coastline
-
-# Radial patterns
-python create_map_poster.py -c "Paris" -C "France" -t pastel_dream -d 10000   # Haussmann boulevards
-python create_map_poster.py -c "Moscow" -C "Russia" -t noir -d 12000          # Ring roads
-
-# Organic old cities
-python create_map_poster.py -c "Tokyo" -C "Japan" -t japanese_ink -d 15000    # Dense organic streets
-python create_map_poster.py -c "Marrakech" -C "Morocco" -t terracotta -d 5000 # Medina maze
-python create_map_poster.py -c "Rome" -C "Italy" -t warm_beige -d 8000        # Ancient layout
-
-# Coastal cities
-python create_map_poster.py -c "San Francisco" -C "USA" -t sunset -d 10000    # Peninsula grid
-python create_map_poster.py -c "Sydney" -C "Australia" -t ocean -d 12000      # Harbor city
-python create_map_poster.py -c "Mumbai" -C "India" -t contrast_zones -d 18000 # Coastal peninsula
-
-# River cities
-python create_map_poster.py -c "London" -C "UK" -t noir -d 15000              # Thames curves
-python create_map_poster.py -c "Budapest" -C "Hungary" -t copper_patina -d 8000  # Danube split
-
-# List available themes
-python create_map_poster.py --list-themes
+# Start backend
+npm start
 ```
 
-### Distance Guide
+Backend will run on `http://localhost:3000`
 
-| Distance | Best for |
-|----------|----------|
-| 4000-6000m | Small/dense cities (Venice, Amsterdam center) |
-| 8000-12000m | Medium cities, focused downtown (Paris, Barcelona) |
-| 15000-20000m | Large metros, full city view (Tokyo, Mumbai) |
+### 4. Setup Frontend
 
-## Themes
+```bash
+cd client
+npm install
 
-17 themes available in `themes/` directory:
+# Copy environment template
+cp .env.example .env
 
-| Theme | Style |
-|-------|-------|
-| `feature_based` | Classic black & white with road hierarchy |
-| `gradient_roads` | Smooth gradient shading |
-| `contrast_zones` | High contrast urban density |
-| `noir` | Pure black background, white roads |
-| `midnight_blue` | Navy background with gold roads |
-| `blueprint` | Architectural blueprint aesthetic |
-| `neon_cyberpunk` | Dark with electric pink/cyan |
-| `warm_beige` | Vintage sepia tones |
-| `pastel_dream` | Soft muted pastels |
-| `japanese_ink` | Minimalist ink wash style |
-| `forest` | Deep greens and sage |
-| `ocean` | Blues and teals for coastal cities |
-| `terracotta` | Mediterranean warmth |
-| `sunset` | Warm oranges and pinks |
-| `autumn` | Seasonal burnt oranges and reds |
-| `copper_patina` | Oxidized copper aesthetic |
-| `monochrome_blue` | Single blue color family |
-
-## Output
-
-Posters are saved to `posters/` directory with format:
-```
-{city}_{theme}_{YYYYMMDD_HHMMSS}.png
+# Edit .env and add your credentials
+nano .env
 ```
 
-## Adding Custom Themes
-
-Create a JSON file in `themes/` directory:
-
-```json
-{
-  "name": "My Theme",
-  "description": "Description of the theme",
-  "bg": "#FFFFFF",
-  "text": "#000000",
-  "gradient_color": "#FFFFFF",
-  "water": "#C0C0C0",
-  "parks": "#F0F0F0",
-  "road_motorway": "#0A0A0A",
-  "road_primary": "#1A1A1A",
-  "road_secondary": "#2A2A2A",
-  "road_tertiary": "#3A3A3A",
-  "road_residential": "#4A4A4A",
-  "road_default": "#3A3A3A"
-}
+**Required `.env` variables:**
+```bash
+VITE_API_BASE_URL=http://localhost:3000
+VITE_FIREBASE_API_KEY=AIzaSyXXXXX
+VITE_STRIPE_PUBLISHABLE_KEY=pk_test_xxxxx
 ```
 
-## Project Structure
-
-```
-map_poster/
-├── create_map_poster.py          # Main script
-├── themes/               # Theme JSON files
-├── fonts/                # Roboto font files
-├── posters/              # Generated posters
-└── README.md
+```bash
+# Start frontend
+npm run dev
 ```
 
-## Hacker's Guide
+Frontend will run on `http://localhost:5173`
 
-Quick reference for contributors who want to extend or modify the script.
+### 5. Test Generation
 
-### Architecture Overview
+1. Open `http://localhost:5173`
+2. Fill in the form (e.g., City: "Paris", Country: "France")
+3. Select a theme
+4. Click "Generate Poster"
+5. Watch real-time logs
+6. View your generated poster!
 
-```
-┌─────────────────┐     ┌──────────────┐     ┌─────────────────┐
-│   CLI Parser    │────▶│  Geocoding   │────▶│  Data Fetching  │
-│   (argparse)    │     │  (Nominatim) │     │    (OSMnx)      │
-└─────────────────┘     └──────────────┘     └─────────────────┘
-                                                     │
-                        ┌──────────────┐             ▼
-                        │    Output    │◀────┌─────────────────┐
-                        │  (matplotlib)│     │   Rendering     │
-                        └──────────────┘     │  (matplotlib)   │
-                                             └─────────────────┘
-```
+## 🔐 Environment Variables
 
-### Key Functions
+### Backend (`server/.env`)
 
-| Function | Purpose | Modify when... |
-|----------|---------|----------------|
-| `get_coordinates()` | City → lat/lon via Nominatim | Switching geocoding provider |
-| `create_poster()` | Main rendering pipeline | Adding new map layers |
-| `get_edge_colors_by_type()` | Road color by OSM highway tag | Changing road styling |
-| `get_edge_widths_by_type()` | Road width by importance | Adjusting line weights |
-| `create_gradient_fade()` | Top/bottom fade effect | Modifying gradient overlay |
-| `load_theme()` | JSON theme → dict | Adding new theme properties |
+```bash
+# Server
+PORT=3000
+FRONTEND_URL=http://localhost:5173  # Or your Vercel URL
+NODE_ENV=development
 
-### Rendering Layers (z-order)
+# Database
+DB_PATH=/var/data/maptoposter  # Production path (or leave blank for ./data/)
 
-```
-z=11  Text labels (city, country, coords)
-z=10  Gradient fades (top & bottom)
-z=3   Roads (via ox.plot_graph)
-z=2   Parks (green polygons)
-z=1   Water (blue polygons)
-z=0   Background color
-```
+# Firebase Admin SDK
+FIREBASE_PROJECT_ID=your-project-id
+FIREBASE_CLIENT_EMAIL=firebase-adminsdk-xxxxx@your-project.iam.gserviceaccount.com
+FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----\n"
+# Or use service account file:
+FIREBASE_SERVICE_ACCOUNT_PATH=./config/firebase-service-account.json
 
-### OSM Highway Types → Road Hierarchy
+# Stripe
+STRIPE_SECRET_KEY=sk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+STRIPE_WEBHOOK_SECRET=whsec_xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
-```python
-# In get_edge_colors_by_type() and get_edge_widths_by_type()
-motorway, motorway_link     → Thickest (1.2), darkest
-trunk, primary              → Thick (1.0)
-secondary                   → Medium (0.8)
-tertiary                    → Thin (0.6)
-residential, living_street  → Thinnest (0.4), lightest
+# Resend Email
+RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+EMAIL_FROM=noreply@yourdomain.com
+
+# Application
+BASE_URL=http://localhost:3000  # Or https://api.yourdomain.com
 ```
 
-### Adding New Features
+**Where to get these values:**
 
-**New map layer (e.g., railways):**
-```python
-# In create_poster(), after parks fetch:
-try:
-    railways = ox.features_from_point(point, tags={'railway': 'rail'}, dist=dist)
-except:
-    railways = None
+- **Firebase:** [console.firebase.google.com](https://console.firebase.google.com) → Project Settings → Service Accounts
+- **Stripe:** [dashboard.stripe.com/apikeys](https://dashboard.stripe.com/apikeys)
+- **Resend:** [resend.com/api-keys](https://resend.com/api-keys)
 
-# Then plot before roads:
-if railways is not None and not railways.empty:
-    railways.plot(ax=ax, color=THEME['railway'], linewidth=0.5, zorder=2.5)
+### Frontend (`client/.env`)
+
+```bash
+# Backend API URL
+VITE_API_BASE_URL=http://localhost:3000  # Or https://api.yourdomain.com
+
+# Firebase Client SDK
+VITE_FIREBASE_API_KEY=AIzaSyXXXXXXXXXXXXXXXXXXXX
+VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your-project-id
+VITE_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=123456789012
+VITE_FIREBASE_APP_ID=1:123456789012:web:abcdef
+VITE_FIREBASE_MEASUREMENT_ID=G-XXXXXXXXXX
+
+# Stripe Publishable Key (safe to expose)
+VITE_STRIPE_PUBLISHABLE_KEY=pk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
-**New theme property:**
-1. Add to theme JSON: `"railway": "#FF0000"`
-2. Use in code: `THEME['railway']`
-3. Add fallback in `load_theme()` default dict
+**Where to get these values:**
 
-### Typography Positioning
+- **Firebase:** [console.firebase.google.com](https://console.firebase.google.com) → Project Settings → General → Your apps
+- **Stripe:** [dashboard.stripe.com/apikeys](https://dashboard.stripe.com/apikeys)
 
-All text uses `transform=ax.transAxes` (0-1 normalized coordinates):
+**Important:** All frontend variables MUST have the `VITE_` prefix!
+
+## 🎨 Available Themes
+
+The application includes 17 professionally designed themes:
+
+- **noir** - High contrast black and white
+- **ocean** - Blue oceanic tones
+- **sunset** - Warm sunset colors
+- **japanese_ink** - Traditional Japanese ink painting
+- **neon_cyberpunk** - Futuristic neon colors
+- **blueprint** - Technical blueprint style
+- **terracotta** - Warm earthy terracotta
+- **forest** - Natural forest greens
+- **midnight_blue** - Deep blue midnight
+- **warm_beige** - Warm neutral tones
+- **contrast_zones** - High contrast zones
+- **autumn** - Fall colors
+- **copper_patina** - Aged copper look
+- **monochrome_blue** - Single-color blue
+- **pastel_dream** - Soft pastel colors
+- **gradient_roads** - Gradient road styles
+- **feature_based** - Feature-specific coloring
+
+Themes are stored as JSON files in `python_logic/themes/`.
+
+## 🔧 Python Script Usage
+
+The Python script can be used standalone:
+
+```bash
+cd python_logic
+source venv/bin/activate
+
+python create_map_poster.py \
+  --city "Tokyo" \
+  --country "Japan" \
+  --theme "japanese_ink" \
+  --distance 20000 \
+  -o horizontal \
+  --dpi 300
 ```
-y=0.14  City name (spaced letters)
-y=0.125 Decorative line
-y=0.10  Country name
-y=0.07  Coordinates
-y=0.02  Attribution (bottom-right)
+
+**Available flags:**
+
+- `--city` - City name (e.g., "Paris")
+- `--country` - Country name (e.g., "France")
+- `--coords` - Coordinates (e.g., "48.8566,2.3522") - alternative to city/country
+- `--theme` - Theme name (e.g., "noir")
+- `--distance` - Map radius in meters (default: 15000)
+- `-o, --orientation` - "vertical" or "horizontal" (default: "vertical")
+- `--title` - Custom title (overrides city name)
+- `--title-pos` - Title position: "top-left", "top-center", "top-right", "bottom-left", "bottom-center", "bottom-right"
+- `--full-borders` - Disable gradient borders
+- `--dpi` - Image resolution: 72 (preview), 150, or 300 (high-res)
+
+## 📡 API Endpoints
+
+### Public Endpoints
+
+```
+GET    /api/themes              Get all available themes
+GET    /api/posters             Get example gallery posters
 ```
 
-### Useful OSMnx Patterns
+### Authenticated Endpoints (Require Firebase Token)
 
-```python
-# Get all buildings
-buildings = ox.features_from_point(point, tags={'building': True}, dist=dist)
-
-# Get specific amenities
-cafes = ox.features_from_point(point, tags={'amenity': 'cafe'}, dist=dist)
-
-# Different network types
-G = ox.graph_from_point(point, dist=dist, network_type='drive')  # roads only
-G = ox.graph_from_point(point, dist=dist, network_type='bike')   # bike paths
-G = ox.graph_from_point(point, dist=dist, network_type='walk')   # pedestrian
+```
+POST   /api/generate            Generate a new poster
+GET    /api/logs/:jobId         Get real-time generation logs (SSE)
+GET    /api/history/purchases   Get user's purchase history
+GET    /api/history/previews    Get user's preview history
+GET    /api/history/stats       Get user statistics
 ```
 
-### Performance Tips
+### Payment Endpoints
 
-- Large `dist` values (>20km) = slow downloads + memory heavy
-- Cache coordinates locally to avoid Nominatim rate limits
-- Use `network_type='drive'` instead of `'all'` for faster renders
-- Reduce `dpi` from 300 to 150 for quick previews
+```
+POST   /api/create-checkout-session/:requestId    Create Stripe checkout
+POST   /api/webhooks/stripe                       Stripe webhook handler
+```
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+- **Vue 3** - Progressive JavaScript framework
+- **Vuetify 3** - Material Design component library
+- **Pinia** - State management
+- **Vue Router** - Client-side routing
+- **Axios** - HTTP client
+- **Vite** - Build tool and dev server
+- **Firebase SDK** - Authentication (client)
+
+### Backend
+
+- **Node.js** - JavaScript runtime
+- **Express** - Web application framework
+- **better-sqlite3** - SQLite database
+- **Firebase Admin** - Authentication (server)
+- **Stripe** - Payment processing
+- **Resend** - Email delivery
+- **CORS** - Cross-origin resource sharing
+
+### Python
+
+- **OSMnx** - OpenStreetMap data
+- **Matplotlib** - Image generation
+- **Geopy** - Geocoding
+- **NetworkX** - Graph processing
+
+## 🚢 Deployment
+
+### Frontend (Vercel)
+
+1. **Push to GitHub**
+   ```bash
+   git push origin main
+   ```
+
+2. **Deploy on Vercel**
+   - Go to [vercel.com/new](https://vercel.com/new)
+   - Import repository
+   - Set Root Directory: `client`
+   - Add environment variables (all `VITE_*` variables)
+   - Deploy
+
+3. **Set Custom Domain** (optional)
+   - Go to Project Settings → Domains
+   - Add your domain
+   - Update DNS records
+
+### Backend (Digital Ocean)
+
+1. **Create Ubuntu Droplet**
+   - Choose Ubuntu 22.04 LTS
+   - Select appropriate size ($12/month recommended)
+
+2. **SSH and Setup**
+   ```bash
+   ssh root@your-server-ip
+   
+   # Install dependencies
+   apt update && apt upgrade -y
+   curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+   apt install -y nodejs python3 python3-pip python3-venv git nginx certbot python3-certbot-nginx
+   npm install -g pm2
+   
+   # Create user
+   adduser youruser
+   su - youruser
+   
+   # Create data directory
+   sudo mkdir -p /var/data/maptoposter
+   sudo chown -R youruser:youruser /var/data/maptoposter
+   
+   # Clone repo
+   git clone https://github.com/yourusername/maptoposter.git
+   cd maptoposter
+   
+   # Setup Python
+   cd python_logic
+   python3 -m venv venv
+   source venv/bin/activate
+   pip install -r requirements.txt
+   deactivate
+   cd ..
+   
+   # Setup Backend
+   cd server
+   npm install
+   nano .env  # Add your production environment variables
+   
+   # Start with PM2
+   pm2 start npm --name "maptoposter-api" -- start
+   pm2 save
+   pm2 startup
+   ```
+
+3. **Configure Nginx**
+   ```bash
+   sudo nano /etc/nginx/sites-available/maptoposter
+   ```
+   
+   Add configuration:
+   ```nginx
+   server {
+       listen 80;
+       server_name api.yourdomain.com;
+       
+       location / {
+           proxy_pass http://localhost:3000;
+           proxy_http_version 1.1;
+           proxy_set_header Upgrade $http_upgrade;
+           proxy_set_header Connection 'upgrade';
+           proxy_set_header Host $host;
+           proxy_cache_bypass $http_upgrade;
+       }
+   }
+   ```
+   
+   ```bash
+   sudo ln -s /etc/nginx/sites-available/maptoposter /etc/nginx/sites-enabled/
+   sudo nginx -t
+   sudo systemctl restart nginx
+   ```
+
+4. **Setup SSL**
+   ```bash
+   sudo certbot --nginx -d api.yourdomain.com
+   ```
+
+5. **Update Backend .env**
+   ```bash
+   FRONTEND_URL=https://your-app.vercel.app
+   ```
+
+6. **Restart**
+   ```bash
+   pm2 restart maptoposter-api
+   ```
+
+## 🔒 Security
+
+- ✅ **JWT Authentication** - Firebase tokens required for all generation endpoints
+- ✅ **User ID from Token** - Never from URL params (prevents unauthorized access)
+- ✅ **Database-level Filtering** - All queries filter by authenticated user ID
+- ✅ **CORS Configured** - Only allows requests from frontend origin
+- ✅ **Payment Verification** - Middleware checks payment before high-res access
+- ✅ **Webhook Signature Verification** - Stripe webhooks validated
+- ✅ **HTTPS Only** - SSL certificates on all endpoints
+- ✅ **Environment Variables** - All secrets in .env files (not committed)
+
+## 📊 Database Schema
+
+SQLite database with 4 main tables:
+
+```sql
+users                  -- Firebase authenticated users
+  ├─ id
+  ├─ firebase_uid
+  ├─ email
+  └─ created_at
+
+map_requests          -- All map generations
+  ├─ id
+  ├─ user_id
+  ├─ city, country, coords
+  ├─ theme, distance, orientation
+  ├─ preview_filename (72 DPI)
+  ├─ highres_filename (300 DPI)
+  └─ created_at
+
+payments              -- Stripe payment records
+  ├─ id
+  ├─ user_id
+  ├─ map_request_id
+  ├─ stripe_session_id
+  ├─ amount, currency
+  ├─ status (pending/completed)
+  └─ paid_at
+
+email_deliveries      -- Email tracking
+  ├─ id
+  ├─ user_id
+  ├─ map_request_id
+  ├─ email_address
+  └─ sent_at
+```
+
+## 🧪 Testing
+
+### Backend
+
+```bash
+cd server
+npm test  # If tests are configured
+```
+
+**Manual API Testing:**
+
+```bash
+# Get themes
+curl http://localhost:3000/api/themes
+
+# Generate poster (requires auth token)
+curl -X POST http://localhost:3000/api/generate \
+  -H "Authorization: Bearer YOUR_FIREBASE_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"city": "Paris", "country": "France", "theme": "noir"}'
+```
+
+### Frontend
+
+```bash
+cd client
+npm run build  # Test build
+npm run preview  # Preview production build
+```
+
+### Python Script
+
+```bash
+cd python_logic
+source venv/bin/activate
+python create_map_poster.py --city "Test City" --country "Test Country" --theme "noir"
+```
+
+## 🐛 Troubleshooting
+
+### Issue: CORS Errors
+
+**Solution:** Check `FRONTEND_URL` in backend `.env` matches your frontend URL exactly.
+
+### Issue: Python Script Fails
+
+**Solution:** 
+- Activate virtual environment: `source venv/bin/activate`
+- Reinstall dependencies: `pip install -r requirements.txt`
+- Check Python version: `python --version` (should be 3.8+)
+
+### Issue: Database Errors
+
+**Solution:**
+- Check `DB_PATH` in `.env`
+- Ensure directory exists and has write permissions
+- Delete database file to reinitialize: `rm data/maptoposter.db`
+
+### Issue: Firebase Authentication Fails
+
+**Solution:**
+- Verify Firebase credentials in both frontend and backend `.env`
+- Check Firebase project settings
+- Ensure service account has correct permissions
+
+## 📝 License
+
+MIT License - see [LICENSE](LICENSE) file for details.
+
+## 🤝 Contributing
+
+Contributions welcome! Please:
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## 📧 Support
+
+- **Documentation:** This README and inline code comments
+- **Payment Setup:** See [STRIPE_PAYMENT_GUIDE.md](STRIPE_PAYMENT_GUIDE.md)
+- **Issues:** Open an issue on GitHub
+
+## 🎉 Acknowledgments
+
+- **OpenStreetMap** - Map data
+- **OSMnx** - Python library for OSM
+- **Vuetify** - Material Design components
+- **Firebase** - Authentication
+- **Stripe** - Payment processing
+- **Resend** - Email delivery
+
+---
+
+Made with ❤️ using Vue, Node.js, and Python
