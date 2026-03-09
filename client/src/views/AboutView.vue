@@ -1,124 +1,260 @@
 <template>
-  <v-container class="pa-4">
-    <v-row justify="center">
-      <v-col cols="12" md="10" lg="8">
-        <v-card elevation="2">
-          <v-card-title class="text-h4 text-center py-6">
-            <v-icon size="large" class="mr-3">mdi-information</v-icon>
-            About Map Poster Generator
-          </v-card-title>
-          <v-divider></v-divider>
-          <v-card-text class="pa-6">
-            <p class="text-body-1 mb-4">
-              Create beautiful, high-quality map posters of any city in the world using
-              OpenStreetMap data. Perfect for home decor, gifts, or commemorating special places.
-            </p>
+  <div class="about-page">
+    <div class="about-container">
 
-            <v-row class="my-6">
-              <v-col cols="12" md="4">
-                <v-card variant="tonal" color="primary">
-                  <v-card-text class="text-center pa-6">
-                    <v-icon size="64" color="primary">mdi-palette</v-icon>
-                    <h3 class="text-h5 mt-3 mb-2">17+ Themes</h-icon>
-                    <p class="text-body-2">
-                      From noir to pastel, blueprint to cyberpunk
-                    </p>
-                  </v-card-text>
-                </v-card>
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-card variant="tonal" color="success">
-                  <v-card-text class="text-center pa-6">
-                    <v-icon size="64" color="success">mdi-responsive</v-icon>
-                    <h3 class="text-h5 mt-3 mb-2">Flexible</h3>
-                    <p class="text-body-2">
-                      Vertical or horizontal, any size
-                    </p>
-                  </v-card-text>
-                </v-card>
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-card variant="tonal" color="info">
-                  <v-card-text class="text-center pa-6">
-                    <v-icon size="64" color="info">mdi-earth</v-icon>
-                    <h3 class="text-h5 mt-3 mb-2">Any City</h3>
-                    <p class="text-body-2">
-                      Worldwide coverage via OpenStreetMap
-                    </p>
-                  </v-card-text>
-                </v-card>
-              </v-col>
-            </v-row>
+      <!-- Header -->
+      <div class="about-header">
+        <p class="section-eyebrow">About</p>
+        <h1 class="about-title">{{ $t('about.title') }}</h1>
+        <p class="about-desc">{{ $t('about.description') }}</p>
+      </div>
 
-            <h2 class="text-h5 mb-3 mt-6">✨ Features</h2>
-            <v-list density="comfortable" class="mb-4">
-              <v-list-item prepend-icon="mdi-check-circle" title="17+ professional themes">
-              </v-list-item>
-              <v-list-item prepend-icon="mdi-check-circle" title="Customizable orientations and sizes">
-              </v-list-item>
-              <v-list-item prepend-icon="mdi-check-circle" title="Direct coordinate input">
-              </v-list-item>
-              <v-list-item prepend-icon="mdi-check-circle" title="Real-time generation progress">
-              </v-list-item>
-              <v-list-item prepend-icon="mdi-check-circle" title="High-resolution output (300 DPI)">
-              </v-list-item>
-              <v-list-item prepend-icon="mdi-check-circle" title="Title positioning control">
-              </v-list-item>
-              <v-list-item prepend-icon="mdi-check-circle" title="Full borders option">
-              </v-list-item>
-            </v-list>
+      <!-- Feature cards -->
+      <div class="feature-cards">
+        <div class="feature-card">
+          <v-icon size="36" color="primary" class="mb-3">mdi-palette</v-icon>
+          <h3>{{ $t('about.themes') }}</h3>
+          <p>22 professionally designed themes from minimalist noir to neon cyberpunk.</p>
+        </div>
+        <div class="feature-card">
+          <v-icon size="36" color="primary" class="mb-3">mdi-responsive</v-icon>
+          <h3>{{ $t('about.customizable') }}</h3>
+          <p>Orientation, radius, title position, borders — full control over every detail.</p>
+        </div>
+        <div class="feature-card">
+          <v-icon size="36" color="primary" class="mb-3">mdi-earth</v-icon>
+          <h3>{{ $t('about.global') }}</h3>
+          <p>Any city, town or village on Earth. Powered by OpenStreetMap.</p>
+        </div>
+      </div>
 
-            <h2 class="text-h5 mb-3 mt-6">💡 Tips</h2>
-            <v-alert type="info" variant="tonal" class="mb-3">
-              <strong>Distance Selection:</strong> Smaller distances (4-8km) work best for dense city centers. 
-              Larger distances (20-50km) capture entire metropolitan areas.
-            </v-alert>
-            <v-alert type="info" variant="tonal" class="mb-3">
-              <strong>Custom Titles:</strong> Use the custom title field when city names are too long to fit nicely.
-            </v-alert>
-            <v-alert type="info" variant="tonal" class="mb-3">
-              <strong>Full Borders:</strong> Enable "full borders" to remove gradient fades and show edge-to-edge maps.
-            </v-alert>
-            <v-alert type="info" variant="tonal">
-              <strong>Direct Coordinates:</strong> Use coordinates for precise locations or areas not recognized by city name.
-            </v-alert>
+      <!-- Features list -->
+      <div class="content-section">
+        <h2 class="content-section__title">Features</h2>
+        <div class="feature-list">
+          <div v-for="f in featureList" :key="f" class="feature-list__item">
+            <v-icon size="18" color="success">mdi-check-circle</v-icon>
+            <span>{{ f }}</span>
+          </div>
+        </div>
+      </div>
 
-            <h2 class="text-h5 mb-3 mt-6">🛠️ Technology Stack</h2>
-            <v-chip-group>
-              <v-chip prepend-icon="mdi-vuejs">Vue 3</v-chip>
-              <v-chip prepend-icon="mdi-vuetify">Vuetify 3</v-chip>
-              <v-chip prepend-icon="mdi-nodejs">Node.js</v-chip>
-              <v-chip prepend-icon="mdi-language-python">Python</v-chip>
-              <v-chip prepend-icon="mdi-map">OSMnx</v-chip>
-              <v-chip prepend-icon="mdi-chart-line">Matplotlib</v-chip>
-            </v-chip-group>
+      <!-- Tips -->
+      <div class="content-section">
+        <h2 class="content-section__title">Tips</h2>
+        <div class="tips-list">
+          <div v-for="tip in tips" :key="tip.title" class="tip-card">
+            <strong>{{ tip.title }}</strong>
+            <p>{{ tip.body }}</p>
+          </div>
+        </div>
+      </div>
 
-            <h2 class="text-h5 mb-3 mt-6">🙏 Credits</h2>
-            <p class="text-body-1 mb-2">
-              Map data © <strong>OpenStreetMap</strong> contributors
-            </p>
-            <p class="text-body-2 text-medium-emphasis">
-              This application uses data from OpenStreetMap, which is made available under the 
-              Open Database License (ODbL). OpenStreetMap contributors retain copyright over their 
-              contributions.
-            </p>
+      <!-- Tech stack -->
+      <div class="content-section">
+        <h2 class="content-section__title">Built with</h2>
+        <div class="chips">
+          <v-chip v-for="t in techStack" :key="t.name" variant="tonal" color="secondary" prepend-icon="t.icon">
+            {{ t.name }}
+          </v-chip>
+        </div>
+      </div>
 
-            <div class="text-center mt-8">
-              <v-btn
-                color="primary"
-                to="/"
-                size="large"
-                prepend-icon="mdi-plus"
-              >
-                Create Your First Poster
-              </v-btn>
-            </div>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
-  </v-container>
+      <!-- Credits -->
+      <div class="content-section">
+        <h2 class="content-section__title">Credits</h2>
+        <p class="credits-text">
+          Map data © <strong>OpenStreetMap</strong> contributors, available under the
+          Open Database License (ODbL).
+        </p>
+      </div>
+
+      <!-- CTA -->
+      <div class="about-cta">
+        <v-btn color="primary" size="large" rounded="xl" elevation="0" to="/create" prepend-icon="mdi-creation">
+          {{ $t('home.generateButton') }}
+        </v-btn>
+      </div>
+
+    </div>
+  </div>
 </template>
 
 <script setup>
+const featureList = [
+  '22+ professionally designed themes',
+  'Portrait and landscape orientations',
+  'Direct coordinate input',
+  'Real-time generation progress (SSE)',
+  'High-resolution output — 300 DPI',
+  'Flexible title positioning (6 positions)',
+  'Full borders option (no gradient fade)',
+  'Custom title override',
+]
+
+const tips = [
+  { title: 'Distance', body: 'Smaller distances (4–8 km) work best for dense city centres. Larger distances (20–50 km) capture entire metro areas.' },
+  { title: 'Custom titles', body: 'Use the custom title field when city names are too long or you want a different label on the poster.' },
+  { title: 'Full borders', body: 'Enable "full borders" to remove the gradient fade and show edge-to-edge maps.' },
+  { title: 'Coordinates', body: 'Use coordinates for precise locations or areas not recognised by city name.' },
+]
+
+const techStack = [
+  { name: 'Vue 3', icon: 'mdi-vuejs' },
+  { name: 'Vuetify 3', icon: 'mdi-vuetify' },
+  { name: 'Node.js', icon: 'mdi-nodejs' },
+  { name: 'Python', icon: 'mdi-language-python' },
+  { name: 'OSMnx', icon: 'mdi-map' },
+  { name: 'Matplotlib', icon: 'mdi-chart-line' },
+]
 </script>
+
+<style scoped>
+.about-page {
+  background: #F7F7F7;
+  min-height: 100vh;
+  padding: 40px 24px 80px;
+}
+
+.about-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Header */
+.about-header {
+  margin-bottom: 48px;
+}
+
+.section-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #FF385C;
+  margin: 0 0 4px;
+}
+
+.about-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: #222;
+  margin: 0 0 12px;
+  letter-spacing: -0.5px;
+}
+
+.about-desc {
+  font-size: 1rem;
+  color: #717171;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* Feature cards */
+.feature-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 48px;
+}
+
+.feature-card {
+  background: #fff;
+  border: 1px solid #EBEBEB;
+  border-radius: 20px;
+  padding: 28px 24px;
+}
+
+.feature-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #222;
+  margin: 0 0 8px;
+}
+
+.feature-card p {
+  font-size: 0.85rem;
+  color: #717171;
+  margin: 0;
+  line-height: 1.55;
+}
+
+/* Content sections */
+.content-section {
+  background: #fff;
+  border: 1px solid #EBEBEB;
+  border-radius: 20px;
+  padding: 28px;
+  margin-bottom: 16px;
+}
+
+.content-section__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #222;
+  margin: 0 0 20px;
+}
+
+/* Feature list */
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.feature-list__item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.88rem;
+  color: #444;
+}
+
+/* Tips */
+.tips-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.tip-card {
+  padding: 14px 16px;
+  background: #F7F7F7;
+  border-radius: 12px;
+}
+
+.tip-card strong {
+  font-size: 0.85rem;
+  color: #222;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.tip-card p {
+  font-size: 0.82rem;
+  color: #717171;
+  margin: 0;
+  line-height: 1.55;
+}
+
+/* Tech chips */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Credits */
+.credits-text {
+  font-size: 0.88rem;
+  color: #555;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* CTA */
+.about-cta {
+  text-align: center;
+  margin-top: 48px;
+}
+</style>

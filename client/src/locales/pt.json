@@ -1,0 +1,123 @@
+{
+  "nav": {
+    "home": "Início",
+    "gallery": "Galeria",
+    "history": "Histórico",
+    "about": "Sobre"
+  },
+  "home": {
+    "title": "Gerador de Pôsteres de Mapas",
+    "subtitle": "Crie pôsteres de mapas bonitos e personalizáveis",
+    "generateButton": "Gerar Pôster",
+    "generating": "Gerando...",
+    "viewPoster": "Ver Pôster"
+  },
+  "form": {
+    "cityCountry": "Cidade e País",
+    "city": "Cidade",
+    "cityPlaceholder": "ex., Paris",
+    "country": "País",
+    "countryPlaceholder": "ex., França",
+    "coordinates": "Coordenadas",
+    "coordsPlaceholder": "ex., 48.8566,2.3522",
+    "useCoords": "Usar Coordenadas",
+    "theme": "Tema",
+    "selectTheme": "Selecione um tema",
+    "distance": "Raio do Mapa",
+    "distanceKm": "{distance} km",
+    "orientation": "Orientação",
+    "vertical": "Vertical",
+    "horizontal": "Horizontal",
+    "customTitle": "Título Personalizado",
+    "titlePlaceholder": "Deixe vazio para usar o nome da cidade",
+    "titlePosition": "Posição do Título",
+    "titlePos": {
+      "topLeft": "Superior Esquerda",
+      "topCenter": "Superior Centro",
+      "topRight": "Superior Direita",
+      "bottomLeft": "Inferior Esquerda",
+      "bottomCenter": "Inferior Centro",
+      "bottomRight": "Inferior Direita"
+    },
+    "fullBorders": "Bordas Completas (sem gradiente)",
+    "randomExample": "Exemplo Aleatório"
+  },
+  "terminal": {
+    "title": "Registros de Geração",
+    "connecting": "Conectando ao processo de geração...",
+    "noLogs": "Ainda não há registros. Clique em 'Gerar Pôster' para começar.",
+    "clear": "Limpar"
+  },
+  "recentPosters": {
+    "title": "Pôsteres Recentes",
+    "noPosters": "Nenhum pôster gerado ainda",
+    "viewAll": "Ver Todos na Galeria"
+  },
+  "gallery": {
+    "title": "Galeria de Pôsteres",
+    "loading": "Carregando pôsteres...",
+    "noPosters": "Nenhum pôster disponível ainda.",
+    "generatedOn": "Gerado em {date}"
+  },
+  "history": {
+    "title": "Seu Histórico",
+    "tabs": {
+      "purchases": "Pôsteres Comprados",
+      "previews": "Todas as Visualizações",
+      "themes": "Temas Favoritos"
+    },
+    "stats": {
+      "totalPreviews": "Total de Visualizações",
+      "totalPurchases": "Total de Compras",
+      "totalSpent": "Total Gasto",
+      "memberSince": "Membro Desde"
+    },
+    "noPurchases": "Você ainda não comprou nenhum pôster.",
+    "noPreviews": "Você ainda não gerou nenhuma visualização.",
+    "purchased": "Comprado",
+    "pending": "Pagamento Pendente",
+    "download": "Baixar",
+    "buyHighRes": "Comprar Alta Resolução",
+    "viewDetails": "Ver Detalhes",
+    "close": "Fechar"
+  },
+  "about": {
+    "title": "Sobre o Gerador de Pôsteres de Mapas",
+    "description": "Crie pôsteres de mapas bonitos e personalizáveis de qualquer cidade do mundo usando dados do OpenStreetMap.",
+    "features": "Recursos",
+    "themes": "Mais de 17 Temas Bonitos",
+    "global": "Cobertura Global",
+    "customizable": "Totalmente Personalizável",
+    "realtime": "Geração em Tempo Real"
+  },
+  "welcome": {
+    "title": "Bem-vindo!",
+    "description": "Crie pôsteres de mapas impressionantes de suas cidades favoritas",
+    "howItWorks": "Como funciona",
+    "step1": "Escolha uma cidade ou coordenadas",
+    "step2": "Selecione seu tema favorito",
+    "step3": "Personalize orientação e distância",
+    "step4": "Gere e baixe seu pôster",
+    "getStarted": "Começar",
+    "examples": "Cidades de Exemplo"
+  },
+  "common": {
+    "loading": "Carregando...",
+    "error": "Erro",
+    "success": "Sucesso",
+    "cancel": "Cancelar",
+    "save": "Salvar",
+    "delete": "Excluir",
+    "edit": "Editar",
+    "back": "Voltar",
+    "next": "Próximo",
+    "finish": "Finalizar",
+    "language": "Idioma"
+  },
+  "errors": {
+    "required": "Este campo é obrigatório",
+    "invalidCoords": "Formato de coordenadas inválido",
+    "generationFailed": "Falha na geração do pôster",
+    "loadFailed": "Falha ao carregar dados"
+  }
+}

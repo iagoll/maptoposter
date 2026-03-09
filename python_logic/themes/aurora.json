@@ -1,0 +1,15 @@
+{
+  "name": "Aurora",
+  "description": "Deep arctic night sky with roads shifting from electric green to violet - northern lights aesthetic",
+  "bg": "#04101C",
+  "text": "#5FFFC8",
+  "gradient_color": "#04101C",
+  "water": "#020A12",
+  "parks": "#051520",
+  "road_motorway": "#00FFB0",
+  "road_primary": "#00D4CC",
+  "road_secondary": "#00A0CC",
+  "road_tertiary": "#8844EE",
+  "road_residential": "#4422AA",
+  "road_default": "#0090BB"
+}

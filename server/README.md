@@ -1,43 +1,107 @@
-# Map Poster Server
+# Map Poster — Server
 
-Express.js backend server for the Map Poster Generator. Manages Python script execution, real-time log streaming via Server-Sent Events (SSE), and serves generated poster images.
+Express.js backend that manages Python script execution, real-time log streaming via Server-Sent Events (SSE), theme management, and serving of generated poster images.
 
-## Features
+## Tech Stack
 
-- 🐍 **Python Integration**: Executes Python script using virtual environment
-- 📡 **Real-time Logs**: Server-Sent Events for live stdout/stderr streaming
-- 🎨 **Theme Management**: API endpoints for listing available themes
-- 🖼️ **Static File Serving**: Serves generated poster images
-- 📊 **Job Tracking**: Monitor generation status and results
+- **Express 5.x** — web framework
+- **child_process.spawn** — Python process execution
+- **Server-Sent Events (SSE)** — real-time log streaming
+- **better-sqlite3** — local database
+- **Firebase Admin** — authentication
+- **Stripe** — payments
+- **Resend** — transactional email
 
-## Installation
+## Directory Structure
+
+```
+server/
+├── src/
+│   ├── app.js
+│   ├── config/
+│   ├── controllers/
+│   ├── database/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   └── services/
+├── package.json
+├── test-api.js
+└── .env
+```
+
+---
+
+## Setup
+
+### 1. Install dependencies
 
 ```bash
 cd server
 npm install
 ```
 
-## Running the Server
+### 2. Configure environment
 
-```bash
-# Production
-npm start
+Create a `.env` file (see full reference below). Minimum required for local dev:
 
-# Development (with auto-reload)
-npm run dev
+```env
+PORT=3000
+NODE_ENV=development
+FRONTEND_URL=http://localhost:5173
+PYTHON_PATH=/absolute/path/to/python_logic/venv/bin/python3
+PYTHON_SCRIPT_PATH=/absolute/path/to/python_logic/create_map_poster.py
+PYTHON_CWD=/absolute/path/to/python_logic
+POSTERS_PATH=/absolute/path/to/python_logic/posters
+THEMES_PATH=/absolute/path/to/python_logic/themes
 ```
 
-Server runs on `http://localhost:3000` by default.
+> All Python paths fall back to relative paths if left blank, but absolute paths are recommended to avoid breakage when the folder structure changes.
 
-## API Endpoints
+### 3. Set up the Python worker
 
-### 1. Generate Map Poster
+```bash
+cd ../python_logic
+/opt/homebrew/bin/python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
 
-**POST** `/api/generate`
+### 4. Start the server
 
-Starts a new map poster generation job.
+```bash
+# Development (auto-reload)
+npm run dev
 
-**Request Body:**
+# Production
+npm start
+```
+
+Server runs at `http://localhost:3000`.
+
+---
+
+## API Reference
+
+### Endpoints at a glance
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/generate` | Start a poster generation job |
+| GET | `/api/logs/:jobId` | Stream real-time logs (SSE) |
+| GET | `/api/jobs/:jobId` | Get job status |
+| GET | `/api/themes` | List available themes |
+| GET | `/api/posters` | List generated posters |
+| GET | `/posters/:filename` | Download a poster image |
+| GET | `/health` | Health check |
+
+---
+
+### POST `/api/generate`
+
+Starts a new poster generation job and returns a `jobId` for tracking.
+
+**Request body:**
 ```json
 {
   "city": "Tokyo",
@@ -52,17 +116,17 @@ Starts a new map poster generation job.
 }
 ```
 
-**Parameters:**
-- `city` (string, optional if coords provided): City name
-- `country` (string, required): Country name
-- `theme` (string, default: "feature_based"): Theme name
-- `distance` (number, default: 29000): Map radius in meters
-- `orientation` (string, default: "vertical"): "vertical" or "horizontal"
-- `coords` (string, optional): "latitude,longitude" format
-- `title` (string, optional): Custom title override
-- `titlePos` (string, default: "bottom-center"): Title position
-  - Options: "top-left", "top-center", "top-right", "bottom-left", "bottom-center", "bottom-right"
-- `fullBorders` (boolean, default: false): Disable gradient fade on borders
+| Field | Type | Default | Description |
+|-------|------|---------|-------------|
+| `city` | string | — | City name (optional if `coords` provided) |
+| `country` | string | required | Country name |
+| `theme` | string | `feature_based` | Theme name |
+| `distance` | number | `29000` | Map radius in meters |
+| `orientation` | string | `vertical` | `vertical` or `horizontal` |
+| `coords` | string | — | `"lat,lon"` — skips geocoding |
+| `title` | string | — | Custom title override |
+| `titlePos` | string | `bottom-center` | `top/bottom` + `-left/center/right` |
+| `fullBorders` | boolean | `false` | Disable gradient fade on borders |
 
 **Response:**
 ```json
@@ -73,35 +137,34 @@ Starts a new map poster generation job.
 }
 ```
 
-### 2. Stream Real-time Logs
+---
 
-**GET** `/api/logs/:jobId`
+### GET `/api/logs/:jobId`
 
-Server-Sent Events (SSE) endpoint for real-time log streaming.
+SSE stream of real-time stdout/stderr from the Python process.
 
-**Response (SSE Stream):**
+**Event types:**
+
+| Type | Description |
+|------|-------------|
+| `connected` | Initial connection established |
+| `stdout` | Standard output from Python |
+| `stderr` | Error output from Python |
+| `complete` | Process finished (includes result) |
+| `error` | Process error |
+
+**Example stream:**
 ```
 data: {"type":"connected","jobId":"1705580123456-abc123"}
-
 data: {"type":"stdout","message":"Looking up coordinates...\n"}
-
-data: {"type":"stdout","message":"✓ Found: Tokyo, Japan\n"}
-
 data: {"type":"complete","status":"completed","exitCode":0,"result":{"filename":"tokyo_japanese_ink_20260118_123456.png","url":"/posters/tokyo_japanese_ink_20260118_123456.png"}}
 ```
 
-**Event Types:**
-- `connected`: Initial connection established
-- `stdout`: Standard output from Python script
-- `stderr`: Error output from Python script
-- `complete`: Process finished (includes result)
-- `error`: Process error occurred
+---
 
-### 3. Get Job Status
+### GET `/api/jobs/:jobId`
 
-**GET** `/api/jobs/:jobId`
-
-Get current status and information about a job.
+Returns current status and metadata for a job.
 
 **Response:**
 ```json
@@ -117,41 +180,27 @@ Get current status and information about a job.
 }
 ```
 
-**Status Values:**
-- `running`: Job is currently executing
-- `completed`: Job finished successfully
-- `failed`: Job finished with errors
-- `error`: Job encountered an error
+Status values: `running` · `completed` · `failed` · `error`
 
-### 4. List Available Themes
+---
 
-**GET** `/api/themes`
+### GET `/api/themes`
 
-Returns all available themes.
+Lists all available themes from the `python_logic/themes/` directory.
 
-**Response:**
 ```json
 [
-  {
-    "id": "japanese_ink",
-    "name": "Japanese Ink",
-    "description": "Black ink on cream - traditional East Asian aesthetic"
-  },
-  {
-    "id": "noir",
-    "name": "Noir",
-    "description": "Pure black background with white/gray roads - modern gallery aesthetic"
-  }
+  { "id": "japanese_ink", "name": "Japanese Ink", "description": "..." },
+  { "id": "noir", "name": "Noir", "description": "..." }
 ]
 ```
 
-### 5. List Generated Posters
+---
 
-**GET** `/api/posters`
+### GET `/api/posters`
 
-Returns all generated poster files.
+Lists all generated poster files, sorted newest first.
 
-**Response:**
 ```json
 [
   {
@@ -163,48 +212,27 @@ Returns all generated poster files.
 ]
 ```
 
-### 6. Health Check
+---
 
-**GET** `/health`
+### GET `/health`
 
-Server health check endpoint.
-
-**Response:**
 ```json
-{
-  "status": "ok",
-  "activeJobs": 2,
-  "timestamp": "2026-01-18T12:34:56.789Z"
-}
+{ "status": "ok", "activeJobs": 2, "timestamp": "2026-01-18T12:34:56.789Z" }
 ```
 
-### 7. Static Files
-
-**GET** `/posters/:filename`
-
-Serves generated poster images.
-
-Example: `http://localhost:3000/posters/tokyo_japanese_ink_20260118_123456.png`
+---
 
 ## Usage Examples
 
-### Using cURL
+### cURL
 
 ```bash
-# Generate a poster
+# Start generation
 curl -X POST http://localhost:3000/api/generate \
   -H "Content-Type: application/json" \
-  -d '{
-    "city": "Paris",
-    "country": "France",
-    "theme": "pastel_dream",
-    "distance": 15000,
-    "orientation": "vertical"
-  }'
+  -d '{"city":"Paris","country":"France","theme":"pastel_dream","distance":15000}'
 
-# Response: {"jobId":"1705580123456-abc123","message":"Map generation started","logsUrl":"/api/logs/1705580123456-abc123"}
-
-# Stream logs (in another terminal)
+# Stream logs
 curl -N http://localhost:3000/api/logs/1705580123456-abc123
 
 # Check job status
@@ -212,143 +240,103 @@ curl http://localhost:3000/api/jobs/1705580123456-abc123
 
 # List themes
 curl http://localhost:3000/api/themes
-
-# List posters
-curl http://localhost:3000/api/posters
 ```
 
-### Using JavaScript (Fetch API)
+### JavaScript (EventSource)
 
 ```javascript
-// Generate poster
-const response = await fetch('http://localhost:3000/api/generate', {
+const { jobId, logsUrl } = await fetch('http://localhost:3000/api/generate', {
   method: 'POST',
   headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    city: 'Tokyo',
-    country: 'Japan',
-    theme: 'japanese_ink',
-    distance: 45000,
-    orientation: 'horizontal'
-  })
-});
+  body: JSON.stringify({ city: 'Tokyo', country: 'Japan', theme: 'japanese_ink' })
+}).then(r => r.json());
 
-const { jobId, logsUrl } = await response.json();
-
-// Stream logs using EventSource
-const eventSource = new EventSource(`http://localhost:3000${logsUrl}`);
-
-eventSource.onmessage = (event) => {
-  const data = JSON.parse(event.data);
-  
-  if (data.type === 'stdout' || data.type === 'stderr') {
-    console.log(data.message);
-  } else if (data.type === 'complete') {
-    console.log('Generation complete!', data.result);
-    eventSource.close();
-  } else if (data.type === 'error') {
-    console.error('Error:', data.message);
-    eventSource.close();
-  }
-};
-
-eventSource.onerror = (error) => {
-  console.error('EventSource error:', error);
-  eventSource.close();
+const es = new EventSource(`http://localhost:3000${logsUrl}`);
+es.onmessage = ({ data }) => {
+  const event = JSON.parse(data);
+  if (event.type === 'complete') { console.log(event.result); es.close(); }
+  if (event.type === 'error')    { console.error(event.message); es.close(); }
 };
 ```
+
+---
+
+## Environment Variables
+
+Full `.env` reference:
+
+```env
+# Server
+PORT=3000
+NODE_ENV=development                        # development | production
+FRONTEND_URL=http://localhost:5173          # Allowed CORS origin
+
+# Database
+DB_PATH=                                    # Leave blank → uses ./data/
+
+# Firebase
+FIREBASE_SERVICE_ACCOUNT_PATH=./config/firebase-service-account.json
+
+# Stripe
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+
+# Resend email
+RESEND_API_KEY=re_...
+EMAIL_FROM=noreply@yourdomain.com
+
+# Python worker (use absolute paths; relative fallbacks used if blank)
+PYTHON_PATH=/path/to/python_logic/venv/bin/python3
+PYTHON_SCRIPT_PATH=/path/to/python_logic/create_map_poster.py
+PYTHON_CWD=/path/to/python_logic
+POSTERS_PATH=/path/to/python_logic/posters
+THEMES_PATH=/path/to/python_logic/themes
+
+# App
+BASE_URL=http://localhost:3000
+```
+
+> In production, replace all `/path/to/` values with absolute paths on your server (e.g. `/home/youruser/projects/maptoposter/python_logic`).
+
+---
 
 ## Architecture
 
 ```
-┌─────────────┐      HTTP POST      ┌──────────────┐
-│   Client    │ ─────────────────> │  Express     │
-│             │                     │  Server      │
-└─────────────┘                     └──────────────┘
-      │                                    │
-      │         SSE Stream                 │ spawn()
-      │ <──────────────────────────────── │
-      │                                    ▼
-      │                             ┌──────────────┐
-      │                             │   Python     │
-      │                             │   Process    │
-      │                             │  (venv)      │
-      │                             └──────────────┘
-      │                                    │
-      │                                    │ stdout/stderr
-      │                                    ▼
-      │                             ┌──────────────┐
-      │                             │  OSMnx API   │
-      │                             │  Geocoding   │
-      │                             │  Map Data    │
-      │                             └──────────────┘
-      │                                    │
-      │         Poster Image               │
-      │ <──────────────────────────────── │
-      │      /posters/filename.png         │
+┌──────────┐   POST /api/generate   ┌───────────────┐
+│  Client  │ ────────────────────>  │  Express API  │
+│          │                        └───────────────┘
+│          │   SSE /api/logs/:id           │ spawn()
+│          │ <──────────────────────       ▼
+│          │                        ┌───────────────┐
+│          │                        │ Python Worker │
+│          │                        │  (venv)       │
+│          │                        └───────────────┘
+│          │                               │ OSMnx / Nominatim
+│          │   GET /posters/:file          ▼
+│          │ <──────────────────────  PNG saved to disk
+└──────────┘
 ```
 
-## Environment Variables
+**Job lifecycle:** Jobs are held in memory with unique IDs. Completed jobs are cleaned up after 5 minutes. Multiple concurrent jobs and multiple SSE clients per job are supported.
 
-Create a `.env` file in the server directory:
+---
 
-```env
-PORT=3000
-NODE_ENV=development
+## PM2 (Production)
+
+```bash
+pm2 start npm --name "maptoposter-api" -- start
+pm2 save
+pm2 logs maptoposter-api
 ```
 
-## Error Handling
-
-The server handles various error scenarios:
-
-- Missing required parameters → 400 Bad Request
-- Job not found → 404 Not Found
-- Python process errors → Streamed via SSE
-- File system errors → 500 Internal Server Error
-
-## Process Management
-
-- Jobs are stored in memory with unique IDs
-- Completed jobs are cleaned up after 5 minutes
-- Multiple concurrent jobs are supported
-- Each job can have multiple SSE clients connected
-
-## CORS
-
-CORS is enabled for all origins. For production, configure specific origins:
-
-```javascript
-app.use(cors({
-  origin: 'https://your-frontend-domain.com'
-}));
-```
-
-## Development
-
-The server uses:
-- **Express 5.x**: Web framework
-- **child_process.spawn**: Python process execution
-- **Server-Sent Events**: Real-time log streaming
-- **Static file serving**: Poster image delivery
+---
 
 ## Troubleshooting
 
-### Python Script Not Found
-Ensure the Python virtual environment exists:
-```bash
-cd ../python_logic
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
-
-### Port Already in Use
-Change the port in `.env` or:
-```bash
-PORT=4000 npm start
-```
-
-### SSE Connection Issues
-- Check firewall settings
-- Ensure no proxy is buffering the SSE stream
-- Verify CORS configuration for your domain
+| Problem | Fix |
+|---------|-----|
+| Port 3000 in use | `lsof -i :3000` to find the process, or `PORT=4000 npm start` |
+| Python venv not found | `cd ../python_logic && /opt/homebrew/bin/python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt` |
+| Posters not accessible | `ls $POSTERS_PATH` and `chmod 755 $POSTERS_PATH` |
+| SSE stream not arriving | Check for proxy buffering; ensure `FRONTEND_URL` is set correctly for CORS |

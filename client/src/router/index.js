@@ -3,47 +3,47 @@ import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: () => import('../views/HomeView.vue'),
-    meta: {
-      title: 'Map Poster Generator'
-    }
+    name: 'Landing',
+    component: () => import('../views/LandingView.vue'),
+    meta: { title: 'MapToPoster — Turn any city into wall art' }
+  },
+  {
+    path: '/create',
+    name: 'Create',
+    component: () => import('../views/CreateView.vue'),
+    meta: { title: 'Create Your Poster — MapToPoster' }
   },
   {
     path: '/gallery',
     name: 'Gallery',
     component: () => import('../views/GalleryView.vue'),
-    meta: {
-      title: 'Gallery - Map Poster Generator'
-    }
+    meta: { title: 'Gallery — MapToPoster' }
   },
   {
     path: '/history',
     name: 'History',
     component: () => import('../views/HistoryView.vue'),
-    meta: {
-      title: 'Purchase History - Map Poster Generator',
-      requiresAuth: true // Will need auth when implemented
-    }
+    meta: { title: 'My History — MapToPoster', requiresAuth: true }
   },
   {
     path: '/about',
     name: 'About',
     component: () => import('../views/AboutView.vue'),
-    meta: {
-      title: 'About - Map Poster Generator'
-    }
+    meta: { title: 'About — MapToPoster' }
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) return savedPosition
+    return { top: 0 }
+  }
 })
 
-// Update page title on route change
 router.beforeEach((to, from, next) => {
-  document.title = to.meta.title || 'Map Poster Generator'
+  document.title = to.meta.title || 'MapToPoster'
   next()
 })
 

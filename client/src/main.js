@@ -3,6 +3,7 @@ import { createPinia } from 'pinia'
 import './style.css'
 import App from './App.vue'
 import router from './router'
+import i18n from './i18n'
 
 // Vuetify
 import 'vuetify/styles'
@@ -23,17 +24,18 @@ const vuetify = createVuetify({
     },
   },
   theme: {
-    defaultTheme: 'dark',
+    defaultTheme: 'light',
     themes: {
-      dark: {
+      light: {
         colors: {
-          primary: '#1976D2',
-          secondary: '#424242',
-          accent: '#82B1FF',
-          error: '#FF5252',
-          info: '#2196F3',
-          success: '#4CAF50',
-          warning: '#FFC107',
+          primary:    '#FF385C',
+          secondary:  '#222222',
+          surface:    '#FFFFFF',
+          background: '#F7F7F7',
+          error:      '#FF385C',
+          success:    '#00A699',
+          warning:    '#FFB400',
+          info:       '#428BFF',
         },
       },
     },
@@ -45,5 +47,6 @@ const app = createApp(App)
 
 app.use(pinia)
 app.use(router)
+app.use(i18n)
 app.use(vuetify)
 app.mount('#app')

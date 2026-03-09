@@ -1,0 +1,15 @@
+{
+  "name": "Rose Gold",
+  "description": "Warm cream background with deep rose and burgundy lines - modern metallic elegance",
+  "bg": "#F8EEEA",
+  "text": "#7A2845",
+  "gradient_color": "#F8EEEA",
+  "water": "#EAD5CC",
+  "parks": "#F2E4DE",
+  "road_motorway": "#7A2845",
+  "road_primary": "#A03860",
+  "road_secondary": "#C4607E",
+  "road_tertiary": "#D9909F",
+  "road_residential": "#EAC0C8",
+  "road_default": "#C4607E"
+}

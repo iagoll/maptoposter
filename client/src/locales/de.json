@@ -1,0 +1,123 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "gallery": "Galerie",
+    "history": "Verlauf",
+    "about": "Über uns"
+  },
+  "home": {
+    "title": "Karten-Poster-Generator",
+    "subtitle": "Erstellen Sie schöne, anpassbare Karten-Poster",
+    "generateButton": "Poster Erstellen",
+    "generating": "Wird generiert...",
+    "viewPoster": "Poster Ansehen"
+  },
+  "form": {
+    "cityCountry": "Stadt & Land",
+    "city": "Stadt",
+    "cityPlaceholder": "z.B. Paris",
+    "country": "Land",
+    "countryPlaceholder": "z.B. Frankreich",
+    "coordinates": "Koordinaten",
+    "coordsPlaceholder": "z.B. 48.8566,2.3522",
+    "useCoords": "Koordinaten Verwenden",
+    "theme": "Thema",
+    "selectTheme": "Wählen Sie ein Thema",
+    "distance": "Kartenradius",
+    "distanceKm": "{distance} km",
+    "orientation": "Ausrichtung",
+    "vertical": "Vertikal",
+    "horizontal": "Horizontal",
+    "customTitle": "Benutzerdefinierter Titel",
+    "titlePlaceholder": "Leer lassen, um Stadtnamen zu verwenden",
+    "titlePosition": "Titelposition",
+    "titlePos": {
+      "topLeft": "Oben Links",
+      "topCenter": "Oben Mitte",
+      "topRight": "Oben Rechts",
+      "bottomLeft": "Unten Links",
+      "bottomCenter": "Unten Mitte",
+      "bottomRight": "Unten Rechts"
+    },
+    "fullBorders": "Volle Ränder (ohne Verlauf)",
+    "randomExample": "Zufälliges Beispiel"
+  },
+  "terminal": {
+    "title": "Generierungsprotokolle",
+    "connecting": "Verbindung zum Generierungsprozess...",
+    "noLogs": "Noch keine Protokolle. Klicken Sie auf 'Poster Erstellen', um zu beginnen.",
+    "clear": "Löschen"
+  },
+  "recentPosters": {
+    "title": "Neueste Poster",
+    "noPosters": "Noch keine Poster erstellt",
+    "viewAll": "Alle in der Galerie ansehen"
+  },
+  "gallery": {
+    "title": "Poster-Galerie",
+    "loading": "Poster werden geladen...",
+    "noPosters": "Noch keine Poster verfügbar.",
+    "generatedOn": "Erstellt am {date}"
+  },
+  "history": {
+    "title": "Ihr Verlauf",
+    "tabs": {
+      "purchases": "Gekaufte Poster",
+      "previews": "Alle Vorschauen",
+      "themes": "Lieblingsthemen"
+    },
+    "stats": {
+      "totalPreviews": "Gesamt Vorschauen",
+      "totalPurchases": "Gesamt Käufe",
+      "totalSpent": "Gesamt Ausgegeben",
+      "memberSince": "Mitglied Seit"
+    },
+    "noPurchases": "Sie haben noch keine Poster gekauft.",
+    "noPreviews": "Sie haben noch keine Vorschauen generiert.",
+    "purchased": "Gekauft",
+    "pending": "Zahlung Ausstehend",
+    "download": "Herunterladen",
+    "buyHighRes": "Hochauflösung Kaufen",
+    "viewDetails": "Details Ansehen",
+    "close": "Schließen"
+  },
+  "about": {
+    "title": "Über den Karten-Poster-Generator",
+    "description": "Erstellen Sie schöne, anpassbare Karten-Poster von jeder Stadt der Welt mit OpenStreetMap-Daten.",
+    "features": "Funktionen",
+    "themes": "Über 17 Schöne Themen",
+    "global": "Globale Abdeckung",
+    "customizable": "Vollständig Anpassbar",
+    "realtime": "Echtzeit-Generierung"
+  },
+  "welcome": {
+    "title": "Willkommen!",
+    "description": "Erstellen Sie beeindruckende Karten-Poster Ihrer Lieblingsstädte",
+    "howItWorks": "So funktioniert's",
+    "step1": "Wählen Sie eine Stadt oder Koordinaten",
+    "step2": "Wählen Sie Ihr Lieblingsthema",
+    "step3": "Passen Sie Ausrichtung und Entfernung an",
+    "step4": "Generieren und laden Sie Ihr Poster herunter",
+    "getStarted": "Beginnen",
+    "examples": "Beispielstädte"
+  },
+  "common": {
+    "loading": "Wird geladen...",
+    "error": "Fehler",
+    "success": "Erfolg",
+    "cancel": "Abbrechen",
+    "save": "Speichern",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "back": "Zurück",
+    "next": "Weiter",
+    "finish": "Fertig",
+    "language": "Sprache"
+  },
+  "errors": {
+    "required": "Dieses Feld ist erforderlich",
+    "invalidCoords": "Ungültiges Koordinatenformat",
+    "generationFailed": "Poster-Generierung fehlgeschlagen",
+    "loadFailed": "Fehler beim Laden der Daten"
+  }
+}

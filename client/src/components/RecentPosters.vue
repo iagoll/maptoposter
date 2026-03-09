@@ -2,7 +2,7 @@
   <v-card elevation="2">
     <v-card-title class="text-h6">
       <v-icon class="mr-2">mdi-history</v-icon>
-      Recent Posters
+      {{ $t('recentPosters.title') }}
       <v-spacer></v-spacer>
       <v-btn
         icon
@@ -37,7 +37,7 @@
       </v-list>
       <div v-else class="text-center text-medium-emphasis py-4">
         <v-icon size="48" class="mb-2">mdi-image-off</v-icon>
-        <div class="text-caption">No posters yet</div>
+        <div class="text-caption">{{ $t('recentPosters.noPosters') }}</div>
       </div>
     </v-card-text>
   </v-card>

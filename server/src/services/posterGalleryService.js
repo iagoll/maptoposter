@@ -1,7 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const postersPath = path.join(__dirname, '../../../python_logic/posters');
+const postersPath = process.env.POSTERS_PATH ||
+  path.join(__dirname, '../../../python_logic/posters');
 
 /**
  * Get all generated posters

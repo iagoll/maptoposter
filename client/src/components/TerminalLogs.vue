@@ -2,7 +2,7 @@
   <v-card elevation="2">
     <v-card-title class="text-h6 d-flex align-center">
       <v-icon class="mr-2">mdi-console</v-icon>
-      Generation Log
+      {{ $t('terminal.title') }}
       <v-spacer></v-spacer>
       <v-chip :color="store.statusColor" size="small" class="mr-2">
         {{ store.jobStatus }}
@@ -11,6 +11,7 @@
         icon
         size="small"
         @click="store.showTerminal = false"
+        :title="$t('history.close')"
       >
         <v-icon>mdi-close</v-icon>
       </v-btn>
@@ -27,7 +28,7 @@
           <span class="terminal-message">{{ log.message }}</span>
         </div>
         <div v-if="store.logs.length === 0" class="terminal-empty">
-          Waiting for logs...
+          {{ $t('terminal.connecting') }}
         </div>
       </div>
     </v-card-text>

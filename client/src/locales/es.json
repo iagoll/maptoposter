@@ -1,0 +1,123 @@
+{
+  "nav": {
+    "home": "Inicio",
+    "gallery": "Galería",
+    "history": "Historial",
+    "about": "Acerca de"
+  },
+  "home": {
+    "title": "Generador de Pósters de Mapas",
+    "subtitle": "Crea pósters de mapas hermosos y personalizables",
+    "generateButton": "Generar Póster",
+    "generating": "Generando...",
+    "viewPoster": "Ver Póster"
+  },
+  "form": {
+    "cityCountry": "Ciudad y País",
+    "city": "Ciudad",
+    "cityPlaceholder": "ej., París",
+    "country": "País",
+    "countryPlaceholder": "ej., Francia",
+    "coordinates": "Coordenadas",
+    "coordsPlaceholder": "ej., 48.8566,2.3522",
+    "useCoords": "Usar Coordenadas",
+    "theme": "Tema",
+    "selectTheme": "Selecciona un tema",
+    "distance": "Radio del Mapa",
+    "distanceKm": "{distance} km",
+    "orientation": "Orientación",
+    "vertical": "Vertical",
+    "horizontal": "Horizontal",
+    "customTitle": "Título Personalizado",
+    "titlePlaceholder": "Dejar vacío para usar el nombre de la ciudad",
+    "titlePosition": "Posición del Título",
+    "titlePos": {
+      "topLeft": "Superior Izquierda",
+      "topCenter": "Superior Centro",
+      "topRight": "Superior Derecha",
+      "bottomLeft": "Inferior Izquierda",
+      "bottomCenter": "Inferior Centro",
+      "bottomRight": "Inferior Derecha"
+    },
+    "fullBorders": "Bordes Completos (sin degradado)",
+    "randomExample": "Ejemplo Aleatorio"
+  },
+  "terminal": {
+    "title": "Registros de Generación",
+    "connecting": "Conectando al proceso de generación...",
+    "noLogs": "No hay registros aún. Haz clic en 'Generar Póster' para comenzar.",
+    "clear": "Limpiar"
+  },
+  "recentPosters": {
+    "title": "Pósters Recientes",
+    "noPosters": "No hay pósters generados aún",
+    "viewAll": "Ver Todos en la Galería"
+  },
+  "gallery": {
+    "title": "Galería de Pósters",
+    "loading": "Cargando pósters...",
+    "noPosters": "No hay pósters disponibles aún.",
+    "generatedOn": "Generado el {date}"
+  },
+  "history": {
+    "title": "Tu Historial",
+    "tabs": {
+      "purchases": "Pósters Comprados",
+      "previews": "Todas las Vistas Previas",
+      "themes": "Temas Favoritos"
+    },
+    "stats": {
+      "totalPreviews": "Total de Vistas Previas",
+      "totalPurchases": "Total de Compras",
+      "totalSpent": "Total Gastado",
+      "memberSince": "Miembro Desde"
+    },
+    "noPurchases": "Aún no has comprado ningún póster.",
+    "noPreviews": "Aún no has generado ninguna vista previa.",
+    "purchased": "Comprado",
+    "pending": "Pago Pendiente",
+    "download": "Descargar",
+    "buyHighRes": "Comprar Alta Resolución",
+    "viewDetails": "Ver Detalles",
+    "close": "Cerrar"
+  },
+  "about": {
+    "title": "Acerca del Generador de Pósters de Mapas",
+    "description": "Crea pósters de mapas hermosos y personalizables de cualquier ciudad del mundo usando datos de OpenStreetMap.",
+    "features": "Características",
+    "themes": "Más de 17 Temas Hermosos",
+    "global": "Cobertura Global",
+    "customizable": "Totalmente Personalizable",
+    "realtime": "Generación en Tiempo Real"
+  },
+  "welcome": {
+    "title": "¡Bienvenido!",
+    "description": "Crea pósters de mapas impresionantes de tus ciudades favoritas",
+    "howItWorks": "Cómo funciona",
+    "step1": "Elige una ciudad o coordenadas",
+    "step2": "Selecciona tu tema favorito",
+    "step3": "Personaliza orientación y distancia",
+    "step4": "Genera y descarga tu póster",
+    "getStarted": "Comenzar",
+    "examples": "Ciudades de Ejemplo"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "error": "Error",
+    "success": "Éxito",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "back": "Atrás",
+    "next": "Siguiente",
+    "finish": "Finalizar",
+    "language": "Idioma"
+  },
+  "errors": {
+    "required": "Este campo es obligatorio",
+    "invalidCoords": "Formato de coordenadas inválido",
+    "generationFailed": "La generación del póster falló",
+    "loadFailed": "Error al cargar los datos"
+  }
+}

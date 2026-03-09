@@ -1,0 +1,15 @@
+{
+  "name": "Lava",
+  "description": "Near-black background with glowing ember roads - volcanic heat aesthetic",
+  "bg": "#090909",
+  "text": "#FF6B2B",
+  "gradient_color": "#090909",
+  "water": "#1A0500",
+  "parks": "#110800",
+  "road_motorway": "#FF2200",
+  "road_primary": "#FF5500",
+  "road_secondary": "#FF7A20",
+  "road_tertiary": "#D95A00",
+  "road_residential": "#8B3000",
+  "road_default": "#CC5500"
+}

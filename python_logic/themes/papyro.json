@@ -1,0 +1,15 @@
+{
+  "name": "Papyro",
+  "description": "Aged papyrus background with dark ink lines - ancient manuscript aesthetic",
+  "bg": "#C8853A",
+  "text": "#1A0A2E",
+  "gradient_color": "#C8853A",
+  "water": "#A86828",
+  "parks": "#B87530",
+  "road_motorway": "#0D0618",
+  "road_primary": "#1A0A2E",
+  "road_secondary": "#2E1245",
+  "road_tertiary": "#3D1A5A",
+  "road_residential": "#4F2870",
+  "road_default": "#2E1245"
+}

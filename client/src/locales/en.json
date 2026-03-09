@@ -1,0 +1,123 @@
+{
+  "nav": {
+    "home": "Home",
+    "gallery": "Gallery",
+    "history": "History",
+    "about": "About"
+  },
+  "home": {
+    "title": "Map Poster Generator",
+    "subtitle": "Create beautiful, customizable map posters",
+    "generateButton": "Generate Poster",
+    "generating": "Generating...",
+    "viewPoster": "View Poster"
+  },
+  "form": {
+    "cityCountry": "City & Country",
+    "city": "City",
+    "cityPlaceholder": "e.g., Paris",
+    "country": "Country",
+    "countryPlaceholder": "e.g., France",
+    "coordinates": "Coordinates",
+    "coordsPlaceholder": "e.g., 48.8566,2.3522",
+    "useCoords": "Use Coordinates",
+    "theme": "Theme",
+    "selectTheme": "Select a theme",
+    "distance": "Map Radius",
+    "distanceKm": "{distance} km",
+    "orientation": "Orientation",
+    "vertical": "Vertical",
+    "horizontal": "Horizontal",
+    "customTitle": "Custom Title",
+    "titlePlaceholder": "Leave empty to use city name",
+    "titlePosition": "Title Position",
+    "titlePos": {
+      "topLeft": "Top Left",
+      "topCenter": "Top Center",
+      "topRight": "Top Right",
+      "bottomLeft": "Bottom Left",
+      "bottomCenter": "Bottom Center",
+      "bottomRight": "Bottom Right"
+    },
+    "fullBorders": "Full Borders (no gradient)",
+    "randomExample": "Random Example"
+  },
+  "terminal": {
+    "title": "Generation Logs",
+    "connecting": "Connecting to generation process...",
+    "noLogs": "No logs yet. Click 'Generate Poster' to start.",
+    "clear": "Clear"
+  },
+  "recentPosters": {
+    "title": "Recent Posters",
+    "noPosters": "No posters generated yet",
+    "viewAll": "View All in Gallery"
+  },
+  "gallery": {
+    "title": "Poster Gallery",
+    "loading": "Loading posters...",
+    "noPosters": "No posters available yet.",
+    "generatedOn": "Generated on {date}"
+  },
+  "history": {
+    "title": "Your History",
+    "tabs": {
+      "purchases": "Purchased Posters",
+      "previews": "All Previews",
+      "themes": "Favorite Themes"
+    },
+    "stats": {
+      "totalPreviews": "Total Previews",
+      "totalPurchases": "Total Purchases",
+      "totalSpent": "Total Spent",
+      "memberSince": "Member Since"
+    },
+    "noPurchases": "You haven't purchased any posters yet.",
+    "noPreviews": "You haven't generated any previews yet.",
+    "purchased": "Purchased",
+    "pending": "Pending Payment",
+    "download": "Download",
+    "buyHighRes": "Buy High-Res",
+    "viewDetails": "View Details",
+    "close": "Close"
+  },
+  "about": {
+    "title": "About Map Poster Generator",
+    "description": "Create beautiful, customizable map posters of any city in the world using OpenStreetMap data.",
+    "features": "Features",
+    "themes": "17+ Beautiful Themes",
+    "global": "Global Coverage",
+    "customizable": "Fully Customizable",
+    "realtime": "Real-time Generation"
+  },
+  "welcome": {
+    "title": "Welcome!",
+    "description": "Create stunning map posters of your favorite cities",
+    "howItWorks": "How it works",
+    "step1": "Choose a city or coordinates",
+    "step2": "Select your favorite theme",
+    "step3": "Customize orientation and distance",
+    "step4": "Generate and download your poster",
+    "getStarted": "Get Started",
+    "examples": "Example Cities"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "finish": "Finish",
+    "language": "Language"
+  },
+  "errors": {
+    "required": "This field is required",
+    "invalidCoords": "Invalid coordinates format",
+    "generationFailed": "Poster generation failed",
+    "loadFailed": "Failed to load data"
+  }
+}

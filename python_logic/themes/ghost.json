@@ -1,0 +1,15 @@
+{
+  "name": "Ghost",
+  "description": "Near-white background fading into soft greys - ethereal minimal aesthetic",
+  "bg": "#F5F5F5",
+  "text": "#4A4A4A",
+  "gradient_color": "#F5F5F5",
+  "water": "#DCDCDC",
+  "parks": "#E8E8E8",
+  "road_motorway": "#2A2A2A",
+  "road_primary": "#4A4A4A",
+  "road_secondary": "#6E6E6E",
+  "road_tertiary": "#909090",
+  "road_residential": "#B8B8B8",
+  "road_default": "#6E6E6E"
+}

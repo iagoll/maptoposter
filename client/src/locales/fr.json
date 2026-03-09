@@ -1,0 +1,123 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "gallery": "Galerie",
+    "history": "Historique",
+    "about": "À propos"
+  },
+  "home": {
+    "title": "Générateur d'Affiches de Cartes",
+    "subtitle": "Créez de belles affiches de cartes personnalisables",
+    "generateButton": "Générer l'Affiche",
+    "generating": "Génération en cours...",
+    "viewPoster": "Voir l'Affiche"
+  },
+  "form": {
+    "cityCountry": "Ville et Pays",
+    "city": "Ville",
+    "cityPlaceholder": "ex., Paris",
+    "country": "Pays",
+    "countryPlaceholder": "ex., France",
+    "coordinates": "Coordonnées",
+    "coordsPlaceholder": "ex., 48.8566,2.3522",
+    "useCoords": "Utiliser les Coordonnées",
+    "theme": "Thème",
+    "selectTheme": "Sélectionnez un thème",
+    "distance": "Rayon de la Carte",
+    "distanceKm": "{distance} km",
+    "orientation": "Orientation",
+    "vertical": "Verticale",
+    "horizontal": "Horizontale",
+    "customTitle": "Titre Personnalisé",
+    "titlePlaceholder": "Laissez vide pour utiliser le nom de la ville",
+    "titlePosition": "Position du Titre",
+    "titlePos": {
+      "topLeft": "En Haut à Gauche",
+      "topCenter": "En Haut au Centre",
+      "topRight": "En Haut à Droite",
+      "bottomLeft": "En Bas à Gauche",
+      "bottomCenter": "En Bas au Centre",
+      "bottomRight": "En Bas à Droite"
+    },
+    "fullBorders": "Bordures Complètes (sans dégradé)",
+    "randomExample": "Exemple Aléatoire"
+  },
+  "terminal": {
+    "title": "Journaux de Génération",
+    "connecting": "Connexion au processus de génération...",
+    "noLogs": "Pas encore de journaux. Cliquez sur 'Générer l'Affiche' pour commencer.",
+    "clear": "Effacer"
+  },
+  "recentPosters": {
+    "title": "Affiches Récentes",
+    "noPosters": "Aucune affiche générée pour le moment",
+    "viewAll": "Voir Tout dans la Galerie"
+  },
+  "gallery": {
+    "title": "Galerie d'Affiches",
+    "loading": "Chargement des affiches...",
+    "noPosters": "Aucune affiche disponible pour le moment.",
+    "generatedOn": "Généré le {date}"
+  },
+  "history": {
+    "title": "Votre Historique",
+    "tabs": {
+      "purchases": "Affiches Achetées",
+      "previews": "Tous les Aperçus",
+      "themes": "Thèmes Favoris"
+    },
+    "stats": {
+      "totalPreviews": "Total des Aperçus",
+      "totalPurchases": "Total des Achats",
+      "totalSpent": "Total Dépensé",
+      "memberSince": "Membre Depuis"
+    },
+    "noPurchases": "Vous n'avez encore acheté aucune affiche.",
+    "noPreviews": "Vous n'avez encore généré aucun aperçu.",
+    "purchased": "Acheté",
+    "pending": "Paiement en Attente",
+    "download": "Télécharger",
+    "buyHighRes": "Acheter Haute Résolution",
+    "viewDetails": "Voir les Détails",
+    "close": "Fermer"
+  },
+  "about": {
+    "title": "À Propos du Générateur d'Affiches de Cartes",
+    "description": "Créez de belles affiches de cartes personnalisables de n'importe quelle ville du monde en utilisant les données d'OpenStreetMap.",
+    "features": "Fonctionnalités",
+    "themes": "Plus de 17 Beaux Thèmes",
+    "global": "Couverture Mondiale",
+    "customizable": "Entièrement Personnalisable",
+    "realtime": "Génération en Temps Réel"
+  },
+  "welcome": {
+    "title": "Bienvenue !",
+    "description": "Créez de superbes affiches de cartes de vos villes préférées",
+    "howItWorks": "Comment ça marche",
+    "step1": "Choisissez une ville ou des coordonnées",
+    "step2": "Sélectionnez votre thème préféré",
+    "step3": "Personnalisez l'orientation et la distance",
+    "step4": "Générez et téléchargez votre affiche",
+    "getStarted": "Commencer",
+    "examples": "Villes d'Exemple"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "back": "Retour",
+    "next": "Suivant",
+    "finish": "Terminer",
+    "language": "Langue"
+  },
+  "errors": {
+    "required": "Ce champ est obligatoire",
+    "invalidCoords": "Format de coordonnées invalide",
+    "generationFailed": "La génération de l'affiche a échoué",
+    "loadFailed": "Échec du chargement des données"
+  }
+}

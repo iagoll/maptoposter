@@ -1,132 +1,111 @@
 <template>
-  <v-container fluid class="pa-4">
-    <v-row>
-      <v-col cols="12">
-        <v-card elevation="2">
-          <v-card-title class="text-h4 d-flex align-center">
-            <v-icon class="mr-3" size="large">mdi-view-gallery</v-icon>
-            Poster Gallery
-            <v-spacer></v-spacer>
-            <v-btn
-              color="primary"
-              prepend-icon="mdi-refresh"
-              @click="store.loadPosters()"
-              :loading="store.loadingPosters"
-            >
-              Refresh
-            </v-btn>
-          </v-card-title>
-          <v-divider></v-divider>
-          <v-card-text>
-            <v-row v-if="store.posters.length > 0">
-              <v-col
-                v-for="poster in store.posters"
-                :key="poster.filename"
-                cols="12"
-                sm="6"
-                md="4"
-                lg="3"
-              >
-                <v-card elevation="4" @click="viewPoster(poster)" class="poster-card">
-                  <v-img
-                    :src="apiService.getImageUrl(poster.url)"
-                    :aspect-ratio="1"
-                    cover
-                    class="poster-thumbnail"
-                  >
-                    <template v-slot:placeholder>
-                      <v-row class="fill-height ma-0" align="center" justify="center">
-                        <v-progress-circular
-                          indeterminate
-                          color="primary"
-                        ></v-progress-circular>
-                      </v-row>
-                    </template>
-                  </v-img>
-                  <v-card-text class="pa-2">
-                    <div class="text-caption font-weight-bold text-truncate">
-                      {{ poster.filename }}
-                    </div>
-                    <div class="text-caption text-medium-emphasis">
-                      {{ formatDate(poster.created) }}
-                    </div>
-                    <div class="text-caption text-medium-emphasis">
-                      {{ formatFileSize(poster.size) }}
-                    </div>
-                  </v-card-text>
-                  <v-card-actions class="pa-2 pt-0">
-                    <v-btn
-                      size="small"
-                      variant="tonal"
-                      color="primary"
-                      block
-                      :href="apiService.getImageUrl(poster.url)"
-                      download
-                      @click.stop
-                    >
-                      <v-icon size="small">mdi-download</v-icon>
-                      <span class="ml-1">Download</span>
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-col>
-            </v-row>
-            <v-row v-else>
-              <v-col cols="12">
-                <div class="text-center py-12">
-                  <v-icon size="120" color="grey">mdi-image-off</v-icon>
-                  <h3 class="text-h5 mt-4 mb-2">No Posters Yet</h3>
-                  <p class="text-medium-emphasis mb-4">
-                    Generate your first poster to see it here!
-                  </p>
-                  <v-btn color="primary" to="/" prepend-icon="mdi-plus">
-                    Create Poster
-                  </v-btn>
-                </div>
-              </v-col>
-            </v-row>
-          </v-card-text>
-        </v-card>
-      </v-col>
-    </v-row>
+  <div class="gallery-page">
+    <div class="gallery-container">
 
-    <!-- Poster Detail Dialog -->
-    <v-dialog v-model="dialog" max-width="1200">
-      <v-card v-if="selectedPoster">
-        <v-card-title class="d-flex align-center">
-          <span class="text-h6">{{ selectedPoster.filename }}</span>
-          <v-spacer></v-spacer>
-          <v-btn
-            icon
-            variant="text"
-            @click="dialog = false"
+      <!-- Header -->
+      <div class="gallery-header">
+        <div>
+          <p class="section-eyebrow">Your creations</p>
+          <h1 class="gallery-title">Gallery</h1>
+        </div>
+        <v-btn
+          variant="outlined"
+          rounded="lg"
+          prepend-icon="mdi-refresh"
+          color="secondary"
+          @click="store.loadPosters()"
+          :loading="store.loadingPosters"
+          size="small"
+        >
+          Refresh
+        </v-btn>
+      </div>
+
+      <!-- Poster grid -->
+      <div v-if="store.posters.length > 0" class="poster-grid">
+        <div
+          v-for="poster in store.posters"
+          :key="poster.filename"
+          class="poster-card"
+          @click="viewPoster(poster)"
+        >
+          <div class="poster-card__img-wrap">
+            <v-img
+              :src="apiService.getImageUrl(poster.url)"
+              :aspect-ratio="3/4"
+              cover
+              class="poster-card__img"
+            >
+              <template #placeholder>
+                <div class="poster-card__skeleton">
+                  <v-progress-circular indeterminate color="primary" size="24" />
+                </div>
+              </template>
+            </v-img>
+            <div class="poster-card__hover">
+              <v-btn color="white" variant="flat" size="small" rounded="lg">
+                View
+              </v-btn>
+            </div>
+          </div>
+          <div class="poster-card__meta">
+            <span class="poster-card__name">{{ cleanName(poster.filename) }}</span>
+            <span class="poster-card__date">{{ formatDate(poster.created) }}</span>
+          </div>
+          <a
+            :href="apiService.getImageUrl(poster.url)"
+            :download="poster.filename"
+            class="poster-card__download"
+            @click.stop
           >
+            <v-icon size="16">mdi-download</v-icon> Download
+          </a>
+        </div>
+      </div>
+
+      <!-- Empty state -->
+      <div v-else class="empty-state">
+        <v-icon size="72" color="#CCCCCC">mdi-image-off-outline</v-icon>
+        <h3 class="empty-state__title">No posters yet</h3>
+        <p class="empty-state__desc">Generate your first poster and it will appear here.</p>
+        <v-btn color="primary" rounded="xl" elevation="0" to="/create" prepend-icon="mdi-creation">
+          Create a poster
+        </v-btn>
+      </div>
+
+    </div>
+
+    <!-- Poster detail dialog -->
+    <v-dialog v-model="dialog" max-width="860">
+      <v-card v-if="selectedPoster" rounded="xl" elevation="0">
+        <div class="dialog-header">
+          <span class="dialog-title">{{ cleanName(selectedPoster.filename) }}</span>
+          <v-btn icon variant="text" @click="dialog = false" size="small">
             <v-icon>mdi-close</v-icon>
           </v-btn>
-        </v-card-title>
-        <v-divider></v-divider>
-        <v-card-text class="pa-4">
-          <v-img
-            :src="apiService.getImageUrl(selectedPoster.url)"
-            max-height="600"
-            contain
-          ></v-img>
-        </v-card-text>
-        <v-divider></v-divider>
-        <v-card-actions>
-          <v-spacer></v-spacer>
+        </div>
+        <v-img
+          :src="apiService.getImageUrl(selectedPoster.url)"
+          max-height="560"
+          contain
+          class="dialog-img"
+        />
+        <div class="dialog-footer">
+          <span class="dialog-meta">{{ formatFileSize(selectedPoster.size) }} · {{ formatDate(selectedPoster.created) }}</span>
           <v-btn
             color="primary"
+            rounded="xl"
+            elevation="0"
             :href="apiService.getImageUrl(selectedPoster.url)"
-            download
+            :download="selectedPoster.filename"
             prepend-icon="mdi-download"
           >
             Download
           </v-btn>
-        </v-card-actions>
+        </div>
       </v-card>
     </v-dialog>
-  </v-container>
+  </div>
 </template>
 
 <script setup>
@@ -144,31 +123,204 @@ const viewPoster = (poster) => {
   dialog.value = true
 }
 
-const formatFileSize = (bytes) => {
-  if (bytes === 0) return '0 Bytes'
-  const k = 1024
-  const sizes = ['Bytes', 'KB', 'MB', 'GB']
-  const i = Math.floor(Math.log(bytes) / Math.log(k))
-  return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i]
+const cleanName = (filename) => {
+  return filename.replace(/_\d{8}_\d{6}\.png$/, '').replace(/_/g, ' ')
 }
 
-onMounted(() => {
-  store.loadPosters()
-})
+const formatFileSize = (bytes) => {
+  if (!bytes) return ''
+  const mb = bytes / (1024 * 1024)
+  return mb >= 1 ? mb.toFixed(1) + ' MB' : Math.round(bytes / 1024) + ' KB'
+}
+
+onMounted(() => store.loadPosters())
 </script>
 
 <style scoped>
+.gallery-page {
+  background: #F7F7F7;
+  min-height: 100vh;
+  padding: 40px 24px 80px;
+}
+
+.gallery-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.gallery-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 36px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.section-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: #FF385C;
+  margin: 0 0 4px;
+}
+
+.gallery-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #222;
+  margin: 0;
+  letter-spacing: -0.5px;
+}
+
+/* Grid */
+.poster-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
 .poster-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
+  border: 1px solid #EBEBEB;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .poster-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.1);
 }
 
-.poster-thumbnail {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+.poster-card__img-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.poster-card__img {
+  display: block;
+}
+
+.poster-card__skeleton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  background: #F7F7F7;
+}
+
+.poster-card__hover {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.poster-card:hover .poster-card__hover {
+  opacity: 1;
+}
+
+.poster-card__meta {
+  padding: 10px 12px 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.poster-card__name {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #222;
+  text-transform: capitalize;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.poster-card__date {
+  font-size: 0.72rem;
+  color: #aaa;
+}
+
+.poster-card__download {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 12px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #FF385C;
+  text-decoration: none;
+  border-top: 1px solid #F5F5F5;
+}
+
+.poster-card__download:hover {
+  color: #d90b35;
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 80px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.empty-state__title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #222;
+  margin: 0;
+}
+
+.empty-state__desc {
+  color: #888;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Dialog */
+.dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px 16px;
+  border-bottom: 1px solid #EBEBEB;
+}
+
+.dialog-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #222;
+  text-transform: capitalize;
+}
+
+.dialog-img {
+  background: #F7F7F7;
+}
+
+.dialog-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  border-top: 1px solid #EBEBEB;
+}
+
+.dialog-meta {
+  font-size: 0.8rem;
+  color: #888;
 }
 </style>

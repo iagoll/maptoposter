@@ -1,388 +1,266 @@
-# Map Poster Generator - Frontend
+# Map Poster — Frontend
 
-Vue 3 + Vuetify 3 frontend for the Map Poster Generator application.
-
-## Features
-
-- 🎨 **17+ Themes**: Choose from a variety of professionally designed themes
-- 📐 **Flexible Layouts**: Vertical or horizontal orientations
-- 🌍 **Global Coverage**: Generate posters for any city worldwide
-- 🎯 **Direct Coordinates**: Use exact lat/lng coordinates
-- 📡 **Real-time Logs**: Live Server-Sent Events (SSE) streaming
-- 🖼️ **Beautiful Mockups**: Gallery-style presentation of generated posters
-- 📱 **Fully Responsive**: Works perfectly on mobile, tablet, and desktop
-- 🎭 **Dark Theme**: Modern dark-themed UI with Vuetify
+Vue 3 + Vuetify 3 frontend for the Map Poster Generator. Communicates with the Express backend to generate city map posters, stream real-time progress, and display results.
 
 ## Tech Stack
 
-- **Vue 3** - Progressive JavaScript Framework
-- **Vuetify 3** - Material Design Component Framework
-- **Axios** - HTTP client for API calls
-- **Vite** - Next Generation Frontend Tooling
-- **Material Design Icons** - Icon set
-
-## Prerequisites
-
-- Node.js 18+ and npm
-- Backend server running on `http://localhost:3000`
-
-## Installation
-
-```bash
-cd client
-npm install
-```
-
-## Development
-
-```bash
-npm run dev
-```
-
-The application will be available at `http://localhost:5173`
-
-## Build for Production
-
-```bash
-npm run build
-```
-
-Production files will be in the `dist/` directory.
-
-## Preview Production Build
-
-```bash
-npm run preview
-```
+- **Vue 3** — Composition API
+- **Vuetify 3** — Material Design component framework
+- **vue-i18n 9** — Internationalization
+- **Pinia** — State management (settings store)
+- **Axios** — HTTP client
+- **Vite** — Dev server and build tool
 
 ## Project Structure
 
 ```
 client/
 ├── src/
-│   ├── App.vue           # Main application component
-│   ├── main.js           # Application entry point with Vuetify setup
-│   ├── style.css         # Global styles
-│   └── assets/           # Static assets
-├── public/               # Public static files
-├── index.html            # HTML template
-├── vite.config.js        # Vite configuration
-└── package.json          # Dependencies and scripts
+│   ├── App.vue                  # Root component, navigation, layout
+│   ├── main.js                  # App entry point (Vue + Vuetify + i18n)
+│   ├── i18n.js                  # vue-i18n configuration
+│   ├── style.css                # Global styles
+│   ├── components/
+│   │   ├── PosterForm.vue       # Generation form (city, theme, options)
+│   │   ├── TerminalLogs.vue     # Real-time SSE log viewer
+│   │   ├── RecentPosters.vue    # Last generated posters
+│   │   ├── WelcomeCard.vue      # Home page welcome panel
+│   │   └── LanguageSelector.vue # Language switcher dropdown
+│   ├── views/
+│   │   ├── GalleryView.vue      # Browse all generated posters
+│   │   ├── HistoryView.vue      # User history and statistics
+│   │   └── AboutView.vue        # About page
+│   ├── store/
+│   │   └── settingsStore.js     # Language + theme preferences (Pinia)
+│   └── locales/
+│       ├── en.json              # English
+│       ├── es.json              # Spanish (default)
+│       ├── pt.json              # Portuguese
+│       ├── fr.json              # French
+│       └── de.json              # German
+├── public/
+├── index.html
+├── vite.config.js
+└── package.json
 ```
+
+---
+
+## Setup
+
+### Prerequisites
+
+- Node.js 18+
+- Backend server running at `http://localhost:3000` (see `server/README.md`)
+
+### Install & run
+
+```bash
+cd client
+npm install
+npm run dev
+```
+
+Frontend available at `http://localhost:5173`.
+
+### Other scripts
+
+```bash
+npm run build    # Production build → dist/
+npm run preview  # Preview production build locally
+```
+
+---
 
 ## Configuration
 
-The API base URL is configured in `App.vue`:
+The API base URL defaults to `http://localhost:3000`. To override it, create a `.env` file:
 
-```javascript
-const API_BASE_URL = 'http://localhost:3000'
-```
-
-For production, you may want to use environment variables:
-
-1. Create a `.env` file:
 ```env
 VITE_API_BASE_URL=https://your-api-domain.com
 ```
 
-2. Update `App.vue`:
+Then update `App.vue`:
+
 ```javascript
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000'
 ```
 
-## Features Breakdown
+---
 
-### 1. Configuration Form
+## Features
 
-**Input Fields:**
-- City/Country or Direct Coordinates
+### Poster Generation Form
+
+- City/country input or direct lat/lon coordinates
 - Custom title override
-- Theme selection (with descriptions)
-- Distance slider (4-50km)
-- Orientation toggle (Vertical/Horizontal)
-- Title position selector
-- Advanced options (Full borders)
+- Theme selector (17 themes with descriptions)
+- Distance slider (4–50 km)
+- Orientation toggle (vertical / horizontal)
+- Title position (6 positions: top/bottom × left/center/right)
+- Advanced: full borders (disables gradient fade)
+- Load random example / reset form buttons
 
-**Quick Actions:**
-- Load random example
-- Reset form
-- Form validation
+### Real-time Terminal
 
-### 2. Real-time Terminal
+Live log streaming via Server-Sent Events (SSE):
 
-**Features:**
-- Live log streaming via SSE
-- Colored output (stdout/stderr)
-- Timestamps for each log entry
+```
+12:34:56  Looking up coordinates...
+12:34:57  ✓ Found: Paris, France
+12:34:58  Generating map for Paris, France...
+12:35:00  Fetching map data: 100%
+12:35:02  ✓ Done! Poster saved as paris_noir_20260118_123502.png
+```
+
+- Colored stdout / stderr output
+- Timestamps per line
 - Auto-scroll to bottom
-- Status indicator (running/completed/failed)
-- Collapsible terminal window
+- Status indicator (running / completed / failed)
+- Collapsible window
 
-**Terminal Output:**
-```
-12:34:56 Looking up coordinates...
-12:34:57 ✓ Found: Paris, France
-12:34:58 Generating map for Paris, France...
-12:35:00 Fetching map data: 100%
-12:35:02 ✓ Done! Poster saved as paris_noir_20260118_123502.png
-```
+### Poster Display
 
-### 3. Poster Display
-
-**Mockup Frame:**
-- Beautiful gradient background
-- White mat border effect
-- Shadow depth for 3D appearance
-- Responsive sizing
+- Gallery-style mockup frame with mat border and shadow
+- Responsive sizing and aspect ratio handling
 - Download button
-- Proper aspect ratio handling
 
-### 4. Recent Posters Gallery
+### Recent Posters
 
-**Features:**
-- List of last 5 generated posters
-- Thumbnail previews
+- Last 5 generated posters with thumbnails
 - Click to view full size
-- Creation timestamps
-- Refresh button
-- Auto-update after generation
+- Auto-updates after each generation
 
-### 5. Responsive Design
+### Responsive Layout
 
-**Breakpoints:**
-- **Desktop** (>960px): Side-by-side layout
-- **Tablet** (600-960px): Stacked with optimized spacing
-- **Mobile** (<600px): Full-width with compact controls
+| Breakpoint | Layout |
+|------------|--------|
+| Desktop >960px | Side-by-side form + output |
+| Tablet 600–960px | Stacked with optimized spacing |
+| Mobile <600px | Full-width compact controls |
 
-## Component Details
+---
 
-### App.vue Structure
+## Internationalization (i18n)
+
+The app supports 5 languages. **Spanish is the default.**
+
+| Code | Language |
+|------|----------|
+| `es` | Español (default) |
+| `en` | English |
+| `pt` | Português |
+| `fr` | Français |
+| `de` | Deutsch |
+
+### How it works
+
+- On first visit, the app checks `localStorage` for a saved language; falls back to Spanish
+- User selects a language via the `LanguageSelector` dropdown in the nav bar
+- Preference is saved to `localStorage` and persists across sessions
+- `document.documentElement.lang` is updated for SEO and accessibility
+
+### Using translations in components
 
 ```vue
 <template>
-  <v-app>
-    <v-app-bar> <!-- Header --> </v-app-bar>
-    <v-main>
-      <v-row>
-        <v-col> <!-- Left: Form --> </v-col>
-        <v-col> <!-- Right: Output --> </v-col>
-      </v-row>
-    </v-main>
-  </v-app>
+  <!-- Simple key -->
+  <h1>{{ $t('home.title') }}</h1>
+
+  <!-- With parameter -->
+  <span>{{ $t('form.distanceKm', { distance: 15 }) }}</span>
+
+  <!-- In attribute -->
+  <v-text-field :label="$t('form.city')" />
+
+  <!-- In validation rule -->
+  :rules="[v => !!v || $t('errors.required')]"
 </template>
+
+<script setup>
+import { useI18n } from 'vue-i18n'
+const { t, locale } = useI18n()
+
+// Programmatic translation
+const message = t('common.loading')
+
+// Change language
+locale.value = 'fr'
+</script>
 ```
 
-### State Management
+### Using the settings store
 
 ```javascript
-// Form State
-const formData = reactive({
-  city, country, coords, title, theme,
-  distance, orientation, titlePos, fullBorders
-})
+import { useSettingsStore } from '@/store/settingsStore'
+const settingsStore = useSettingsStore()
 
-// Generation State
-const generating = ref(false)
-const jobId = ref(null)
-const logs = ref([])
-
-// Results
-const generatedPoster = ref(null)
-const posters = ref([])
+settingsStore.setLanguage('fr')           // Change language
+settingsStore.language                    // Current code
+settingsStore.getLanguageName('es')       // → "Español"
 ```
 
-### API Integration
+### Translation key structure
 
-**1. Generate Poster:**
-```javascript
-POST /api/generate
-Body: { city, country, theme, ... }
-Response: { jobId, logsUrl }
+```
+nav.*           Navigation items
+home.*          Home page text
+form.*          Form labels, placeholders, validation
+form.titlePos.* Title position option labels
+terminal.*      Terminal header and states
+recentPosters.* Recent posters section
+welcome.*       Welcome card content
+gallery.*       Gallery view
+history.*       History view (tabs, stats)
+about.*         About page
+common.*        Shared UI elements
+errors.*        Validation and error messages
 ```
 
-**2. Stream Logs (SSE):**
-```javascript
-EventSource(`/api/logs/${jobId}`)
-Events:
-  - connected: Initial connection
-  - stdout: Python output
-  - stderr: Python errors
-  - complete: Generation finished
-```
+### Adding a new translation key
 
-**3. List Themes:**
-```javascript
-GET /api/themes
-Response: [{ id, name, description }, ...]
-```
+1. Add the key to all 5 locale files in `src/locales/`
+2. Use `$t('section.key')` in the template
 
-**4. List Posters:**
-```javascript
-GET /api/posters
-Response: [{ filename, url, size, created }, ...]
-```
+### Adding a new language
 
-## Customization
+1. Create `src/locales/[code].json` with all keys
+2. Import it in `src/i18n.js` and add to the `messages` object
+3. Add `{ code, name, flag }` to `availableLanguages` in `src/store/settingsStore.js`
 
-### Themes
+---
 
-The Vuetify theme can be customized in `main.js`:
+## API Integration
 
-```javascript
-const vuetify = createVuetify({
-  theme: {
-    themes: {
-      dark: {
-        colors: {
-          primary: '#1976D2',    // Change primary color
-          secondary: '#424242',
-          accent: '#82B1FF',
-          // ... more colors
-        },
-      },
-    },
-  },
-})
-```
+| Call | How |
+|------|-----|
+| `POST /api/generate` | Start a generation job → returns `{ jobId, logsUrl }` |
+| `EventSource /api/logs/:jobId` | SSE stream of stdout/stderr/complete events |
+| `GET /api/themes` | Fetch theme list for the selector |
+| `GET /api/posters` | Fetch recent posters list |
 
-### Styling
+SSE event types: `connected` · `stdout` · `stderr` · `complete` · `error`
 
-Custom styles are in the `<style scoped>` section of `App.vue`:
-
-- `.terminal-container` - Terminal/console styles
-- `.mockup-frame` - Poster frame styles
-- Responsive breakpoints
-- Utility classes
-
-## Browser Support
-
-- Chrome/Edge (latest)
-- Firefox (latest)
-- Safari (latest)
-- Mobile browsers (iOS Safari, Chrome Mobile)
+---
 
 ## Troubleshooting
 
-### CORS Issues
+| Problem | Fix |
+|---------|-----|
+| App won't load | Ensure backend is running on port 3000: `cd server && npm start` |
+| CORS errors | Set `FRONTEND_URL=http://localhost:5173` in `server/.env` |
+| SSE logs don't stream | Check browser support (Chrome/Firefox); look for proxy buffering |
+| Images don't display | Verify `http://localhost:3000/posters/` is accessible; check `POSTERS_PATH` in server `.env` |
+| Build errors | `rm -rf node_modules package-lock.json && npm install` |
+| Vite cache issues | `rm -rf node_modules/.vite && npm run dev` |
+| Language not persisting | Check `localStorage.getItem('userLanguage')` in DevTools console |
 
-If you see CORS errors, ensure the backend server has CORS enabled for your frontend origin:
-
+**Debug language state in browser console:**
 ```javascript
-// server/app.js
-app.use(cors({
-  origin: 'http://localhost:5173'
-}))
+localStorage.getItem('userLanguage')      // Current saved language
+localStorage.removeItem('userLanguage')   // Reset to default (Spanish)
+document.documentElement.lang            // Active lang attribute
 ```
 
-### SSE Connection Issues
-
-If real-time logs don't appear:
-
-1. Check browser console for errors
-2. Verify backend server is running
-3. Check network tab for SSE connection
-4. Ensure no proxy is blocking SSE
-
-### Images Not Loading
-
-If poster images don't display:
-
-1. Verify backend static file serving is working: `http://localhost:3000/posters/`
-2. Check browser console for 404 errors
-3. Ensure `posters/` directory exists in `python_logic/`
-
-### Build Errors
-
-```bash
-# Clear node_modules and reinstall
-rm -rf node_modules package-lock.json
-npm install
-
-# Clear Vite cache
-rm -rf node_modules/.vite
-npm run dev
-```
-
-## Performance Optimization
-
-### Production Build
-
-The production build is optimized with:
-- Code splitting
-- Tree shaking
-- Minification
-- Asset optimization
-
-### Lazy Loading
-
-For larger applications, consider lazy loading routes:
-
-```javascript
-const routes = [
-  {
-    path: '/',
-    component: () => import('./views/Home.vue')
-  }
-]
-```
-
-## Accessibility
-
-The application includes:
-- Semantic HTML
-- ARIA labels (via Vuetify)
-- Keyboard navigation
-- Screen reader support
-- Focus management
-
-## Future Enhancements
-
-Potential improvements:
-
-- [ ] User accounts and saved posters
-- [ ] Batch generation
-- [ ] Advanced customization (fonts, colors)
-- [ ] Social sharing
-- [ ] Print-ready PDF export
-- [ ] Map preview before generation
-- [ ] Favorites/collections
-
-## License
-
-See the root LICENSE file.
-
-## Support
-
-For issues or questions:
-1. Check this README
-2. Review backend API documentation
-3. Check browser console for errors
-4. Verify backend server is running
-
-## Development Tips
-
-### Hot Module Replacement (HMR)
-
-Vite provides instant HMR. Changes to Vue components will be reflected immediately without full page reload.
-
-### Vue DevTools
-
-Install Vue DevTools browser extension for better debugging:
-- Component inspection
-- State management
-- Performance profiling
-- Event tracking
-
-### Debugging SSE
-
-Use browser DevTools Network tab:
-1. Filter by "EventStream"
-2. Click on the SSE connection
-3. View "Messages" tab for real-time events
-
-### Component Structure
-
-Keep components focused:
-- Separate concerns (form, terminal, mockup)
-- Extract reusable components
-- Use composition API for logic reuse
+**Debug SSE in DevTools:**  
+Network tab → filter by "EventStream" → click the connection → "Messages" tab.
