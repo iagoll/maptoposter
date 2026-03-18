@@ -11,11 +11,11 @@
           to="/"
           class="back-btn"
         >
-          Back
+          {{ $t('create.back') }}
         </v-btn>
         <div>
-          <h1 class="create-title">Create your poster</h1>
-          <p class="create-subtitle">Position the map, choose a style, and download a print-ready file.</p>
+          <h1 class="create-title">{{ $t('create.pageTitle') }}</h1>
+          <p class="create-subtitle">{{ $t('create.pageSubtitle') }}</p>
         </div>
         <v-btn
           variant="text"
@@ -24,7 +24,7 @@
           @click="loadExample"
           color="secondary"
         >
-          Load example
+          {{ $t('create.loadExample') }}
         </v-btn>
       </div>
 
@@ -35,8 +35,8 @@
           <div class="form-section__header">
             <span class="form-section__num">01</span>
             <div>
-              <h2 class="form-section__title">Location</h2>
-              <p class="form-section__subtitle">Enter a city name, exact coordinates, or position the map interactively.</p>
+              <h2 class="form-section__title">{{ $t('create.locationTitle') }}</h2>
+              <p class="form-section__subtitle">{{ $t('create.locationSubtitle') }}</p>
             </div>
           </div>
 
@@ -48,7 +48,7 @@
               :class="{ 'toggle-pill--active': inputMode === 'city' }"
               @click="inputMode = 'city'"
             >
-              <v-icon size="14">mdi-city</v-icon> City name
+              <v-icon size="14">mdi-city</v-icon> {{ $t('create.cityNameMode') }}
             </button>
             <button
               type="button"
@@ -56,7 +56,7 @@
               :class="{ 'toggle-pill--active': inputMode === 'coords' }"
               @click="inputMode = 'coords'"
             >
-              <v-icon size="14">mdi-crosshairs-gps</v-icon> Coordinates
+              <v-icon size="14">mdi-crosshairs-gps</v-icon> {{ $t('create.coordsMode') }}
             </button>
             <button
               type="button"
@@ -64,7 +64,7 @@
               :class="{ 'toggle-pill--active': inputMode === 'map' }"
               @click="inputMode = 'map'"
             >
-              <v-icon size="14">mdi-map</v-icon> Interactive map
+              <v-icon size="14">mdi-map</v-icon> {{ $t('create.interactiveMapMode') }}
             </button>
           </div>
 
@@ -72,23 +72,23 @@
           <div v-if="inputMode === 'city'" class="fields-row">
             <v-text-field
               v-model="store.formData.city"
-              label="City"
-              placeholder="e.g. Paris"
+              :label="$t('form.city')"
+              :placeholder="$t('form.cityPlaceholder')"
               variant="outlined"
               density="comfortable"
               rounded="lg"
-              :rules="[v => !!v || 'City is required']"
+              :rules="[v => !!v || $t('create.cityRequired')]"
               hide-details="auto"
               class="flex-grow-1"
             />
             <v-text-field
               v-model="store.formData.country"
-              label="Country"
-              placeholder="e.g. France"
+              :label="$t('form.country')"
+              :placeholder="$t('form.countryPlaceholder')"
               variant="outlined"
               density="comfortable"
               rounded="lg"
-              :rules="[v => !!v || 'Country is required']"
+              :rules="[v => !!v || $t('create.countryRequired')]"
               hide-details="auto"
               class="flex-grow-1"
             />
@@ -98,25 +98,25 @@
           <div v-else-if="inputMode === 'coords'" class="fields-row">
             <v-text-field
               v-model="store.formData.coords"
-              label="Coordinates"
+              :label="$t('form.coordinates')"
               placeholder="48.8566, 2.3522"
               variant="outlined"
               density="comfortable"
               rounded="lg"
               :rules="coordsRules"
               hide-details="auto"
-              hint="lat, lon"
+              :hint="$t('create.coordsHint')"
               persistent-hint
               class="flex-grow-1"
             />
             <v-text-field
               v-model="store.formData.country"
-              label="Country"
-              placeholder="e.g. France"
+              :label="$t('form.country')"
+              :placeholder="$t('form.countryPlaceholder')"
               variant="outlined"
               density="comfortable"
               rounded="lg"
-              :rules="[v => !!v || 'Country is required']"
+              :rules="[v => !!v || $t('create.countryRequired')]"
               hide-details="auto"
               class="flex-grow-1"
             />
@@ -136,12 +136,12 @@
 
             <div v-if="mapPosition" class="map-position-badge mt-2">
               <v-icon size="14" color="success">mdi-check-circle</v-icon>
-              Position captured · radius {{ formattedMapDistance }} · pan to refine
+              {{ $t('create.positionCaptured', { distance: formattedMapDistance }) }}
             </div>
 
             <!-- Compact inline theme picker for map mode -->
             <div class="map-theme-strip">
-              <span class="map-theme-strip__label">Theme</span>
+              <span class="map-theme-strip__label">{{ $t('create.themeStripLabel') }}</span>
               <div class="map-theme-strip__scroller">
                 <button
                   v-for="t in store.themes"
@@ -166,27 +166,27 @@
           <div class="poster-text-fields">
             <v-text-field
               v-model="store.formData.title"
-              label="Title on poster"
+              :label="$t('create.titleOnPoster')"
               :placeholder="inputMode === 'city' ? (store.formData.city || 'e.g. London') : inputMode === 'coords' ? 'e.g. My Location' : (store.formData.city || 'e.g. London')"
               variant="outlined"
               density="comfortable"
               rounded="lg"
               hide-details="auto"
               prepend-inner-icon="mdi-format-title"
-              hint="Leave blank to use the city / location name"
+              :hint="$t('create.titleHint')"
               persistent-hint
               clearable
             />
             <v-text-field
               v-model="store.formData.subtitle"
-              label="Subtitle on poster"
+              :label="$t('create.subtitleOnPoster')"
               :placeholder="inputMode === 'city' ? (store.formData.country || 'e.g. United Kingdom') : inputMode === 'coords' ? 'e.g. Spain' : (store.formData.country || 'e.g. United Kingdom')"
               variant="outlined"
               density="comfortable"
               rounded="lg"
               hide-details="auto"
               prepend-inner-icon="mdi-subtitles-outline"
-              hint="Leave blank to use the country / region name"
+              :hint="$t('create.subtitleHint')"
               persistent-hint
               clearable
             />
@@ -198,8 +198,8 @@
           <div class="form-section__header">
             <span class="form-section__num">02</span>
             <div>
-              <h2 class="form-section__title">Theme</h2>
-              <p class="form-section__subtitle">Choose the visual style for your poster.</p>
+              <h2 class="form-section__title">{{ $t('create.themeTitle') }}</h2>
+              <p class="form-section__subtitle">{{ $t('create.themeSubtitle') }}</p>
             </div>
           </div>
 
@@ -215,15 +215,15 @@
           <div class="form-section__header">
             <span class="form-section__num">03</span>
             <div>
-              <h2 class="form-section__title">Options</h2>
-              <p class="form-section__subtitle">Customise size, layout and title placement.</p>
+              <h2 class="form-section__title">{{ $t('create.optionsTitle') }}</h2>
+              <p class="form-section__subtitle">{{ $t('create.optionsSubtitle') }}</p>
             </div>
           </div>
 
           <!-- Distance (hidden when map mode — radius is set by zoom) -->
           <div v-if="inputMode !== 'map'" class="option-block">
             <div class="option-block__label">
-              <span>Map radius</span>
+              <span>{{ $t('create.mapRadius') }}</span>
               <strong>{{ (store.formData.distance / 1000).toFixed(0) }} km</strong>
             </div>
             <v-slider
@@ -237,13 +237,13 @@
               hide-details
             />
             <div class="option-block__hint">
-              Small (4–8 km) · Medium (8–20 km) · Large (20–50 km)
+              {{ $t('create.radiusHint') }}
             </div>
           </div>
 
           <!-- Orientation -->
           <div class="option-block">
-            <div class="option-block__label"><span>Format</span></div>
+            <div class="option-block__label"><span>{{ $t('create.formatLabel') }}</span></div>
             <div class="orientation-toggle">
               <button
                 v-for="opt in orientationOptions"
@@ -279,7 +279,7 @@
 
           <!-- Title position -->
           <div class="option-block">
-            <div class="option-block__label"><span>Title position</span></div>
+            <div class="option-block__label"><span>{{ $t('create.titlePositionLabel') }}</span></div>
             <div class="title-pos-grid">
               <button
                 v-for="pos in titlePositions"
@@ -297,9 +297,9 @@
           <!-- Full borders -->
           <div class="option-block option-block--inline">
             <div>
-              <div class="option-block__label"><span>Full borders</span></div>
+              <div class="option-block__label"><span>{{ $t('create.fullBordersLabel') }}</span></div>
               <div class="option-block__hint" style="margin-top: 2px;">
-                Removes the gradient fade on the edges of the map.
+                {{ $t('create.fullBordersHint') }}
               </div>
             </div>
             <v-switch
@@ -321,7 +321,7 @@
         <div v-if="store.generatedPoster && !highResResult" class="poster-output">
           <div class="poster-output__badge">
             <v-icon size="14" color="warning">mdi-watermark</v-icon>
-            Free preview — watermarked, 72 DPI
+            {{ $t('create.previewBadge') }}
           </div>
           <PosterDisplay />
         </div>
@@ -330,12 +330,12 @@
         <div v-if="highResResult" class="poster-output poster-output--highres">
           <div class="poster-output__badge poster-output__badge--success">
             <v-icon size="14" color="success">mdi-star</v-icon>
-            High-res · 300 DPI · print quality
+            {{ $t('create.highResBadge') }}
           </div>
           <img
             :src="apiService.getImageUrl(highResResult.url)"
             class="poster-img"
-            alt="High-resolution map poster"
+            :alt="$t('create.highResAlt')"
           />
         </div>
       </div>
@@ -352,19 +352,19 @@
         <div class="sticky-bar__status">
           <template v-if="store.jobStatus === 'completed' && !previewJobDone">
             <v-progress-circular indeterminate size="16" width="2" color="primary" />
-            <span>Finalising…</span>
+            <span>{{ $t('create.finalising') }}</span>
           </template>
           <template v-else-if="highResResult">
             <v-icon color="success" size="18">mdi-check-circle</v-icon>
-            <span>Ready to download!</span>
+            <span>{{ $t('create.readyToDownload') }}</span>
           </template>
           <template v-else-if="previewJobDone">
             <v-icon color="warning" size="18">mdi-eye</v-icon>
-            <span>Preview ready</span>
+            <span>{{ $t('create.previewReady') }}</span>
           </template>
           <template v-else-if="store.generating">
             <v-progress-circular indeterminate size="16" width="2" color="primary" />
-            <span>Generating…</span>
+            <span>{{ $t('create.generatingStatus') }}</span>
           </template>
           <template v-else>
             <span style="visibility:hidden">—</span>
@@ -386,7 +386,7 @@
             min-width="200"
           >
             <v-icon start>mdi-eye</v-icon>
-            {{ store.generating ? 'Generating…' : 'Preview (free)' }}
+            {{ store.generating ? $t('create.generatingStatus') : $t('create.previewBtn') }}
           </v-btn>
           <v-btn
             v-else
@@ -401,7 +401,7 @@
             min-width="200"
           >
             <v-icon start>mdi-creation</v-icon>
-            {{ store.generating ? 'Generating…' : 'Generate sample' }}
+            {{ store.generating ? $t('create.generatingStatus') : $t('create.generateSampleBtn') }}
           </v-btn>
         </template>
 
@@ -419,7 +419,7 @@
               class="generate-btn"
               min-width="220"
             >
-              Buy high-res · $9.99
+              {{ $t('create.buyHighResBtn') }}
             </v-btn>
             <v-btn
               variant="text"
@@ -427,7 +427,7 @@
               color="secondary"
               @click="resetPreview"
             >
-              Start over
+              {{ $t('create.startOver') }}
             </v-btn>
           </div>
         </template>
@@ -443,7 +443,7 @@
             class="generate-btn"
             min-width="220"
           >
-            Rendering 300 DPI…
+            {{ $t('create.renderingBtn') }}
           </v-btn>
         </template>
 
@@ -460,7 +460,7 @@
               :download="highResResult.filename || 'map-poster.png'"
               class="generate-btn"
             >
-              Download PNG
+              {{ $t('create.downloadPng') }}
             </v-btn>
             <v-btn
               variant="outlined"
@@ -472,7 +472,7 @@
               @click="showEmailDialog = true"
               class="generate-btn"
             >
-              Email me
+              {{ $t('create.emailMe') }}
             </v-btn>
           </div>
         </template>
@@ -486,7 +486,7 @@
           :disabled="store.generating"
           @click="store.resetForm()"
         >
-          Reset
+          {{ $t('create.reset') }}
         </v-btn>
       </div>
     </div>
@@ -494,21 +494,21 @@
     <!-- ─── EMAIL DIALOG ─── -->
     <v-dialog v-model="showEmailDialog" max-width="400">
       <v-card rounded="xl" class="pa-4">
-        <v-card-title class="text-h6 font-weight-bold">Email your poster</v-card-title>
+        <v-card-title class="text-h6 font-weight-bold">{{ $t('create.emailDialogTitle') }}</v-card-title>
         <v-card-text>
           <v-text-field
             v-model="emailAddress"
-            label="Email address"
+            :label="$t('create.emailLabel')"
             type="email"
             variant="outlined"
             rounded="lg"
             density="comfortable"
             hide-details="auto"
-            :rules="[v => /.+@.+\..+/.test(v) || 'Enter a valid email']"
+            :rules="[v => /.+@.+\..+/.test(v) || $t('create.emailValidation')]"
           />
         </v-card-text>
         <v-card-actions class="justify-end gap-2">
-          <v-btn variant="text" @click="showEmailDialog = false">Cancel</v-btn>
+          <v-btn variant="text" @click="showEmailDialog = false">{{ $t('common.cancel') }}</v-btn>
           <v-btn
             color="primary"
             variant="flat"
@@ -516,7 +516,7 @@
             :loading="emailLoading"
             @click="sendEmail"
           >
-            Send
+            {{ $t('create.sendBtn') }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -527,10 +527,10 @@
       <v-card rounded="xl" class="pa-6 text-center">
         <v-icon size="48" color="primary" class="mb-3">mdi-account-circle</v-icon>
         <v-card-title class="text-h6 font-weight-bold justify-center">
-          Sign in to purchase
+          {{ $t('create.signInTitle') }}
         </v-card-title>
         <v-card-text class="text-body-2 text-medium-emphasis">
-          Create a free account to buy and download your high-resolution poster.
+          {{ $t('create.signInDesc') }}
         </v-card-text>
         <v-card-actions class="flex-column gap-2 px-4 pb-4">
           <v-btn
@@ -542,10 +542,10 @@
             :loading="signInLoading"
             @click="handleSignIn"
           >
-            Continue with Google
+            {{ $t('create.continueWithGoogle') }}
           </v-btn>
           <v-btn variant="text" size="small" @click="showSignInDialog = false">
-            Cancel
+            {{ $t('common.cancel') }}
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -556,6 +556,7 @@
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { usePosterStore } from '../store/posterStore'
 import { useAuth } from '../composables/useAuth'
 import ThemeGrid from '../components/ThemeGrid.vue'
@@ -564,23 +565,33 @@ import PosterDisplay from '../components/PosterDisplay.vue'
 import MapFrameSelector from '../components/MapFrameSelector.vue'
 import apiService from '../services/api'
 import sseService from '../services/sseService'
-import { titlePositions, getRandomExample, validateCoordinates } from '../services/utils'
+import { getRandomExample, validateCoordinates } from '../services/utils'
 
 const store = usePosterStore()
 const route = useRoute()
+const { t } = useI18n()
 const { currentUser, signInWithGoogle, getIdToken } = useAuth()
 const form = ref(null)
 
 // Orientation options with SVG shape data
 // rW / rH are the rect dimensions inside a 32×32 viewBox
-const orientationOptions = [
-  { value: 'vertical',   label: 'Portrait',    ratio: '3:4',    hint: 'Classic poster (3:4)',                  svgW: 22, svgH: 28, rW: 18, rH: 24 },
-  { value: 'horizontal', label: 'Landscape',   ratio: '4:3',    hint: 'Landscape / horizontal (4:3)',          svgW: 30, svgH: 24, rW: 26, rH: 20 },
-  { value: 'widescreen', label: 'Widescreen',  ratio: '16:9',   hint: 'HD / TV / desktop wallpaper (16:9)',    svgW: 30, svgH: 20, rW: 28, rH: 16 },
-  { value: 'square',     label: 'Square',      ratio: '1:1',    hint: 'Square print / Instagram (1:1)',        svgW: 26, svgH: 26, rW: 22, rH: 22 },
-  { value: 'mobile',     label: 'Mobile',      ratio: '9:19.5', hint: 'Phone wallpaper / story (9:19.5)',      svgW: 16, svgH: 28, rW: 12, rH: 26 },
-  { value: 'banner',     label: 'Banner',      ratio: '3:1',    hint: 'Web banner — Twitter / Reddit (3:1)',   svgW: 30, svgH: 16, rW: 28, rH: 10 },
-]
+const orientationOptions = computed(() => [
+  { value: 'vertical',   label: t('create.orientation.portrait'),   ratio: '3:4',    hint: t('create.orientationHints.portrait'),   svgW: 22, svgH: 28, rW: 18, rH: 24 },
+  { value: 'horizontal', label: t('create.orientation.landscape'),  ratio: '4:3',    hint: t('create.orientationHints.landscape'),  svgW: 30, svgH: 24, rW: 26, rH: 20 },
+  { value: 'widescreen', label: t('create.orientation.widescreen'), ratio: '16:9',   hint: t('create.orientationHints.widescreen'), svgW: 30, svgH: 20, rW: 28, rH: 16 },
+  { value: 'square',     label: t('create.orientation.square'),     ratio: '1:1',    hint: t('create.orientationHints.square'),     svgW: 26, svgH: 26, rW: 22, rH: 22 },
+  { value: 'mobile',     label: t('create.orientation.mobile'),     ratio: '9:19.5', hint: t('create.orientationHints.mobile'),     svgW: 16, svgH: 28, rW: 12, rH: 26 },
+  { value: 'banner',     label: t('create.orientation.banner'),     ratio: '3:1',    hint: t('create.orientationHints.banner'),     svgW: 30, svgH: 16, rW: 28, rH: 10 },
+])
+
+const titlePositions = computed(() => [
+  { title: t('form.titlePos.topLeft'),      value: 'top-left' },
+  { title: t('form.titlePos.topCenter'),    value: 'top-center' },
+  { title: t('form.titlePos.topRight'),     value: 'top-right' },
+  { title: t('form.titlePos.bottomLeft'),   value: 'bottom-left' },
+  { title: t('form.titlePos.bottomCenter'), value: 'bottom-center' },
+  { title: t('form.titlePos.bottomRight'),  value: 'bottom-right' },
+])
 
 // ── Input mode ───────────────────────────────────────────────────────────────
 const inputMode = ref('city') // 'city' | 'coords' | 'map'
@@ -683,8 +694,8 @@ async function sendEmail() {
 const coordsRules = [
   v => {
     if (inputMode.value !== 'coords') return true
-    if (!v) return 'Coordinates are required'
-    return validateCoordinates(v) || 'Format: lat, lon (e.g. 48.8566, 2.3522)'
+    if (!v) return t('create.coordsRequired')
+    return validateCoordinates(v) || t('create.coordsFormat')
   }
 ]
 

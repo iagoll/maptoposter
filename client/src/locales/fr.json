@@ -1,63 +1,170 @@
 {
   "nav": {
     "home": "Accueil",
+    "create": "Créer",
     "gallery": "Galerie",
     "history": "Historique",
-    "about": "À propos"
+    "about": "À propos",
+    "getStarted": "Commencer",
+    "dismiss": "Fermer"
   },
   "home": {
     "title": "Générateur d'Affiches de Cartes",
     "subtitle": "Créez de belles affiches de cartes personnalisables",
-    "generateButton": "Générer l'Affiche",
-    "generating": "Génération en cours...",
+    "generateButton": "Générer une Affiche",
+    "generating": "Génération...",
     "viewPoster": "Voir l'Affiche"
+  },
+  "landing": {
+    "badgeText": "22 thèmes · Toutes les villes du monde",
+    "heroTitle": "Transformez n'importe quelle ville en art mural.",
+    "heroSubtitle": "Créez de superbes affiches de cartes en qualité d'impression à partir des données OpenStreetMap. Choisissez votre ville, un style et téléchargez en quelques secondes.",
+    "startCreating": "Commencer à créer",
+    "seeExamples": "Voir des exemples",
+    "examplesEyebrow": "Réalisé avec MapToPoster",
+    "examplesTitle": "Villes du monde entier",
+    "tryThis": "Essayer →",
+    "stepsEyebrow": "Processus simple",
+    "stepsTitle": "Comment ça marche",
+    "steps": [
+      { "title": "Entrez une ville", "description": "Tapez n'importe quel nom de ville ou collez des coordonnées. Nous supportons chaque lieu sur Terre." },
+      { "title": "Choisissez un thème", "description": "Choisissez parmi 22 styles conçus professionnellement — du noir minimaliste au cyberpunk néon." },
+      { "title": "Générez votre affiche", "description": "Appuyez sur générer et regardez-la prendre vie en temps réel. Téléchargez votre PNG haute résolution." }
+    ],
+    "features": [
+      { "title": "22 thèmes", "description": "De Noir à Aurora, chaque esthétique est couverte." },
+      { "title": "N'importe quelle ville", "description": "Alimenté par OpenStreetMap. Chaque ville, bourg et village." },
+      { "title": "Prêt à imprimer", "description": "Sortie à 300 DPI adaptée à l'impression grand format." },
+      { "title": "Entièrement personnalisable", "description": "Rayon, orientation, position du titre et plus encore." }
+    ],
+    "ctaTitle": "Prêt à créer le vôtre ?",
+    "ctaSubtitle": "Aperçu gratuit · Aucun compte requis pour commencer",
+    "getStartedFree": "Commencer gratuitement"
   },
   "form": {
     "cityCountry": "Ville et Pays",
     "city": "Ville",
-    "cityPlaceholder": "ex., Paris",
+    "cityPlaceholder": "ex. Paris",
     "country": "Pays",
-    "countryPlaceholder": "ex., France",
+    "countryPlaceholder": "ex. France",
     "coordinates": "Coordonnées",
     "coordsPlaceholder": "ex., 48.8566,2.3522",
-    "useCoords": "Utiliser les Coordonnées",
+    "useCoords": "Utiliser des Coordonnées",
     "theme": "Thème",
     "selectTheme": "Sélectionnez un thème",
     "distance": "Rayon de la Carte",
     "distanceKm": "{distance} km",
     "orientation": "Orientation",
-    "vertical": "Verticale",
-    "horizontal": "Horizontale",
+    "vertical": "Vertical",
+    "horizontal": "Horizontal",
     "customTitle": "Titre Personnalisé",
-    "titlePlaceholder": "Laissez vide pour utiliser le nom de la ville",
+    "titlePlaceholder": "Laisser vide pour utiliser le nom de la ville",
     "titlePosition": "Position du Titre",
     "titlePos": {
-      "topLeft": "En Haut à Gauche",
-      "topCenter": "En Haut au Centre",
-      "topRight": "En Haut à Droite",
-      "bottomLeft": "En Bas à Gauche",
-      "bottomCenter": "En Bas au Centre",
-      "bottomRight": "En Bas à Droite"
+      "topLeft": "Haut Gauche",
+      "topCenter": "Haut Centre",
+      "topRight": "Haut Droite",
+      "bottomLeft": "Bas Gauche",
+      "bottomCenter": "Bas Centre",
+      "bottomRight": "Bas Droite"
     },
     "fullBorders": "Bordures Complètes (sans dégradé)",
     "randomExample": "Exemple Aléatoire"
   },
+  "create": {
+    "back": "Retour",
+    "loadExample": "Charger un exemple",
+    "pageTitle": "Créez votre affiche",
+    "pageSubtitle": "Positionnez la carte, choisissez un style et téléchargez un fichier prêt à imprimer.",
+    "locationTitle": "Localisation",
+    "locationSubtitle": "Entrez un nom de ville, des coordonnées exactes ou positionnez la carte de manière interactive.",
+    "cityNameMode": "Nom de ville",
+    "coordsMode": "Coordonnées",
+    "interactiveMapMode": "Carte interactive",
+    "cityRequired": "La ville est obligatoire",
+    "countryRequired": "Le pays est obligatoire",
+    "coordsHint": "lat, lon",
+    "coordsRequired": "Les coordonnées sont obligatoires",
+    "coordsFormat": "Format : lat, lon (ex. 48.8566, 2.3522)",
+    "positionCaptured": "Position capturée · rayon {distance} · déplacer pour affiner",
+    "themeStripLabel": "Thème",
+    "titleOnPoster": "Titre sur l'affiche",
+    "titleHint": "Laisser vide pour utiliser le nom de la ville",
+    "subtitleOnPoster": "Sous-titre sur l'affiche",
+    "subtitleHint": "Laisser vide pour utiliser le nom du pays / région",
+    "themeTitle": "Thème",
+    "themeSubtitle": "Choisissez le style visuel de votre affiche.",
+    "optionsTitle": "Options",
+    "optionsSubtitle": "Personnalisez la taille, la mise en page et la position du titre.",
+    "mapRadius": "Rayon de la carte",
+    "radiusHint": "Petit (4–8 km) · Moyen (8–20 km) · Grand (20–50 km)",
+    "formatLabel": "Format",
+    "titlePositionLabel": "Position du titre",
+    "fullBordersLabel": "Bordures complètes",
+    "fullBordersHint": "Supprime l'effet de fondu sur les bords de la carte.",
+    "orientation": {
+      "portrait": "Portrait",
+      "landscape": "Paysage",
+      "widescreen": "Écran large",
+      "square": "Carré",
+      "mobile": "Mobile",
+      "banner": "Bannière"
+    },
+    "orientationHints": {
+      "portrait": "Affiche classique (3:4)",
+      "landscape": "Horizontal (4:3)",
+      "widescreen": "HD / TV / fond d'écran bureau (16:9)",
+      "square": "Impression carrée / Instagram (1:1)",
+      "mobile": "Fond d'écran mobile / story (9:19.5)",
+      "banner": "Bannière web — Twitter / Reddit (3:1)"
+    },
+    "previewBadge": "Aperçu gratuit — filigrane, 72 DPI",
+    "highResBadge": "Haute résolution · 300 DPI · qualité d'impression",
+    "highResAlt": "Affiche de carte haute résolution",
+    "finalising": "Finalisation…",
+    "readyToDownload": "Prêt à télécharger !",
+    "previewReady": "Aperçu prêt",
+    "generatingStatus": "Génération…",
+    "previewBtn": "Aperçu (gratuit)",
+    "generateSampleBtn": "Générer un exemple",
+    "buyHighResBtn": "Acheter haute résolution · 9,99 $",
+    "startOver": "Recommencer",
+    "renderingBtn": "Rendu 300 DPI…",
+    "downloadPng": "Télécharger PNG",
+    "emailMe": "M'envoyer par email",
+    "reset": "Réinitialiser",
+    "emailDialogTitle": "Envoyer votre affiche par email",
+    "emailLabel": "Adresse email",
+    "emailValidation": "Entrez un email valide",
+    "sendBtn": "Envoyer",
+    "signInTitle": "Se connecter pour acheter",
+    "signInDesc": "Créez un compte gratuit pour acheter et télécharger votre affiche haute résolution.",
+    "continueWithGoogle": "Continuer avec Google"
+  },
   "terminal": {
     "title": "Journaux de Génération",
     "connecting": "Connexion au processus de génération...",
-    "noLogs": "Pas encore de journaux. Cliquez sur 'Générer l'Affiche' pour commencer.",
+    "noLogs": "Aucun journal pour l'instant. Cliquez sur 'Générer une Affiche' pour commencer.",
     "clear": "Effacer"
   },
   "recentPosters": {
     "title": "Affiches Récentes",
-    "noPosters": "Aucune affiche générée pour le moment",
+    "noPosters": "Aucune affiche générée pour l'instant",
     "viewAll": "Voir Tout dans la Galerie"
   },
   "gallery": {
     "title": "Galerie d'Affiches",
+    "eyebrow": "Vos créations",
+    "pageTitle": "Galerie",
     "loading": "Chargement des affiches...",
-    "noPosters": "Aucune affiche disponible pour le moment.",
-    "generatedOn": "Généré le {date}"
+    "noPosters": "Aucune affiche disponible pour l'instant.",
+    "generatedOn": "Généré le {date}",
+    "refresh": "Actualiser",
+    "view": "Voir",
+    "download": "Télécharger",
+    "emptyTitle": "Pas encore d'affiches",
+    "emptyDesc": "Générez votre première affiche et elle apparaîtra ici.",
+    "createPoster": "Créer une affiche"
   },
   "history": {
     "title": "Votre Historique",
@@ -72,8 +179,8 @@
       "totalSpent": "Total Dépensé",
       "memberSince": "Membre Depuis"
     },
-    "noPurchases": "Vous n'avez encore acheté aucune affiche.",
-    "noPreviews": "Vous n'avez encore généré aucun aperçu.",
+    "noPurchases": "Vous n'avez pas encore acheté d'affiches.",
+    "noPreviews": "Vous n'avez pas encore généré d'aperçus.",
     "purchased": "Acheté",
     "pending": "Paiement en Attente",
     "download": "Télécharger",
@@ -83,45 +190,45 @@
   },
   "about": {
     "eyebrow": "À propos",
-    "title": "À Propos du Générateur d'Affiches de Cartes",
-    "description": "Créez de belles affiches de cartes personnalisables de n'importe quelle ville du monde en utilisant les données d'OpenStreetMap.",
-    "themes": "Plus de 22 Beaux Thèmes",
-    "themesDesc": "22 thèmes conçus professionnellement, du noir minimaliste au neon cyberpunk.",
+    "title": "À propos du Générateur d'Affiches de Cartes",
+    "description": "Créez de belles affiches de cartes personnalisables de n'importe quelle ville du monde avec les données OpenStreetMap.",
+    "themes": "22+ Beaux Thèmes",
+    "themesDesc": "22 thèmes conçus professionnellement, du noir minimaliste au cyberpunk néon.",
     "customizable": "Entièrement Personnalisable",
     "customizableDesc": "Orientation, rayon, position du titre, bordures — contrôle total sur chaque détail.",
     "global": "Couverture Mondiale",
-    "globalDesc": "N'importe quelle ville ou village de la Terre. Propulsé par OpenStreetMap.",
+    "globalDesc": "N'importe quelle ville, bourg ou village sur Terre. Alimenté par OpenStreetMap.",
     "featuresTitle": "Fonctionnalités",
     "tipsTitle": "Conseils",
     "builtWithTitle": "Développé avec",
     "creditsTitle": "Crédits",
-    "creditsText": "Données cartographiques © contributeurs OpenStreetMap, disponibles sous la licence Open Database License (ODbL).",
+    "creditsText": "Données cartographiques © contributeurs OpenStreetMap, disponibles sous la Licence Open Database (ODbL).",
     "featureList": [
-      "Plus de 22 thèmes conçus professionnellement",
-      "Orientations : portrait, paysage, carré, mobile, bannière et écran large",
-      "Mode carte interactif — faites glisser et zoomez pour cadrer n'importe quelle zone",
-      "Saisie directe de coordonnées pour des emplacements précis",
-      "Progression de génération en temps réel via journaux en direct",
+      "22+ thèmes conçus professionnellement",
+      "Orientations portrait, paysage, carré, mobile, bannière et écran large",
+      "Mode carte interactive — déplacez et zoomez pour cadrer n'importe quelle zone",
+      "Saisie directe des coordonnées pour les emplacements précis",
+      "Progression de génération en temps réel via les journaux en direct",
       "Sortie haute résolution — 300 DPI, prête à imprimer",
       "Positionnement de titre flexible (6 positions)",
-      "Titre et sous-titre personnalisés"
+      "Remplacement du titre et du sous-titre personnalisés"
     ],
     "tips": [
       {
         "title": "Distance",
-        "body": "Les petites distances (4–8 km) conviennent mieux aux centres-villes denses. Les grandes distances (20–50 km) capturent des zones métropolitaines entières."
+        "body": "Les distances plus petites (4–8 km) fonctionnent mieux pour les centres-villes denses. Les distances plus grandes (20–50 km) capturent des zones métropolitaines entières."
       },
       {
         "title": "Titres personnalisés",
-        "body": "Utilisez les champs titre et sous-titre pour mettre n'importe quel texte sur l'affiche — idéal quand les noms de ville sont longs ou pour un label personnel."
+        "body": "Utilisez les champs titre et sous-titre pour mettre n'importe quel texte sur l'affiche — idéal quand les noms de villes sont longs ou vous voulez une étiquette personnelle."
       },
       {
         "title": "Bordures complètes",
-        "body": "Activez \"bordures complètes\" pour supprimer le dégradé et afficher des cartes bord à bord — idéal pour les formats bannière et écran large."
+        "body": "Activez les \"bordures complètes\" pour supprimer le fondu et afficher des cartes bord à bord — idéal pour les formats bannière et écran large."
       },
       {
         "title": "Coordonnées",
-        "body": "Utilisez les coordonnées pour des emplacements précis, des zones éloignées ou des lieux non reconnus par la recherche de nom de ville."
+        "body": "Utilisez les coordonnées pour les emplacements précis, les zones reculées ou les lieux non reconnus par la recherche par nom de ville."
       }
     ]
   },
@@ -134,7 +241,7 @@
     "step3": "Personnalisez l'orientation et la distance",
     "step4": "Générez et téléchargez votre affiche",
     "getStarted": "Commencer",
-    "examples": "Villes d'Exemple"
+    "examples": "Exemples de Villes"
   },
   "common": {
     "loading": "Chargement...",
@@ -147,7 +254,12 @@
     "back": "Retour",
     "next": "Suivant",
     "finish": "Terminer",
-    "language": "Langue"
+    "language": "Langue",
+    "download": "Télécharger",
+    "dismiss": "Fermer",
+    "view": "Voir",
+    "send": "Envoyer",
+    "reset": "Réinitialiser"
   },
   "errors": {
     "required": "Ce champ est obligatoire",

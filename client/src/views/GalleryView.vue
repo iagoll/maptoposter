@@ -5,8 +5,8 @@
       <!-- Header -->
       <div class="gallery-header">
         <div>
-          <p class="section-eyebrow">Your creations</p>
-          <h1 class="gallery-title">Gallery</h1>
+          <p class="section-eyebrow">{{ $t('gallery.eyebrow') }}</p>
+          <h1 class="gallery-title">{{ $t('gallery.pageTitle') }}</h1>
         </div>
         <v-btn
           variant="outlined"
@@ -17,7 +17,7 @@
           :loading="store.loadingPosters"
           size="small"
         >
-          Refresh
+          {{ $t('gallery.refresh') }}
         </v-btn>
       </div>
 
@@ -44,7 +44,7 @@
             </v-img>
             <div class="poster-card__hover">
               <v-btn color="white" variant="flat" size="small" rounded="lg">
-                View
+                {{ $t('gallery.view') }}
               </v-btn>
             </div>
           </div>
@@ -58,7 +58,7 @@
             class="poster-card__download"
             @click.stop
           >
-            <v-icon size="16">mdi-download</v-icon> Download
+            <v-icon size="16">mdi-download</v-icon> {{ $t('gallery.download') }}
           </a>
         </div>
       </div>
@@ -66,10 +66,10 @@
       <!-- Empty state -->
       <div v-else class="empty-state">
         <v-icon size="72" color="#CCCCCC">mdi-image-off-outline</v-icon>
-        <h3 class="empty-state__title">No posters yet</h3>
-        <p class="empty-state__desc">Generate your first poster and it will appear here.</p>
+        <h3 class="empty-state__title">{{ $t('gallery.emptyTitle') }}</h3>
+        <p class="empty-state__desc">{{ $t('gallery.emptyDesc') }}</p>
         <v-btn color="primary" rounded="xl" elevation="0" to="/create" prepend-icon="mdi-creation">
-          Create a poster
+          {{ $t('gallery.createPoster') }}
         </v-btn>
       </div>
 
@@ -100,7 +100,7 @@
             :download="selectedPoster.filename"
             prepend-icon="mdi-download"
           >
-            Download
+            {{ $t('gallery.download') }}
           </v-btn>
         </div>
       </v-card>

@@ -1,9 +1,12 @@
 {
   "nav": {
     "home": "Home",
+    "create": "Create",
     "gallery": "Gallery",
     "history": "History",
-    "about": "About"
+    "about": "About",
+    "getStarted": "Get started",
+    "dismiss": "Dismiss"
   },
   "home": {
     "title": "Map Poster Generator",
@@ -12,12 +15,38 @@
     "generating": "Generating...",
     "viewPoster": "View Poster"
   },
+  "landing": {
+    "badgeText": "22 themes · Any city in the world",
+    "heroTitle": "Turn any city into wall art.",
+    "heroSubtitle": "Generate beautiful, print-quality map posters from OpenStreetMap data. Pick your city, choose a style, and download in seconds.",
+    "startCreating": "Start creating",
+    "seeExamples": "See examples",
+    "examplesEyebrow": "Made with MapToPoster",
+    "examplesTitle": "Cities from around the world",
+    "tryThis": "Try this →",
+    "stepsEyebrow": "Simple process",
+    "stepsTitle": "How it works",
+    "steps": [
+      { "title": "Enter a city", "description": "Type any city name or paste coordinates. We support every location on Earth." },
+      { "title": "Pick a theme", "description": "Choose from 22 professionally designed styles — from minimal noir to neon cyberpunk." },
+      { "title": "Generate your poster", "description": "Hit generate and watch it come to life in real time. Download your high-res PNG." }
+    ],
+    "features": [
+      { "title": "22 themes", "description": "From Noir to Aurora, every aesthetic is covered." },
+      { "title": "Any city", "description": "Powered by OpenStreetMap. Every city, town, and village." },
+      { "title": "Print ready", "description": "300 DPI output suitable for large-format printing." },
+      { "title": "Fully customisable", "description": "Radius, orientation, title position and more." }
+    ],
+    "ctaTitle": "Ready to create yours?",
+    "ctaSubtitle": "Free preview · No account required to start",
+    "getStartedFree": "Get started for free"
+  },
   "form": {
     "cityCountry": "City & Country",
     "city": "City",
-    "cityPlaceholder": "e.g., Paris",
+    "cityPlaceholder": "e.g. Paris",
     "country": "Country",
-    "countryPlaceholder": "e.g., France",
+    "countryPlaceholder": "e.g. France",
     "coordinates": "Coordinates",
     "coordsPlaceholder": "e.g., 48.8566,2.3522",
     "useCoords": "Use Coordinates",
@@ -42,6 +71,76 @@
     "fullBorders": "Full Borders (no gradient)",
     "randomExample": "Random Example"
   },
+  "create": {
+    "back": "Back",
+    "loadExample": "Load example",
+    "pageTitle": "Create your poster",
+    "pageSubtitle": "Position the map, choose a style, and download a print-ready file.",
+    "locationTitle": "Location",
+    "locationSubtitle": "Enter a city name, exact coordinates, or position the map interactively.",
+    "cityNameMode": "City name",
+    "coordsMode": "Coordinates",
+    "interactiveMapMode": "Interactive map",
+    "cityRequired": "City is required",
+    "countryRequired": "Country is required",
+    "coordsHint": "lat, lon",
+    "coordsRequired": "Coordinates are required",
+    "coordsFormat": "Format: lat, lon (e.g. 48.8566, 2.3522)",
+    "positionCaptured": "Position captured · radius {distance} · pan to refine",
+    "themeStripLabel": "Theme",
+    "titleOnPoster": "Title on poster",
+    "titleHint": "Leave blank to use the city / location name",
+    "subtitleOnPoster": "Subtitle on poster",
+    "subtitleHint": "Leave blank to use the country / region name",
+    "themeTitle": "Theme",
+    "themeSubtitle": "Choose the visual style for your poster.",
+    "optionsTitle": "Options",
+    "optionsSubtitle": "Customise size, layout and title placement.",
+    "mapRadius": "Map radius",
+    "radiusHint": "Small (4–8 km) · Medium (8–20 km) · Large (20–50 km)",
+    "formatLabel": "Format",
+    "titlePositionLabel": "Title position",
+    "fullBordersLabel": "Full borders",
+    "fullBordersHint": "Removes the gradient fade on the edges of the map.",
+    "orientation": {
+      "portrait": "Portrait",
+      "landscape": "Landscape",
+      "widescreen": "Widescreen",
+      "square": "Square",
+      "mobile": "Mobile",
+      "banner": "Banner"
+    },
+    "orientationHints": {
+      "portrait": "Classic poster (3:4)",
+      "landscape": "Landscape / horizontal (4:3)",
+      "widescreen": "HD / TV / desktop wallpaper (16:9)",
+      "square": "Square print / Instagram (1:1)",
+      "mobile": "Phone wallpaper / story (9:19.5)",
+      "banner": "Web banner — Twitter / Reddit (3:1)"
+    },
+    "previewBadge": "Free preview — watermarked, 72 DPI",
+    "highResBadge": "High-res · 300 DPI · print quality",
+    "highResAlt": "High-resolution map poster",
+    "finalising": "Finalising…",
+    "readyToDownload": "Ready to download!",
+    "previewReady": "Preview ready",
+    "generatingStatus": "Generating…",
+    "previewBtn": "Preview (free)",
+    "generateSampleBtn": "Generate sample",
+    "buyHighResBtn": "Buy high-res · $9.99",
+    "startOver": "Start over",
+    "renderingBtn": "Rendering 300 DPI…",
+    "downloadPng": "Download PNG",
+    "emailMe": "Email me",
+    "reset": "Reset",
+    "emailDialogTitle": "Email your poster",
+    "emailLabel": "Email address",
+    "emailValidation": "Enter a valid email",
+    "sendBtn": "Send",
+    "signInTitle": "Sign in to purchase",
+    "signInDesc": "Create a free account to buy and download your high-resolution poster.",
+    "continueWithGoogle": "Continue with Google"
+  },
   "terminal": {
     "title": "Generation Logs",
     "connecting": "Connecting to generation process...",
@@ -55,9 +154,17 @@
   },
   "gallery": {
     "title": "Poster Gallery",
+    "eyebrow": "Your creations",
+    "pageTitle": "Gallery",
     "loading": "Loading posters...",
     "noPosters": "No posters available yet.",
-    "generatedOn": "Generated on {date}"
+    "generatedOn": "Generated on {date}",
+    "refresh": "Refresh",
+    "view": "View",
+    "download": "Download",
+    "emptyTitle": "No posters yet",
+    "emptyDesc": "Generate your first poster and it will appear here.",
+    "createPoster": "Create a poster"
   },
   "history": {
     "title": "Your History",
@@ -147,7 +254,12 @@
     "back": "Back",
     "next": "Next",
     "finish": "Finish",
-    "language": "Language"
+    "language": "Language",
+    "download": "Download",
+    "dismiss": "Dismiss",
+    "view": "View",
+    "send": "Send",
+    "reset": "Reset"
   },
   "errors": {
     "required": "This field is required",

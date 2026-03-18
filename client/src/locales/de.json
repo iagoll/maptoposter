@@ -1,35 +1,64 @@
 {
   "nav": {
     "home": "Startseite",
+    "create": "Erstellen",
     "gallery": "Galerie",
     "history": "Verlauf",
-    "about": "Über uns"
+    "about": "Über uns",
+    "getStarted": "Loslegen",
+    "dismiss": "Schließen"
   },
   "home": {
     "title": "Karten-Poster-Generator",
-    "subtitle": "Erstellen Sie schöne, anpassbare Karten-Poster",
-    "generateButton": "Poster Erstellen",
-    "generating": "Wird generiert...",
+    "subtitle": "Erstellen Sie schöne, anpassbare Kartenposter",
+    "generateButton": "Poster Generieren",
+    "generating": "Generierung...",
     "viewPoster": "Poster Ansehen"
   },
+  "landing": {
+    "badgeText": "22 Themen · Jede Stadt der Welt",
+    "heroTitle": "Verwandeln Sie jede Stadt in Wandkunst.",
+    "heroSubtitle": "Erstellen Sie wunderschöne, druckfertige Kartenposter aus OpenStreetMap-Daten. Wählen Sie Ihre Stadt, einen Stil und laden Sie in Sekunden herunter.",
+    "startCreating": "Erstellen beginnen",
+    "seeExamples": "Beispiele ansehen",
+    "examplesEyebrow": "Erstellt mit MapToPoster",
+    "examplesTitle": "Städte aus aller Welt",
+    "tryThis": "Ausprobieren →",
+    "stepsEyebrow": "Einfacher Prozess",
+    "stepsTitle": "Wie es funktioniert",
+    "steps": [
+      { "title": "Eine Stadt eingeben", "description": "Geben Sie einen Städtenamen ein oder fügen Sie Koordinaten ein. Wir unterstützen jeden Ort der Erde." },
+      { "title": "Ein Thema wählen", "description": "Wählen Sie aus 22 professionell gestalteten Stilen — vom minimalistischen Noir bis zum Neon-Cyberpunk." },
+      { "title": "Poster generieren", "description": "Auf Generieren klicken und in Echtzeit entstehen sehen. Laden Sie Ihr hochauflösendes PNG herunter." }
+    ],
+    "features": [
+      { "title": "22 Themen", "description": "Von Noir bis Aurora – jede Ästhetik ist abgedeckt." },
+      { "title": "Jede Stadt", "description": "Powered by OpenStreetMap. Jede Stadt, Gemeinde und jedes Dorf." },
+      { "title": "Druckfertig", "description": "300-DPI-Ausgabe für den Großformatdruck geeignet." },
+      { "title": "Vollständig anpassbar", "description": "Radius, Ausrichtung, Titelposition und mehr." }
+    ],
+    "ctaTitle": "Bereit, Ihr eigenes zu erstellen?",
+    "ctaSubtitle": "Kostenlose Vorschau · Kein Konto zum Starten erforderlich",
+    "getStartedFree": "Kostenlos starten"
+  },
   "form": {
-    "cityCountry": "Stadt & Land",
+    "cityCountry": "Stadt und Land",
     "city": "Stadt",
     "cityPlaceholder": "z.B. Paris",
     "country": "Land",
     "countryPlaceholder": "z.B. Frankreich",
     "coordinates": "Koordinaten",
-    "coordsPlaceholder": "z.B. 48.8566,2.3522",
-    "useCoords": "Koordinaten Verwenden",
+    "coordsPlaceholder": "z.B., 48.8566,2.3522",
+    "useCoords": "Koordinaten verwenden",
     "theme": "Thema",
-    "selectTheme": "Wählen Sie ein Thema",
+    "selectTheme": "Thema auswählen",
     "distance": "Kartenradius",
     "distanceKm": "{distance} km",
     "orientation": "Ausrichtung",
-    "vertical": "Vertikal",
-    "horizontal": "Horizontal",
+    "vertical": "Hochformat",
+    "horizontal": "Querformat",
     "customTitle": "Benutzerdefinierter Titel",
-    "titlePlaceholder": "Leer lassen, um Stadtnamen zu verwenden",
+    "titlePlaceholder": "Leer lassen, um den Städtenamen zu verwenden",
     "titlePosition": "Titelposition",
     "titlePos": {
       "topLeft": "Oben Links",
@@ -39,25 +68,103 @@
       "bottomCenter": "Unten Mitte",
       "bottomRight": "Unten Rechts"
     },
-    "fullBorders": "Volle Ränder (ohne Verlauf)",
+    "fullBorders": "Vollständige Ränder (kein Verlauf)",
     "randomExample": "Zufälliges Beispiel"
+  },
+  "create": {
+    "back": "Zurück",
+    "loadExample": "Beispiel laden",
+    "pageTitle": "Poster erstellen",
+    "pageSubtitle": "Positionieren Sie die Karte, wählen Sie einen Stil und laden Sie eine druckfertige Datei herunter.",
+    "locationTitle": "Standort",
+    "locationSubtitle": "Geben Sie einen Städtenamen, genaue Koordinaten ein oder positionieren Sie die Karte interaktiv.",
+    "cityNameMode": "Stadtname",
+    "coordsMode": "Koordinaten",
+    "interactiveMapMode": "Interaktive Karte",
+    "cityRequired": "Stadt ist erforderlich",
+    "countryRequired": "Land ist erforderlich",
+    "coordsHint": "Breitengrad, Längengrad",
+    "coordsRequired": "Koordinaten sind erforderlich",
+    "coordsFormat": "Format: Breitengrad, Längengrad (z.B. 48.8566, 2.3522)",
+    "positionCaptured": "Position erfasst · Radius {distance} · verschieben zum Verfeinern",
+    "themeStripLabel": "Thema",
+    "titleOnPoster": "Titel auf dem Poster",
+    "titleHint": "Leer lassen, um den Stadt-/Standortnamen zu verwenden",
+    "subtitleOnPoster": "Untertitel auf dem Poster",
+    "subtitleHint": "Leer lassen, um den Länder-/Regionsnamen zu verwenden",
+    "themeTitle": "Thema",
+    "themeSubtitle": "Wählen Sie den visuellen Stil für Ihr Poster.",
+    "optionsTitle": "Optionen",
+    "optionsSubtitle": "Größe, Layout und Titelposition anpassen.",
+    "mapRadius": "Kartenradius",
+    "radiusHint": "Klein (4–8 km) · Mittel (8–20 km) · Groß (20–50 km)",
+    "formatLabel": "Format",
+    "titlePositionLabel": "Titelposition",
+    "fullBordersLabel": "Vollständige Ränder",
+    "fullBordersHint": "Entfernt den Verlaufseffekt an den Rändern der Karte.",
+    "orientation": {
+      "portrait": "Hochformat",
+      "landscape": "Querformat",
+      "widescreen": "Breitbild",
+      "square": "Quadrat",
+      "mobile": "Mobil",
+      "banner": "Banner"
+    },
+    "orientationHints": {
+      "portrait": "Klassisches Poster (3:4)",
+      "landscape": "Querformat (4:3)",
+      "widescreen": "HD / TV / Desktop-Hintergrund (16:9)",
+      "square": "Quadratischer Druck / Instagram (1:1)",
+      "mobile": "Handy-Hintergrund / Story (9:19.5)",
+      "banner": "Web-Banner — Twitter / Reddit (3:1)"
+    },
+    "previewBadge": "Kostenlose Vorschau — Wasserzeichen, 72 DPI",
+    "highResBadge": "Hochauflösend · 300 DPI · Druckqualität",
+    "highResAlt": "Hochauflösendes Kartenposter",
+    "finalising": "Abschluss…",
+    "readyToDownload": "Bereit zum Herunterladen!",
+    "previewReady": "Vorschau bereit",
+    "generatingStatus": "Wird generiert…",
+    "previewBtn": "Vorschau (kostenlos)",
+    "generateSampleBtn": "Muster generieren",
+    "buyHighResBtn": "Hochauflösend kaufen · $9,99",
+    "startOver": "Von vorne beginnen",
+    "renderingBtn": "Wird in 300 DPI gerendert…",
+    "downloadPng": "PNG herunterladen",
+    "emailMe": "Per E-Mail senden",
+    "reset": "Zurücksetzen",
+    "emailDialogTitle": "Poster per E-Mail senden",
+    "emailLabel": "E-Mail-Adresse",
+    "emailValidation": "Geben Sie eine gültige E-Mail ein",
+    "sendBtn": "Senden",
+    "signInTitle": "Zum Kaufen anmelden",
+    "signInDesc": "Erstellen Sie ein kostenloses Konto, um Ihr hochauflösendes Poster zu kaufen und herunterzuladen.",
+    "continueWithGoogle": "Mit Google fortfahren"
   },
   "terminal": {
     "title": "Generierungsprotokolle",
     "connecting": "Verbindung zum Generierungsprozess...",
-    "noLogs": "Noch keine Protokolle. Klicken Sie auf 'Poster Erstellen', um zu beginnen.",
+    "noLogs": "Noch keine Protokolle. Klicken Sie auf 'Poster Generieren', um zu beginnen.",
     "clear": "Löschen"
   },
   "recentPosters": {
-    "title": "Neueste Poster",
-    "noPosters": "Noch keine Poster erstellt",
+    "title": "Aktuelle Poster",
+    "noPosters": "Noch keine Poster generiert",
     "viewAll": "Alle in der Galerie ansehen"
   },
   "gallery": {
     "title": "Poster-Galerie",
+    "eyebrow": "Ihre Kreationen",
+    "pageTitle": "Galerie",
     "loading": "Poster werden geladen...",
     "noPosters": "Noch keine Poster verfügbar.",
-    "generatedOn": "Erstellt am {date}"
+    "generatedOn": "Generiert am {date}",
+    "refresh": "Aktualisieren",
+    "view": "Ansehen",
+    "download": "Herunterladen",
+    "emptyTitle": "Noch keine Poster",
+    "emptyDesc": "Erstellen Sie Ihr erstes Poster und es wird hier erscheinen.",
+    "createPoster": "Poster erstellen"
   },
   "history": {
     "title": "Ihr Verlauf",
@@ -67,39 +174,39 @@
       "themes": "Lieblingsthemen"
     },
     "stats": {
-      "totalPreviews": "Gesamt Vorschauen",
-      "totalPurchases": "Gesamt Käufe",
-      "totalSpent": "Gesamt Ausgegeben",
-      "memberSince": "Mitglied Seit"
+      "totalPreviews": "Gesamte Vorschauen",
+      "totalPurchases": "Gesamte Käufe",
+      "totalSpent": "Gesamtausgaben",
+      "memberSince": "Mitglied seit"
     },
     "noPurchases": "Sie haben noch keine Poster gekauft.",
     "noPreviews": "Sie haben noch keine Vorschauen generiert.",
     "purchased": "Gekauft",
-    "pending": "Zahlung Ausstehend",
+    "pending": "Zahlung ausstehend",
     "download": "Herunterladen",
-    "buyHighRes": "Hochauflösung Kaufen",
-    "viewDetails": "Details Ansehen",
+    "buyHighRes": "Hochauflösend kaufen",
+    "viewDetails": "Details ansehen",
     "close": "Schließen"
   },
   "about": {
     "eyebrow": "Über uns",
     "title": "Über den Karten-Poster-Generator",
-    "description": "Erstellen Sie schöne, anpassbare Karten-Poster von jeder Stadt der Welt mit OpenStreetMap-Daten.",
-    "themes": "Über 22 Schöne Themen",
-    "themesDesc": "22 professionell gestaltete Themen, von minimalistischem Noir bis Neon Cyberpunk.",
+    "description": "Erstellen Sie schöne, anpassbare Kartenposter jeder Stadt der Welt mit OpenStreetMap-Daten.",
+    "themes": "22+ Schöne Themen",
+    "themesDesc": "22 professionell gestaltete Themen vom minimalistischen Noir bis zum Neon-Cyberpunk.",
     "customizable": "Vollständig Anpassbar",
-    "customizableDesc": "Ausrichtung, Radius, Titelposition, Ränder — volle Kontrolle über jedes Detail.",
+    "customizableDesc": "Ausrichtung, Radius, Titelposition, Ränder — vollständige Kontrolle über jedes Detail.",
     "global": "Globale Abdeckung",
-    "globalDesc": "Jede Stadt, jedes Dorf auf der Erde. Angetrieben von OpenStreetMap.",
+    "globalDesc": "Jede Stadt, Gemeinde oder jedes Dorf auf der Erde. Powered by OpenStreetMap.",
     "featuresTitle": "Funktionen",
     "tipsTitle": "Tipps",
     "builtWithTitle": "Entwickelt mit",
-    "creditsTitle": "Quellenangaben",
+    "creditsTitle": "Danksagungen",
     "creditsText": "Kartendaten © OpenStreetMap-Mitwirkende, verfügbar unter der Open Database License (ODbL).",
     "featureList": [
-      "Über 22 professionell gestaltete Themen",
-      "Ausrichtungen: Hochformat, Querformat, Quadrat, Mobil, Banner und Breitbild",
-      "Interaktiver Kartenmodus — verschieben und zoomen Sie, um jeden Bereich einzurahmen",
+      "22+ professionell gestaltete Themen",
+      "Hoch-, Quer-, Quadrat-, Mobil-, Banner- und Breitbildausrichtungen",
+      "Interaktiver Kartenmodus — verschieben und zoomen, um jeden Bereich zu rahmen",
       "Direkte Koordinateneingabe für genaue Standorte",
       "Echtzeit-Generierungsfortschritt über Live-Protokolle",
       "Hochauflösende Ausgabe — 300 DPI, druckfertig",
@@ -109,31 +216,31 @@
     "tips": [
       {
         "title": "Entfernung",
-        "body": "Kleinere Abstände (4–8 km) eignen sich am besten für dichte Stadtzentren. Größere Abstände (20–50 km) erfassen ganze Ballungsgebiete."
+        "body": "Kleinere Abstände (4–8 km) eignen sich am besten für dichte Stadtzentren. Größere Abstände (20–50 km) erfassen ganze Ballungsräume."
       },
       {
         "title": "Benutzerdefinierte Titel",
-        "body": "Verwenden Sie die Titel- und Untertitelfelder, um beliebigen Text auf das Poster zu setzen — ideal bei langen Stadtnamen oder für persönliche Beschriftungen."
+        "body": "Verwenden Sie die Felder Titel und Untertitel, um beliebigen Text auf dem Poster zu platzieren — ideal, wenn Städtenamen lang sind oder Sie eine persönliche Beschriftung möchten."
       },
       {
-        "title": "Volle Ränder",
-        "body": "Aktivieren Sie \"volle Ränder\", um den Verlauf zu entfernen und Karten ohne Rahmen anzuzeigen — ideal für Banner- und Breitbildformate."
+        "title": "Vollständige Ränder",
+        "body": "Aktivieren Sie \"vollständige Ränder\", um den Verlauf zu entfernen und randlose Karten anzuzeigen — ideal für Banner- und Breitbildformate."
       },
       {
         "title": "Koordinaten",
-        "body": "Verwenden Sie Koordinaten für genaue Standorte, abgelegene Gebiete oder Orte, die nicht per Stadtnamen gefunden werden."
+        "body": "Verwenden Sie Koordinaten für genaue Standorte, abgelegene Gebiete oder Orte, die von der Städtenamenssuche nicht erkannt werden."
       }
     ]
   },
   "welcome": {
     "title": "Willkommen!",
-    "description": "Erstellen Sie beeindruckende Karten-Poster Ihrer Lieblingsstädte",
-    "howItWorks": "So funktioniert's",
+    "description": "Erstellen Sie beeindruckende Kartenposter Ihrer Lieblingsstädte",
+    "howItWorks": "Wie es funktioniert",
     "step1": "Wählen Sie eine Stadt oder Koordinaten",
     "step2": "Wählen Sie Ihr Lieblingsthema",
     "step3": "Passen Sie Ausrichtung und Entfernung an",
     "step4": "Generieren und laden Sie Ihr Poster herunter",
-    "getStarted": "Beginnen",
+    "getStarted": "Loslegen",
     "examples": "Beispielstädte"
   },
   "common": {
@@ -146,13 +253,18 @@
     "edit": "Bearbeiten",
     "back": "Zurück",
     "next": "Weiter",
-    "finish": "Fertig",
-    "language": "Sprache"
+    "finish": "Fertig stellen",
+    "language": "Sprache",
+    "download": "Herunterladen",
+    "dismiss": "Schließen",
+    "view": "Ansehen",
+    "send": "Senden",
+    "reset": "Zurücksetzen"
   },
   "errors": {
     "required": "Dieses Feld ist erforderlich",
     "invalidCoords": "Ungültiges Koordinatenformat",
-    "generationFailed": "Poster-Generierung fehlgeschlagen",
-    "loadFailed": "Fehler beim Laden der Daten"
+    "generationFailed": "Postergenerierung fehlgeschlagen",
+    "loadFailed": "Daten konnten nicht geladen werden"
   }
 }

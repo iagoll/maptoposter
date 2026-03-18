@@ -1,9 +1,12 @@
 {
   "nav": {
     "home": "Inicio",
+    "create": "Crear",
     "gallery": "Galería",
     "history": "Historial",
-    "about": "Acerca de"
+    "about": "Acerca de",
+    "getStarted": "Comenzar",
+    "dismiss": "Cerrar"
   },
   "home": {
     "title": "Generador de Pósters de Mapas",
@@ -11,6 +14,32 @@
     "generateButton": "Generar Póster",
     "generating": "Generando...",
     "viewPoster": "Ver Póster"
+  },
+  "landing": {
+    "badgeText": "22 temas · Cualquier ciudad del mundo",
+    "heroTitle": "Convierte cualquier ciudad en arte de pared.",
+    "heroSubtitle": "Genera hermosos pósters de mapas en calidad de impresión a partir de datos de OpenStreetMap. Elige tu ciudad, escoge un estilo y descárgalo en segundos.",
+    "startCreating": "Empezar a crear",
+    "seeExamples": "Ver ejemplos",
+    "examplesEyebrow": "Hecho con MapToPoster",
+    "examplesTitle": "Ciudades de todo el mundo",
+    "tryThis": "Probar →",
+    "stepsEyebrow": "Proceso sencillo",
+    "stepsTitle": "Cómo funciona",
+    "steps": [
+      { "title": "Ingresa una ciudad", "description": "Escribe cualquier nombre de ciudad o pega coordenadas. Soportamos cualquier lugar del mundo." },
+      { "title": "Elige un tema", "description": "Elige entre 22 estilos diseñados profesionalmente — desde el minimalista noir hasta el neon cyberpunk." },
+      { "title": "Genera tu póster", "description": "Dale a generar y obsérvalo cobrar vida en tiempo real. Descarga tu PNG en alta resolución." }
+    ],
+    "features": [
+      { "title": "22 temas", "description": "De Noir a Aurora, cada estética está cubierta." },
+      { "title": "Cualquier ciudad", "description": "Impulsado por OpenStreetMap. Cada ciudad, pueblo y aldea." },
+      { "title": "Listo para imprimir", "description": "Salida a 300 DPI apta para impresión en gran formato." },
+      { "title": "Totalmente personalizable", "description": "Radio, orientación, posición del título y más." }
+    ],
+    "ctaTitle": "¿Listo para crear el tuyo?",
+    "ctaSubtitle": "Vista previa gratis · No requiere cuenta para empezar",
+    "getStartedFree": "Comenzar gratis"
   },
   "form": {
     "cityCountry": "Ciudad y País",
@@ -42,6 +71,76 @@
     "fullBorders": "Bordes Completos (sin degradado)",
     "randomExample": "Ejemplo Aleatorio"
   },
+  "create": {
+    "back": "Atrás",
+    "loadExample": "Cargar ejemplo",
+    "pageTitle": "Crea tu póster",
+    "pageSubtitle": "Posiciona el mapa, elige un estilo y descarga un archivo listo para imprimir.",
+    "locationTitle": "Ubicación",
+    "locationSubtitle": "Ingresa el nombre de una ciudad, coordenadas exactas o posiciona el mapa de forma interactiva.",
+    "cityNameMode": "Nombre de ciudad",
+    "coordsMode": "Coordenadas",
+    "interactiveMapMode": "Mapa interactivo",
+    "cityRequired": "La ciudad es obligatoria",
+    "countryRequired": "El país es obligatorio",
+    "coordsHint": "lat, lon",
+    "coordsRequired": "Las coordenadas son obligatorias",
+    "coordsFormat": "Formato: lat, lon (ej. 48.8566, 2.3522)",
+    "positionCaptured": "Posición capturada · radio {distance} · desplaza para refinar",
+    "themeStripLabel": "Tema",
+    "titleOnPoster": "Título en el póster",
+    "titleHint": "Dejar en blanco para usar el nombre de la ciudad",
+    "subtitleOnPoster": "Subtítulo en el póster",
+    "subtitleHint": "Dejar en blanco para usar el nombre del país / región",
+    "themeTitle": "Tema",
+    "themeSubtitle": "Elige el estilo visual para tu póster.",
+    "optionsTitle": "Opciones",
+    "optionsSubtitle": "Personaliza el tamaño, diseño y posición del título.",
+    "mapRadius": "Radio del mapa",
+    "radiusHint": "Pequeño (4–8 km) · Medio (8–20 km) · Grande (20–50 km)",
+    "formatLabel": "Formato",
+    "titlePositionLabel": "Posición del título",
+    "fullBordersLabel": "Bordes completos",
+    "fullBordersHint": "Elimina el degradado en los bordes del mapa.",
+    "orientation": {
+      "portrait": "Retrato",
+      "landscape": "Paisaje",
+      "widescreen": "Pantalla ancha",
+      "square": "Cuadrado",
+      "mobile": "Móvil",
+      "banner": "Banner"
+    },
+    "orientationHints": {
+      "portrait": "Póster clásico (3:4)",
+      "landscape": "Horizontal (4:3)",
+      "widescreen": "HD / TV / fondo de escritorio (16:9)",
+      "square": "Impresión cuadrada / Instagram (1:1)",
+      "mobile": "Fondo de móvil / historia (9:19.5)",
+      "banner": "Banner web — Twitter / Reddit (3:1)"
+    },
+    "previewBadge": "Vista previa gratuita — con marca de agua, 72 DPI",
+    "highResBadge": "Alta resolución · 300 DPI · calidad de impresión",
+    "highResAlt": "Póster de mapa en alta resolución",
+    "finalising": "Finalizando…",
+    "readyToDownload": "¡Listo para descargar!",
+    "previewReady": "Vista previa lista",
+    "generatingStatus": "Generando…",
+    "previewBtn": "Vista previa (gratis)",
+    "generateSampleBtn": "Generar muestra",
+    "buyHighResBtn": "Comprar alta resolución · $9.99",
+    "startOver": "Empezar de nuevo",
+    "renderingBtn": "Renderizando 300 DPI…",
+    "downloadPng": "Descargar PNG",
+    "emailMe": "Enviarme por email",
+    "reset": "Reiniciar",
+    "emailDialogTitle": "Enviar tu póster por email",
+    "emailLabel": "Dirección de email",
+    "emailValidation": "Ingresa un email válido",
+    "sendBtn": "Enviar",
+    "signInTitle": "Iniciar sesión para comprar",
+    "signInDesc": "Crea una cuenta gratuita para comprar y descargar tu póster en alta resolución.",
+    "continueWithGoogle": "Continuar con Google"
+  },
   "terminal": {
     "title": "Registros de Generación",
     "connecting": "Conectando al proceso de generación...",
@@ -55,9 +154,17 @@
   },
   "gallery": {
     "title": "Galería de Pósters",
+    "eyebrow": "Tus creaciones",
+    "pageTitle": "Galería",
     "loading": "Cargando pósters...",
     "noPosters": "No hay pósters disponibles aún.",
-    "generatedOn": "Generado el {date}"
+    "generatedOn": "Generado el {date}",
+    "refresh": "Actualizar",
+    "view": "Ver",
+    "download": "Descargar",
+    "emptyTitle": "Todavía no hay pósters",
+    "emptyDesc": "Genera tu primer póster y aparecerá aquí.",
+    "createPoster": "Crear un póster"
   },
   "history": {
     "title": "Tu Historial",
@@ -147,7 +254,12 @@
     "back": "Atrás",
     "next": "Siguiente",
     "finish": "Finalizar",
-    "language": "Idioma"
+    "language": "Idioma",
+    "download": "Descargar",
+    "dismiss": "Cerrar",
+    "view": "Ver",
+    "send": "Enviar",
+    "reset": "Reiniciar"
   },
   "errors": {
     "required": "Este campo es obligatorio",

@@ -6,13 +6,10 @@
       <div class="hero-inner">
         <div class="hero-badge">
           <v-icon size="14" color="primary">mdi-map-marker</v-icon>
-          <span>22 themes · Any city in the world</span>
+          <span>{{ $t('landing.badgeText') }}</span>
         </div>
-        <h1 class="hero-title">Turn any city<br>into wall art.</h1>
-        <p class="hero-subtitle">
-          Generate beautiful, print-quality map posters from OpenStreetMap data.
-          Pick your city, choose a style, and download in seconds.
-        </p>
+        <h1 class="hero-title">{{ $t('landing.heroTitle') }}</h1>
+        <p class="hero-subtitle">{{ $t('landing.heroSubtitle') }}</p>
         <div class="hero-actions">
           <v-btn
             color="primary"
@@ -22,7 +19,7 @@
             to="/create"
             class="hero-cta"
           >
-            Start creating
+            {{ $t('landing.startCreating') }}
             <v-icon end>mdi-arrow-right</v-icon>
           </v-btn>
           <v-btn
@@ -33,7 +30,7 @@
             to="/gallery"
             class="hero-cta-secondary"
           >
-            See examples
+            {{ $t('landing.seeExamples') }}
           </v-btn>
         </div>
       </div>
@@ -46,8 +43,8 @@
     <!-- ─── EXAMPLE STRIP ─── -->
     <section class="section examples-section">
       <div class="section-inner">
-        <p class="section-eyebrow">Made with MapToPoster</p>
-        <h2 class="section-title">Cities from around the world</h2>
+        <p class="section-eyebrow">{{ $t('landing.examplesEyebrow') }}</p>
+        <h2 class="section-title">{{ $t('landing.examplesTitle') }}</h2>
 
         <div class="examples-grid">
           <div
@@ -62,7 +59,7 @@
               </div>
               <div class="example-card__overlay">
                 <v-btn color="white" variant="flat" size="small" rounded="lg">
-                  Try this →
+                  {{ $t('landing.tryThis') }}
                 </v-btn>
               </div>
             </div>
@@ -80,8 +77,8 @@
     <!-- ─── HOW IT WORKS ─── -->
     <section class="section steps-section">
       <div class="section-inner">
-        <p class="section-eyebrow">Simple process</p>
-        <h2 class="section-title">How it works</h2>
+        <p class="section-eyebrow">{{ $t('landing.stepsEyebrow') }}</p>
+        <h2 class="section-title">{{ $t('landing.stepsTitle') }}</h2>
 
         <div class="steps-grid">
           <div v-for="step in steps" :key="step.number" class="step-card">
@@ -114,8 +111,8 @@
     <!-- ─── BOTTOM CTA ─── -->
     <section class="cta-section">
       <div class="cta-inner">
-        <h2 class="cta-title">Ready to create yours?</h2>
-        <p class="cta-subtitle">Free preview · No account required to start</p>
+        <h2 class="cta-title">{{ $t('landing.ctaTitle') }}</h2>
+        <p class="cta-subtitle">{{ $t('landing.ctaSubtitle') }}</p>
         <v-btn
           color="white"
           size="x-large"
@@ -124,7 +121,7 @@
           to="/create"
           class="cta-btn"
         >
-          Get started for free
+          {{ $t('landing.getStartedFree') }}
           <v-icon end>mdi-arrow-right</v-icon>
         </v-btn>
       </div>
@@ -134,11 +131,14 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
 import { usePosterStore } from '../store/posterStore'
 
 const router = useRouter()
 const store = usePosterStore()
+const { tm } = useI18n()
 
 const exampleCities = [
   { city: 'Paris', country: 'France', theme: 'pastel_dream', themeLabel: 'Pastel Dream', color: 'linear-gradient(135deg, #f5c6d0 0%, #e8b4bc 100%)' },
@@ -149,18 +149,25 @@ const exampleCities = [
   { city: 'Amsterdam', country: 'Netherlands', theme: 'ocean', themeLabel: 'Ocean', color: 'linear-gradient(135deg, #1a6b8a 0%, #0d4a6b 100%)' },
 ]
 
-const steps = [
-  { number: '01', icon: 'mdi-city', title: 'Enter a city', description: 'Type any city name or paste coordinates. We support every location on Earth.' },
-  { number: '02', icon: 'mdi-palette', title: 'Pick a theme', description: 'Choose from 22 professionally designed styles — from minimal noir to neon cyberpunk.' },
-  { number: '03', icon: 'mdi-creation', title: 'Generate your poster', description: 'Hit generate and watch it come to life in real time. Download your high-res PNG.' },
-]
+const STEP_ICONS = ['mdi-city', 'mdi-palette', 'mdi-creation']
+const FEATURE_ICONS = ['mdi-palette', 'mdi-earth', 'mdi-printer', 'mdi-tune']
 
-const features = [
-  { icon: 'mdi-palette', title: '22 themes', description: 'From Noir to Aurora, every aesthetic is covered.' },
-  { icon: 'mdi-earth', title: 'Any city', description: 'Powered by OpenStreetMap. Every city, town, and village.' },
-  { icon: 'mdi-printer', title: 'Print ready', description: '300 DPI output suitable for large-format printing.' },
-  { icon: 'mdi-tune', title: 'Fully customisable', description: 'Radius, orientation, title position and more.' },
-]
+const steps = computed(() =>
+  (tm('landing.steps') || []).map((s, i) => ({
+    number: String(i + 1).padStart(2, '0'),
+    icon: STEP_ICONS[i],
+    title: s.title,
+    description: s.description,
+  }))
+)
+
+const features = computed(() =>
+  (tm('landing.features') || []).map((f, i) => ({
+    icon: FEATURE_ICONS[i],
+    title: f.title,
+    description: f.description,
+  }))
+)
 
 const goCreate = (example) => {
   store.formData.city = example.city

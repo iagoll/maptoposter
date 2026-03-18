@@ -25,7 +25,7 @@
           class="nav-link"
           :class="{ 'nav-link--active': $route.path === '/create' }"
         >
-          Create
+          {{ $t('nav.create') }}
         </v-btn>
         <v-btn
           variant="text"
@@ -33,7 +33,7 @@
           class="nav-link"
           :class="{ 'nav-link--active': $route.path === '/gallery' }"
         >
-          Gallery
+          {{ $t('nav.gallery') }}
         </v-btn>
         <v-btn
           variant="text"
@@ -41,7 +41,7 @@
           class="nav-link"
           :class="{ 'nav-link--active': $route.path === '/about' }"
         >
-          About
+          {{ $t('nav.about') }}
         </v-btn>
 
         <v-divider vertical class="mx-2" style="height: 24px; align-self: center;" />
@@ -56,7 +56,7 @@
           class="ml-2 mr-4"
           size="small"
         >
-          Get started
+          {{ $t('nav.getStarted') }}
         </v-btn>
       </template>
 
@@ -70,11 +70,11 @@
             </v-btn>
           </template>
           <v-list rounded="lg" elevation="4">
-            <v-list-item to="/" prepend-icon="mdi-home" title="Home" />
-            <v-list-item to="/create" prepend-icon="mdi-creation" title="Create" />
-            <v-list-item to="/gallery" prepend-icon="mdi-view-gallery" title="Gallery" />
-            <v-list-item to="/history" prepend-icon="mdi-history" title="History" />
-            <v-list-item to="/about" prepend-icon="mdi-information" title="About" />
+            <v-list-item to="/" prepend-icon="mdi-home" :title="$t('nav.home')" />
+            <v-list-item to="/create" prepend-icon="mdi-creation" :title="$t('nav.create')" />
+            <v-list-item to="/gallery" prepend-icon="mdi-view-gallery" :title="$t('nav.gallery')" />
+            <v-list-item to="/history" prepend-icon="mdi-history" :title="$t('nav.history')" />
+            <v-list-item to="/about" prepend-icon="mdi-information" :title="$t('nav.about')" />
           </v-list>
         </v-menu>
       </template>
@@ -94,7 +94,7 @@
     >
       {{ store.snackbar.message }}
       <template #actions>
-        <v-btn variant="text" @click="store.closeSnackbar()">Dismiss</v-btn>
+        <v-btn variant="text" @click="store.closeSnackbar()">{{ $t('nav.dismiss') }}</v-btn>
       </template>
     </v-snackbar>
   </v-app>

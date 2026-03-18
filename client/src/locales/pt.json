@@ -1,158 +1,270 @@
 {
   "nav": {
     "home": "Início",
+    "create": "Criar",
     "gallery": "Galeria",
     "history": "Histórico",
-    "about": "Sobre"
+    "about": "Sobre",
+    "getStarted": "Começar",
+    "dismiss": "Fechar"
   },
   "home": {
-    "title": "Gerador de Pôsteres de Mapas",
-    "subtitle": "Crie pôsteres de mapas bonitos e personalizáveis",
-    "generateButton": "Gerar Pôster",
-    "generating": "Gerando...",
-    "viewPoster": "Ver Pôster"
+    "title": "Gerador de Pósteres de Mapas",
+    "subtitle": "Cria belos pósteres de mapas personalizáveis",
+    "generateButton": "Gerar Póster",
+    "generating": "A gerar...",
+    "viewPoster": "Ver Póster"
+  },
+  "landing": {
+    "badgeText": "22 temas · Qualquer cidade do mundo",
+    "heroTitle": "Transforma qualquer cidade em arte de parede.",
+    "heroSubtitle": "Gera belos pósteres de mapas em qualidade de impressão a partir de dados OpenStreetMap. Escolhe a tua cidade, um estilo e descarrega em segundos.",
+    "startCreating": "Começar a criar",
+    "seeExamples": "Ver exemplos",
+    "examplesEyebrow": "Feito com MapToPoster",
+    "examplesTitle": "Cidades de todo o mundo",
+    "tryThis": "Experimentar →",
+    "stepsEyebrow": "Processo simples",
+    "stepsTitle": "Como funciona",
+    "steps": [
+      { "title": "Insere uma cidade", "description": "Escreve o nome de qualquer cidade ou cola coordenadas. Suportamos qualquer local do planeta." },
+      { "title": "Escolhe um tema", "description": "Escolhe entre 22 estilos desenhados profissionalmente — do minimalista noir ao neon cyberpunk." },
+      { "title": "Gera o teu póster", "description": "Clica em gerar e vê-o ganhar vida em tempo real. Descarrega o teu PNG em alta resolução." }
+    ],
+    "features": [
+      { "title": "22 temas", "description": "De Noir a Aurora, todos os estilos estão cobertos." },
+      { "title": "Qualquer cidade", "description": "Alimentado pelo OpenStreetMap. Cada cidade, vila e aldeia." },
+      { "title": "Pronto a imprimir", "description": "Saída a 300 DPI adequada para impressão em grande formato." },
+      { "title": "Totalmente personalizável", "description": "Raio, orientação, posição do título e muito mais." }
+    ],
+    "ctaTitle": "Pronto para criar o teu?",
+    "ctaSubtitle": "Pré-visualização gratuita · Sem necessidade de conta para começar",
+    "getStartedFree": "Começar gratuitamente"
   },
   "form": {
     "cityCountry": "Cidade e País",
     "city": "Cidade",
-    "cityPlaceholder": "ex., Paris",
+    "cityPlaceholder": "ex. Paris",
     "country": "País",
-    "countryPlaceholder": "ex., França",
+    "countryPlaceholder": "ex. França",
     "coordinates": "Coordenadas",
     "coordsPlaceholder": "ex., 48.8566,2.3522",
     "useCoords": "Usar Coordenadas",
     "theme": "Tema",
-    "selectTheme": "Selecione um tema",
+    "selectTheme": "Seleciona um tema",
     "distance": "Raio do Mapa",
     "distanceKm": "{distance} km",
     "orientation": "Orientação",
     "vertical": "Vertical",
     "horizontal": "Horizontal",
     "customTitle": "Título Personalizado",
-    "titlePlaceholder": "Deixe vazio para usar o nome da cidade",
+    "titlePlaceholder": "Deixar vazio para usar o nome da cidade",
     "titlePosition": "Posição do Título",
     "titlePos": {
-      "topLeft": "Superior Esquerda",
+      "topLeft": "Superior Esquerdo",
       "topCenter": "Superior Centro",
-      "topRight": "Superior Direita",
-      "bottomLeft": "Inferior Esquerda",
+      "topRight": "Superior Direito",
+      "bottomLeft": "Inferior Esquerdo",
       "bottomCenter": "Inferior Centro",
-      "bottomRight": "Inferior Direita"
+      "bottomRight": "Inferior Direito"
     },
     "fullBorders": "Bordas Completas (sem gradiente)",
     "randomExample": "Exemplo Aleatório"
   },
+  "create": {
+    "back": "Voltar",
+    "loadExample": "Carregar exemplo",
+    "pageTitle": "Cria o teu póster",
+    "pageSubtitle": "Posiciona o mapa, escolhe um estilo e descarrega um ficheiro pronto a imprimir.",
+    "locationTitle": "Localização",
+    "locationSubtitle": "Insere um nome de cidade, coordenadas exatas ou posiciona o mapa de forma interativa.",
+    "cityNameMode": "Nome da cidade",
+    "coordsMode": "Coordenadas",
+    "interactiveMapMode": "Mapa interativo",
+    "cityRequired": "A cidade é obrigatória",
+    "countryRequired": "O país é obrigatório",
+    "coordsHint": "lat, lon",
+    "coordsRequired": "As coordenadas são obrigatórias",
+    "coordsFormat": "Formato: lat, lon (ex. 48.8566, 2.3522)",
+    "positionCaptured": "Posição capturada · raio {distance} · desloca para refinar",
+    "themeStripLabel": "Tema",
+    "titleOnPoster": "Título no póster",
+    "titleHint": "Deixar em branco para usar o nome da cidade",
+    "subtitleOnPoster": "Subtítulo no póster",
+    "subtitleHint": "Deixar em branco para usar o nome do país / região",
+    "themeTitle": "Tema",
+    "themeSubtitle": "Escolhe o estilo visual para o teu póster.",
+    "optionsTitle": "Opções",
+    "optionsSubtitle": "Personaliza o tamanho, layout e posição do título.",
+    "mapRadius": "Raio do mapa",
+    "radiusHint": "Pequeno (4–8 km) · Médio (8–20 km) · Grande (20–50 km)",
+    "formatLabel": "Formato",
+    "titlePositionLabel": "Posição do título",
+    "fullBordersLabel": "Bordas completas",
+    "fullBordersHint": "Remove o efeito de desfoque nos bordos do mapa.",
+    "orientation": {
+      "portrait": "Retrato",
+      "landscape": "Paisagem",
+      "widescreen": "Ecrã largo",
+      "square": "Quadrado",
+      "mobile": "Móvel",
+      "banner": "Banner"
+    },
+    "orientationHints": {
+      "portrait": "Póster clássico (3:4)",
+      "landscape": "Horizontal (4:3)",
+      "widescreen": "HD / TV / fundo de desktop (16:9)",
+      "square": "Impressão quadrada / Instagram (1:1)",
+      "mobile": "Fundo de telemóvel / história (9:19.5)",
+      "banner": "Banner web — Twitter / Reddit (3:1)"
+    },
+    "previewBadge": "Pré-visualização gratuita — com marca de água, 72 DPI",
+    "highResBadge": "Alta resolução · 300 DPI · qualidade de impressão",
+    "highResAlt": "Póster de mapa em alta resolução",
+    "finalising": "A finalizar…",
+    "readyToDownload": "Pronto para descarregar!",
+    "previewReady": "Pré-visualização pronta",
+    "generatingStatus": "A gerar…",
+    "previewBtn": "Pré-visualizar (grátis)",
+    "generateSampleBtn": "Gerar amostra",
+    "buyHighResBtn": "Comprar alta resolução · $9.99",
+    "startOver": "Recomeçar",
+    "renderingBtn": "A renderizar 300 DPI…",
+    "downloadPng": "Descarregar PNG",
+    "emailMe": "Enviar por email",
+    "reset": "Reiniciar",
+    "emailDialogTitle": "Enviar o teu póster por email",
+    "emailLabel": "Endereço de email",
+    "emailValidation": "Introduz um email válido",
+    "sendBtn": "Enviar",
+    "signInTitle": "Iniciar sessão para comprar",
+    "signInDesc": "Cria uma conta gratuita para comprar e descarregar o teu póster em alta resolução.",
+    "continueWithGoogle": "Continuar com Google"
+  },
   "terminal": {
-    "title": "Registros de Geração",
-    "connecting": "Conectando ao processo de geração...",
-    "noLogs": "Ainda não há registros. Clique em 'Gerar Pôster' para começar.",
+    "title": "Registos de Geração",
+    "connecting": "A ligar ao processo de geração...",
+    "noLogs": "Ainda não há registos. Clica em 'Gerar Póster' para começar.",
     "clear": "Limpar"
   },
   "recentPosters": {
-    "title": "Pôsteres Recentes",
-    "noPosters": "Nenhum pôster gerado ainda",
+    "title": "Pósteres Recentes",
+    "noPosters": "Ainda não foram gerados pósteres",
     "viewAll": "Ver Todos na Galeria"
   },
   "gallery": {
-    "title": "Galeria de Pôsteres",
-    "loading": "Carregando pôsteres...",
-    "noPosters": "Nenhum pôster disponível ainda.",
-    "generatedOn": "Gerado em {date}"
+    "title": "Galeria de Pósteres",
+    "eyebrow": "As tuas criações",
+    "pageTitle": "Galeria",
+    "loading": "A carregar pósteres...",
+    "noPosters": "Ainda não há pósteres disponíveis.",
+    "generatedOn": "Gerado em {date}",
+    "refresh": "Atualizar",
+    "view": "Ver",
+    "download": "Descarregar",
+    "emptyTitle": "Ainda sem pósteres",
+    "emptyDesc": "Gera o teu primeiro póster e ele aparecerá aqui.",
+    "createPoster": "Criar um póster"
   },
   "history": {
-    "title": "Seu Histórico",
+    "title": "O Teu Histórico",
     "tabs": {
-      "purchases": "Pôsteres Comprados",
-      "previews": "Todas as Visualizações",
+      "purchases": "Pósteres Comprados",
+      "previews": "Todas as Pré-visualizações",
       "themes": "Temas Favoritos"
     },
     "stats": {
-      "totalPreviews": "Total de Visualizações",
+      "totalPreviews": "Total de Pré-visualizações",
       "totalPurchases": "Total de Compras",
       "totalSpent": "Total Gasto",
       "memberSince": "Membro Desde"
     },
-    "noPurchases": "Você ainda não comprou nenhum pôster.",
-    "noPreviews": "Você ainda não gerou nenhuma visualização.",
+    "noPurchases": "Ainda não compraste nenhum póster.",
+    "noPreviews": "Ainda não geraste nenhuma pré-visualização.",
     "purchased": "Comprado",
     "pending": "Pagamento Pendente",
-    "download": "Baixar",
+    "download": "Descarregar",
     "buyHighRes": "Comprar Alta Resolução",
     "viewDetails": "Ver Detalhes",
     "close": "Fechar"
   },
   "about": {
     "eyebrow": "Sobre",
-    "title": "Sobre o Gerador de Pôsteres de Mapas",
-    "description": "Crie pôsteres de mapas bonitos e personalizáveis de qualquer cidade do mundo usando dados do OpenStreetMap.",
-    "themes": "Mais de 22 Temas Bonitos",
-    "themesDesc": "22 temas projetados profissionalmente, do noir minimalista ao neon cyberpunk.",
+    "title": "Sobre o Gerador de Pósteres de Mapas",
+    "description": "Cria belos pósteres de mapas personalizáveis de qualquer cidade do mundo usando dados OpenStreetMap.",
+    "themes": "22+ Temas Lindos",
+    "themesDesc": "22 temas desenhados profissionalmente, do minimalista noir ao neon cyberpunk.",
     "customizable": "Totalmente Personalizável",
-    "customizableDesc": "Orientação, raio, posição do título, bordas — controle total sobre cada detalhe.",
+    "customizableDesc": "Orientação, raio, posição do título, bordas — controlo total sobre cada detalhe.",
     "global": "Cobertura Global",
-    "globalDesc": "Qualquer cidade, vila ou aldeia do planeta. Desenvolvido com OpenStreetMap.",
-    "featuresTitle": "Recursos",
+    "globalDesc": "Qualquer cidade, vila ou aldeia no planeta. Alimentado pelo OpenStreetMap.",
+    "featuresTitle": "Funcionalidades",
     "tipsTitle": "Dicas",
     "builtWithTitle": "Desenvolvido com",
     "creditsTitle": "Créditos",
-    "creditsText": "Dados do mapa © contribuidores do OpenStreetMap, disponíveis sob a Licença de Base de Dados Aberta (ODbL).",
+    "creditsText": "Dados do mapa © contribuidores OpenStreetMap, disponíveis sob a Licença de Base de Dados Aberta (ODbL).",
     "featureList": [
-      "Mais de 22 temas projetados profissionalmente",
-      "Orientações: retrato, paisagem, quadrado, mobile, banner e widescreen",
-      "Modo de mapa interativo — arraste e amplie para enquadrar qualquer área",
-      "Entrada direta de coordenadas para localizações precisas",
-      "Progresso de geração em tempo real via registros ao vivo",
-      "Saída em alta resolução — 300 DPI, pronto para impressão",
+      "22+ temas desenhados profissionalmente",
+      "Orientações retrato, paisagem, quadrado, móvel, banner e ecrã largo",
+      "Modo de mapa interativo — desloca e aproxima para enquadrar qualquer área",
+      "Introdução direta de coordenadas para localizações precisas",
+      "Progresso de geração em tempo real via registos ao vivo",
+      "Saída em alta resolução — 300 DPI, pronto a imprimir",
       "Posicionamento de título flexível (6 posições)",
-      "Título e subtítulo personalizados"
+      "Substituição de título e subtítulo personalizados"
     ],
     "tips": [
       {
         "title": "Distância",
-        "body": "Distâncias menores (4–8 km) funcionam melhor para centros urbanos densos. Distâncias maiores (20–50 km) capturam áreas metropolitanas inteiras."
+        "body": "Distâncias menores (4–8 km) funcionam melhor para centros de cidade densos. Distâncias maiores (20–50 km) capturam áreas metropolitanas inteiras."
       },
       {
         "title": "Títulos personalizados",
-        "body": "Use os campos de título e subtítulo para colocar qualquer texto no pôster — ótimo quando os nomes de cidade são longos ou você quer um rótulo pessoal."
+        "body": "Usa os campos de título e subtítulo para colocar qualquer texto no póster — ótimo quando os nomes das cidades são longos ou queres uma etiqueta pessoal."
       },
       {
         "title": "Bordas completas",
-        "body": "Ative \"bordas completas\" para remover o degradê e exibir mapas de ponta a ponta — ideal para formatos banner e widescreen."
+        "body": "Ativa \"bordas completas\" para remover o efeito de desfoque e mostrar mapas de borda a borda — ideal para formatos banner e ecrã largo."
       },
       {
         "title": "Coordenadas",
-        "body": "Use coordenadas para localizações precisas, áreas remotas ou lugares não reconhecidos pela pesquisa de nome de cidade."
+        "body": "Usa coordenadas para localizações precisas, áreas remotas ou lugares não reconhecidos pela pesquisa por nome de cidade."
       }
     ]
   },
   "welcome": {
     "title": "Bem-vindo!",
-    "description": "Crie pôsteres de mapas impressionantes de suas cidades favoritas",
+    "description": "Cria pósteres de mapas impressionantes das tuas cidades favoritas",
     "howItWorks": "Como funciona",
-    "step1": "Escolha uma cidade ou coordenadas",
-    "step2": "Selecione seu tema favorito",
-    "step3": "Personalize orientação e distância",
-    "step4": "Gere e baixe seu pôster",
+    "step1": "Escolhe uma cidade ou coordenadas",
+    "step2": "Seleciona o teu tema favorito",
+    "step3": "Personaliza orientação e distância",
+    "step4": "Gera e descarrega o teu póster",
     "getStarted": "Começar",
     "examples": "Cidades de Exemplo"
   },
   "common": {
-    "loading": "Carregando...",
+    "loading": "A carregar...",
     "error": "Erro",
     "success": "Sucesso",
     "cancel": "Cancelar",
-    "save": "Salvar",
-    "delete": "Excluir",
+    "save": "Guardar",
+    "delete": "Eliminar",
     "edit": "Editar",
     "back": "Voltar",
-    "next": "Próximo",
-    "finish": "Finalizar",
-    "language": "Idioma"
+    "next": "Seguinte",
+    "finish": "Terminar",
+    "language": "Idioma",
+    "download": "Descarregar",
+    "dismiss": "Fechar",
+    "view": "Ver",
+    "send": "Enviar",
+    "reset": "Reiniciar"
   },
   "errors": {
     "required": "Este campo é obrigatório",
     "invalidCoords": "Formato de coordenadas inválido",
-    "generationFailed": "Falha na geração do pôster",
-    "loadFailed": "Falha ao carregar dados"
+    "generationFailed": "A geração do póster falhou",
+    "loadFailed": "Falha ao carregar os dados"
   }
 }
