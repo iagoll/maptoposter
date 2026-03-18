@@ -94,13 +94,26 @@ export const titlePositions = [
 ]
 
 /**
+ * Default city per UI language — shown when the user first opens the form
+ * or switches language.
+ */
+export const LOCALE_CITY_DEFAULTS = {
+  en: { city: 'London',  country: 'United Kingdom', lat: 51.5074, lng: -0.1278, zoom: 12 },
+  es: { city: 'Madrid',  country: 'España',          lat: 40.4168, lng: -3.7038, zoom: 12 },
+  pt: { city: 'Lisboa',  country: 'Portugal',         lat: 38.7169, lng: -9.1399, zoom: 13 },
+  fr: { city: 'Paris',   country: 'France',           lat: 48.8566, lng:  2.3522, zoom: 12 },
+  de: { city: 'Berlin',  country: 'Deutschland',      lat: 52.5200, lng: 13.4050, zoom: 12 },
+}
+
+/**
  * Default form values
  */
 export const defaultFormValues = {
-  city: 'Paris',
-  country: 'France',
+  city: 'London',
+  country: 'United Kingdom',
   coords: '',
   title: '',
+  subtitle: '',
   theme: 'feature_based',
   distance: 29000,
   orientation: 'vertical',

@@ -1,34 +1,27 @@
-const themeService = require('../services/themeService');
-
 /**
- * Get all themes
+ * Theme Controller
+ *
+ * The frontend no longer fetches the theme list from the API — it reads
+ * client/src/data/themes.js directly. These endpoints are kept for tooling,
+ * admin use, or third-party integrations.
  */
-const getAllThemes = async (req, res) => {
-  try {
-    const themes = await themeService.getAllThemes();
-    res.json(themes);
-  } catch (error) {
-    console.error('Error getting themes:', error);
-    res.status(500).json({ error: 'Failed to load themes', message: error.message });
-  }
+
+const { THEMES } = require('../data/themes');
+const { getThemeById } = require('../services/themeService');
+
+/** GET /api/themes — returns the full display catalog */
+const getAllThemes = (req, res) => {
+  res.json(THEMES);
 };
 
-/**
- * Get a specific theme
- */
-const getThemeById = async (req, res) => {
-  const { themeId } = req.params;
-  
+/** GET /api/themes/:themeId — returns the full render config for one theme */
+const getThemeByIdHandler = (req, res) => {
   try {
-    const theme = await themeService.getThemeById(themeId);
+    const theme = getThemeById(req.params.themeId);
     res.json(theme);
   } catch (error) {
-    console.error('Error getting theme:', error);
     res.status(404).json({ error: 'Theme not found', message: error.message });
   }
 };
 
-module.exports = {
-  getAllThemes,
-  getThemeById
-};
+module.exports = { getAllThemes, getThemeById: getThemeByIdHandler };

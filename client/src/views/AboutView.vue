@@ -4,7 +4,7 @@
 
       <!-- Header -->
       <div class="about-header">
-        <p class="section-eyebrow">About</p>
+        <p class="section-eyebrow">{{ $t('about.eyebrow') }}</p>
         <h1 class="about-title">{{ $t('about.title') }}</h1>
         <p class="about-desc">{{ $t('about.description') }}</p>
       </div>
@@ -14,23 +14,23 @@
         <div class="feature-card">
           <v-icon size="36" color="primary" class="mb-3">mdi-palette</v-icon>
           <h3>{{ $t('about.themes') }}</h3>
-          <p>22 professionally designed themes from minimalist noir to neon cyberpunk.</p>
+          <p>{{ $t('about.themesDesc') }}</p>
         </div>
         <div class="feature-card">
           <v-icon size="36" color="primary" class="mb-3">mdi-responsive</v-icon>
           <h3>{{ $t('about.customizable') }}</h3>
-          <p>Orientation, radius, title position, borders — full control over every detail.</p>
+          <p>{{ $t('about.customizableDesc') }}</p>
         </div>
         <div class="feature-card">
           <v-icon size="36" color="primary" class="mb-3">mdi-earth</v-icon>
           <h3>{{ $t('about.global') }}</h3>
-          <p>Any city, town or village on Earth. Powered by OpenStreetMap.</p>
+          <p>{{ $t('about.globalDesc') }}</p>
         </div>
       </div>
 
       <!-- Features list -->
       <div class="content-section">
-        <h2 class="content-section__title">Features</h2>
+        <h2 class="content-section__title">{{ $t('about.featuresTitle') }}</h2>
         <div class="feature-list">
           <div v-for="f in featureList" :key="f" class="feature-list__item">
             <v-icon size="18" color="success">mdi-check-circle</v-icon>
@@ -41,7 +41,7 @@
 
       <!-- Tips -->
       <div class="content-section">
-        <h2 class="content-section__title">Tips</h2>
+        <h2 class="content-section__title">{{ $t('about.tipsTitle') }}</h2>
         <div class="tips-list">
           <div v-for="tip in tips" :key="tip.title" class="tip-card">
             <strong>{{ tip.title }}</strong>
@@ -52,21 +52,24 @@
 
       <!-- Tech stack -->
       <div class="content-section">
-        <h2 class="content-section__title">Built with</h2>
+        <h2 class="content-section__title">{{ $t('about.builtWithTitle') }}</h2>
         <div class="chips">
-          <v-chip v-for="t in techStack" :key="t.name" variant="tonal" color="secondary" prepend-icon="t.icon">
-            {{ t.name }}
+          <v-chip
+            v-for="tech in techStack"
+            :key="tech.name"
+            variant="tonal"
+            color="secondary"
+            :prepend-icon="tech.icon"
+          >
+            {{ tech.name }}
           </v-chip>
         </div>
       </div>
 
       <!-- Credits -->
       <div class="content-section">
-        <h2 class="content-section__title">Credits</h2>
-        <p class="credits-text">
-          Map data © <strong>OpenStreetMap</strong> contributors, available under the
-          Open Database License (ODbL).
-        </p>
+        <h2 class="content-section__title">{{ $t('about.creditsTitle') }}</h2>
+        <p class="credits-text">{{ $t('about.creditsText') }}</p>
       </div>
 
       <!-- CTA -->
@@ -81,31 +84,26 @@
 </template>
 
 <script setup>
-const featureList = [
-  '22+ professionally designed themes',
-  'Portrait and landscape orientations',
-  'Direct coordinate input',
-  'Real-time generation progress (SSE)',
-  'High-resolution output — 300 DPI',
-  'Flexible title positioning (6 positions)',
-  'Full borders option (no gradient fade)',
-  'Custom title override',
-]
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-const tips = [
-  { title: 'Distance', body: 'Smaller distances (4–8 km) work best for dense city centres. Larger distances (20–50 km) capture entire metro areas.' },
-  { title: 'Custom titles', body: 'Use the custom title field when city names are too long or you want a different label on the poster.' },
-  { title: 'Full borders', body: 'Enable "full borders" to remove the gradient fade and show edge-to-edge maps.' },
-  { title: 'Coordinates', body: 'Use coordinates for precise locations or areas not recognised by city name.' },
-]
+const { tm } = useI18n()
 
+// These arrays come directly from the active locale file.
+// $tm() returns the raw array so we can iterate with v-for.
+const featureList = computed(() => tm('about.featureList'))
+const tips        = computed(() => tm('about.tips'))
+
+// Tech-stack names are proper nouns — kept as-is across all languages.
 const techStack = [
-  { name: 'Vue 3', icon: 'mdi-vuejs' },
-  { name: 'Vuetify 3', icon: 'mdi-vuetify' },
-  { name: 'Node.js', icon: 'mdi-nodejs' },
-  { name: 'Python', icon: 'mdi-language-python' },
-  { name: 'OSMnx', icon: 'mdi-map' },
-  { name: 'Matplotlib', icon: 'mdi-chart-line' },
+  { name: 'Vue 3',      icon: 'mdi-vuejs'           },
+  { name: 'Vuetify 3',  icon: 'mdi-vuetify'         },
+  { name: 'Node.js',    icon: 'mdi-nodejs'           },
+  { name: 'Python',     icon: 'mdi-language-python'  },
+  { name: 'PostgreSQL', icon: 'mdi-database'         },
+  { name: 'OSMnx',      icon: 'mdi-map'              },
+  { name: 'Matplotlib', icon: 'mdi-chart-line'       },
+  { name: 'Stripe',     icon: 'mdi-credit-card'      },
 ]
 </script>
 

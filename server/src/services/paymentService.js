@@ -40,7 +40,7 @@ const createCheckoutSession = async (userId, mapRequestId, successUrl, cancelUrl
     });
 
     // Create payment record in database
-    Payment.create({
+    await Payment.create({
       userId,
       mapRequestId,
       stripeSessionId: session.id,
@@ -68,7 +68,7 @@ const handleWebhookEvent = async (event) => {
         const session = event.data.object;
         
         // Update payment status
-        const payment = Payment.updateStatus(
+        const payment = await Payment.updateStatus(
           session.id,
           'completed',
           session.payment_intent
@@ -79,7 +79,7 @@ const handleWebhookEvent = async (event) => {
 
       case 'checkout.session.expired':
         const expiredSession = event.data.object;
-        Payment.updateStatus(expiredSession.id, 'expired');
+        await Payment.updateStatus(expiredSession.id, 'expired');
         console.log(`✗ Payment session expired: ${expiredSession.id}`);
         break;
 

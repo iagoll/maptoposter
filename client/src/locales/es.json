@@ -82,13 +82,48 @@
     "close": "Cerrar"
   },
   "about": {
+    "eyebrow": "Acerca de",
     "title": "Acerca del Generador de Pósters de Mapas",
     "description": "Crea pósters de mapas hermosos y personalizables de cualquier ciudad del mundo usando datos de OpenStreetMap.",
-    "features": "Características",
-    "themes": "Más de 17 Temas Hermosos",
-    "global": "Cobertura Global",
+    "themes": "Más de 22 Temas Hermosos",
+    "themesDesc": "22 temas diseñados profesionalmente, desde el minimalista noir hasta el neon cyberpunk.",
     "customizable": "Totalmente Personalizable",
-    "realtime": "Generación en Tiempo Real"
+    "customizableDesc": "Orientación, radio, posición del título, bordes — control total sobre cada detalle.",
+    "global": "Cobertura Global",
+    "globalDesc": "Cualquier ciudad, pueblo o aldea del mundo. Impulsado por OpenStreetMap.",
+    "featuresTitle": "Características",
+    "tipsTitle": "Consejos",
+    "builtWithTitle": "Desarrollado con",
+    "creditsTitle": "Créditos",
+    "creditsText": "Datos del mapa © contribuidores de OpenStreetMap, disponibles bajo la Licencia de Base de Datos Abierta (ODbL).",
+    "featureList": [
+      "Más de 22 temas diseñados profesionalmente",
+      "Orientaciones: vertical, horizontal, cuadrado, móvil, banner y pantalla ancha",
+      "Modo de mapa interactivo — desplaza y acerca para encuadrar cualquier área",
+      "Entrada directa de coordenadas para ubicaciones precisas",
+      "Progreso de generación en tiempo real mediante registros en vivo",
+      "Salida en alta resolución — 300 DPI, lista para imprimir",
+      "Posicionamiento de título flexible (6 posiciones)",
+      "Título y subtítulo personalizados"
+    ],
+    "tips": [
+      {
+        "title": "Distancia",
+        "body": "Distancias pequeñas (4–8 km) funcionan mejor para centros de ciudad. Distancias mayores (20–50 km) capturan áreas metropolitanas completas."
+      },
+      {
+        "title": "Títulos personalizados",
+        "body": "Usa los campos de título y subtítulo para poner cualquier texto en el póster — ideal cuando los nombres de ciudad son largos o quieres una etiqueta personal."
+      },
+      {
+        "title": "Bordes completos",
+        "body": "Activa \"bordes completos\" para eliminar el degradado y mostrar mapas de borde a borde — ideal para formatos banner y pantalla ancha."
+      },
+      {
+        "title": "Coordenadas",
+        "body": "Usa coordenadas para ubicaciones precisas, zonas remotas o lugares no reconocidos por la búsqueda de nombre de ciudad."
+      }
+    ]
   },
   "welcome": {
     "title": "¡Bienvenido!",

@@ -1,84 +1,54 @@
-const fs = require('fs');
+/**
+ * Theme Service
+ *
+ * Source-of-truth for theme display data lives in the frontend:
+ *   client/src/data/themes.js
+ *
+ * This service keeps a mirror of that list (id only) so the backend can
+ * validate a requested theme ID before spawning the Python script — without
+ * reading the filesystem on every request.
+ *
+ * Full render configuration (colors, per-road-type settings) is read directly
+ * from python_logic/themes/<id>.json by the Python script at render time.
+ * No need to parse those files here.
+ */
+
+const fs   = require('fs');
 const path = require('path');
+
+// ── Valid theme IDs ────────────────────────────────────────────────────────────
+// Keep in sync with client/src/data/themes.js (id column only).
+const VALID_THEME_IDS = new Set([
+  'aurora', 'autumn', 'blueprint', 'contrast_zones', 'copper_patina',
+  'feature_based', 'forest', 'ghost', 'gradient_roads', 'japanese_ink',
+  'lava', 'midnight_blue', 'monochrome_blue', 'neon_cyberpunk', 'noir',
+  'ocean', 'papyro', 'pastel_dream', 'rose_gold', 'sunset',
+  'terracotta', 'warm_beige',
+]);
 
 const themesPath = process.env.THEMES_PATH ||
   path.join(__dirname, '../../../python_logic/themes');
 
 /**
- * Get all available themes
- * @returns {Promise<Array>} Array of theme objects
+ * Returns true when the given theme id is recognised.
+ * Used by posterService / renderController before spawning Python.
  */
-const getAllThemes = async () => {
-  return new Promise((resolve, reject) => {
-    fs.readdir(themesPath, (err, files) => {
-      if (err) {
-        return reject(new Error('Failed to read themes directory'));
-      }
-      
-      const themes = files
-        .filter(file => file.endsWith('.json'))
-        .map(file => {
-          const themePath = path.join(themesPath, file);
-          try {
-            const themeData = JSON.parse(fs.readFileSync(themePath, 'utf8'));
-            return {
-              id: file.replace('.json', ''),
-              name: themeData.name || file.replace('.json', ''),
-              description: themeData.description || ''
-            };
-          } catch (e) {
-            return {
-              id: file.replace('.json', ''),
-              name: file.replace('.json', ''),
-              description: ''
-            };
-          }
-        });
-      
-      resolve(themes);
-    });
-  });
-};
+const themeExists = (themeId) => VALID_THEME_IDS.has(themeId);
 
 /**
- * Get a specific theme by ID
- * @param {string} themeId - Theme identifier
- * @returns {Promise<Object>} Theme object
+ * Returns the full render-config JSON for a single theme.
+ * Used only when the server needs to inspect render settings directly
+ * (e.g. future server-side colour validation). The Python script reads
+ * this file independently — you do not need to call this for normal rendering.
  */
-const getThemeById = async (themeId) => {
-  const themePath = path.join(themesPath, `${themeId}.json`);
-  
-  return new Promise((resolve, reject) => {
-    fs.readFile(themePath, 'utf8', (err, data) => {
-      if (err) {
-        return reject(new Error('Theme not found'));
-      }
-      
-      try {
-        const themeData = JSON.parse(data);
-        resolve({
-          id: themeId,
-          ...themeData
-        });
-      } catch (e) {
-        reject(new Error('Invalid theme file'));
-      }
-    });
-  });
+const getThemeById = (themeId) => {
+  if (!themeExists(themeId)) throw new Error('Theme not found');
+  const filePath = path.join(themesPath, `${themeId}.json`);
+  try {
+    return { id: themeId, ...JSON.parse(fs.readFileSync(filePath, 'utf8')) };
+  } catch {
+    throw new Error(`Could not read theme file for "${themeId}"`);
+  }
 };
 
-/**
- * Check if theme exists
- * @param {string} themeId - Theme identifier
- * @returns {boolean} True if theme exists
- */
-const themeExists = (themeId) => {
-  const themePath = path.join(themesPath, `${themeId}.json`);
-  return fs.existsSync(themePath);
-};
-
-module.exports = {
-  getAllThemes,
-  getThemeById,
-  themeExists
-};
+module.exports = { themeExists, getThemeById };

@@ -7,12 +7,16 @@ const posterRoutes = require('./posterRoutes');
 const themeRoutes = require('./themeRoutes');
 const galleryRoutes = require('./galleryRoutes');
 const userHistoryRoutes = require('./userHistoryRoutes');
+const renderRoutes = require('./renderRoutes');
+const paymentRoutes = require('./paymentRoutes');
 
 // Mount routes
 router.use('/api', posterRoutes);
 router.use('/api/themes', themeRoutes);
 router.use('/api/posters', galleryRoutes);
 router.use('/api/history', userHistoryRoutes);
+router.use('/api', renderRoutes);
+router.use('/api/payment', paymentRoutes);
 
 // Health check endpoint
 router.get('/health', (req, res) => {

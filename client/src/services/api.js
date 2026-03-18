@@ -175,6 +175,77 @@ export const apiService = {
   async checkPurchaseStatus(requestId) {
     const response = await apiClient.get(`/api/history/check/${requestId}`)
     return response.data
+  },
+
+  // ============================================
+  // Hybrid Render API (Map Frame flow)
+  // ============================================
+
+  /**
+   * Start a free watermarked 72-DPI preview from map coordinates.
+   * @param {Object} data - { center_lat, center_lng, zoom, country, theme, orientation, ... }
+   * @returns {Promise} { jobId, distance, logsUrl }
+   */
+  async renderPreview(data) {
+    const response = await apiClient.post('/api/render-preview', data)
+    return response.data
+  },
+
+  /**
+   * Initiate checkout: creates MapRequest + Stripe session in one call.
+   * @param {Object} data  - Poster config (same as renderPreview)
+   * @param {string} token - Firebase ID token
+   * @returns {Promise} { sessionId, url, requestId }
+   */
+  async initiateCheckout(data, token) {
+    const response = await apiClient.post('/api/payment/initiate', data, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    return response.data
+  },
+
+  /**
+   * Start high-res 300-DPI render (requires completed payment).
+   * @param {string|number} requestId
+   * @param {string} token - Firebase ID token
+   * @returns {Promise} { jobId, logsUrl }
+   */
+  async renderFinal(requestId, token) {
+    const response = await apiClient.post(
+      `/api/render-final/${requestId}`,
+      {},
+      { headers: { Authorization: `Bearer ${token}` } }
+    )
+    return response.data
+  },
+
+  /**
+   * Check payment status for a map request.
+   * @param {string|number} requestId
+   * @param {string} token - Firebase ID token
+   * @returns {Promise} { paid, highResReady, highResUrl }
+   */
+  async getPaymentStatus(requestId, token) {
+    const response = await apiClient.get(`/api/payment/status/${requestId}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+    return response.data
+  },
+
+  /**
+   * Send the high-res poster to an email address via Resend.
+   * @param {string|number} requestId
+   * @param {string} email
+   * @param {string} token - Firebase ID token
+   * @returns {Promise} { success, emailId }
+   */
+  async sendPosterByEmail(requestId, email, token) {
+    const response = await apiClient.post(
+      `/api/payment/send-email/${requestId}`,
+      { email },
+      { headers: { Authorization: `Bearer ${token}` } }
+    )
+    return response.data
   }
 }
 

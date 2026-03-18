@@ -24,7 +24,7 @@ const authMiddleware = async (req, res, next) => {
       const decodedToken = await admin.auth().verifyIdToken(token);
       
       // Find or create user in database
-      const user = User.findOrCreate({
+      const user = await User.findOrCreate({
         firebaseUid: decodedToken.uid,
         email: decodedToken.email,
         displayName: decodedToken.name || decodedToken.email.split('@')[0],
@@ -65,7 +65,7 @@ const optionalAuthMiddleware = async (req, res, next) => {
       
       try {
         const decodedToken = await admin.auth().verifyIdToken(token);
-        const user = User.findOrCreate({
+        const user = await User.findOrCreate({
           firebaseUid: decodedToken.uid,
           email: decodedToken.email,
           displayName: decodedToken.name || decodedToken.email.split('@')[0],

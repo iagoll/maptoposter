@@ -8,7 +8,7 @@ const MapRequest = require('../models/MapRequest');
 const paymentCheckMiddleware = async (req, res, next) => {
   try {
     const { requestId } = req.params;
-    const userId = req.user.id;
+    const userId = req.user.user_id;
 
     if (!requestId) {
       return res.status(400).json({ 
@@ -18,7 +18,7 @@ const paymentCheckMiddleware = async (req, res, next) => {
     }
 
     // Check if the request exists
-    const mapRequest = MapRequest.findById(requestId);
+    const mapRequest = await MapRequest.findById(requestId);
     if (!mapRequest) {
       return res.status(404).json({ 
         error: 'Not Found', 
@@ -35,7 +35,7 @@ const paymentCheckMiddleware = async (req, res, next) => {
     }
 
     // Check if payment is completed
-    const hasPaid = Payment.isCompleted(userId, requestId);
+    const hasPaid = await Payment.isCompleted(userId, requestId);
     if (!hasPaid) {
       return res.status(402).json({ 
         error: 'Payment Required', 
@@ -62,9 +62,9 @@ const paymentCheckMiddleware = async (req, res, next) => {
 const ownershipMiddleware = async (req, res, next) => {
   try {
     const { requestId } = req.params;
-    const userId = req.user.id;
+    const userId = req.user.user_id;
 
-    const mapRequest = MapRequest.findById(requestId);
+    const mapRequest = await MapRequest.findById(requestId);
     if (!mapRequest) {
       return res.status(404).json({ 
         error: 'Not Found', 

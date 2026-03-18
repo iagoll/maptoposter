@@ -6,9 +6,11 @@ import matplotlib.colors as mcolors
 import numpy as np
 from geopy.geocoders import Nominatim
 from tqdm import tqdm
+from PIL import Image, ImageDraw, ImageFont
 import time
 import json
 import os
+import math
 from datetime import datetime
 import argparse
 
@@ -214,7 +216,44 @@ def get_coordinates(city, country):
     else:
         raise ValueError(f"Could not find coordinates for {city}, {country}")
 
-def create_poster(city, country, point, dist, output_file, orientation='vertical', title=None, full_borders=False, title_pos='bottom-center', dpi=300):
+def apply_watermark(output_file):
+    """Overlay a semi-transparent diagonal PREVIEW watermark on a saved PNG."""
+    img = Image.open(output_file).convert("RGBA")
+    w, h = img.size
+
+    overlay = Image.new("RGBA", img.size, (0, 0, 0, 0))
+    draw = ImageDraw.Draw(overlay)
+
+    font_size = max(60, w // 8)
+    try:
+        font = ImageFont.truetype(os.path.join(FONTS_DIR, "Roboto-Bold.ttf"), font_size)
+    except Exception:
+        font = ImageFont.load_default()
+
+    text = "PREVIEW"
+    bbox = draw.textbbox((0, 0), text, font=font)
+    text_w = bbox[2] - bbox[0]
+    text_h = bbox[3] - bbox[1]
+
+    diagonal_count = max(3, math.ceil(math.sqrt(w * w + h * h) / (text_w + 80)))
+    step_x = w / max(diagonal_count, 1)
+    step_y = h / max(diagonal_count, 1)
+
+    txt_layer = Image.new("RGBA", img.size, (0, 0, 0, 0))
+    txt_draw = ImageDraw.Draw(txt_layer)
+    for i in range(-diagonal_count, diagonal_count * 2):
+        x = int(i * step_x) - text_w // 2
+        y = int(i * step_y) - text_h // 2
+        txt_draw.text((x, y), text, font=font, fill=(255, 255, 255, 60))
+
+    rotated = txt_layer.rotate(45, expand=False)
+    img = Image.alpha_composite(img, rotated)
+    img = img.convert("RGB")
+    img.save(output_file)
+    print(f"✓ Watermark applied to {output_file}")
+
+
+def create_poster(city, country, point, dist, output_file, orientation='vertical', title=None, full_borders=False, title_pos='bottom-center', dpi=300, watermark=False):
     print(f"\nGenerating map for {city}, {country}...")
     
     # Progress bar for data fetching
@@ -247,10 +286,15 @@ def create_poster(city, country, point, dist, output_file, orientation='vertical
     # 2. Setup Plot
     print("Rendering map...")
     # Set figure size based on orientation
-    if orientation == 'horizontal':
-        figsize = (16, 12)
-    else:  # vertical (default)
-        figsize = (12, 16)
+    FIGSIZE_MAP = {
+        'vertical':   (12, 16),    # 3:4    — classic poster
+        'horizontal': (16, 12),    # 4:3    — landscape
+        'square':     (14, 14),    # 1:1    — square print / Instagram
+        'mobile':     (9, 19.5),   # 9:19.5 — phone wallpaper / story
+        'banner':     (24, 8),     # 3:1    — Twitter / Reddit / web banner
+        'widescreen': (16, 9),     # 16:9   — HD / TV / desktop wallpaper
+    }
+    figsize = FIGSIZE_MAP.get(orientation, (12, 16))
     
     fig, ax = plt.subplots(figsize=figsize, facecolor=THEME['bg'])
     ax.set_facecolor(THEME['bg'])
@@ -343,6 +387,9 @@ def create_poster(city, country, point, dist, output_file, orientation='vertical
     plt.savefig(output_file, dpi=dpi, facecolor=THEME['bg'])
     plt.close()
     print(f"✓ Done! Poster saved as {output_file} at {dpi} DPI")
+
+    if watermark:
+        apply_watermark(output_file)
 
 def print_examples():
     """Print usage examples."""
@@ -464,8 +511,9 @@ Examples:
     parser.add_argument('--country', '-C', type=str, help='Country name')
     parser.add_argument('--theme', '-t', type=str, default='feature_based', help='Theme name (default: feature_based)')
     parser.add_argument('--distance', '-d', type=int, default=29000, help='Map radius in meters (default: 29000)')
-    parser.add_argument('--orientation', '-o', type=str, default='vertical', choices=['vertical', 'horizontal'], 
-                        help='Poster orientation (default: vertical)')
+    parser.add_argument('--orientation', '-o', type=str, default='vertical',
+                        choices=['vertical', 'horizontal', 'square', 'mobile', 'banner', 'widescreen'],
+                        help='Poster orientation: vertical (3:4), horizontal (4:3), square (1:1), mobile (9:19.5 phone wallpaper), banner (3:1 web banner), widescreen (16:9 HD/TV). Default: vertical')
     parser.add_argument('--coords', type=str, help='Coordinates as "latitude,longitude" (e.g., "40.7128,-74.0060")')
     parser.add_argument('--title', type=str, help='Custom title to display instead of city name')
     parser.add_argument('--title-pos', type=str, default='bottom-center', 
@@ -474,6 +522,7 @@ Examples:
     parser.add_argument('--full-borders', action='store_true', help='Disable gradient fade effect on top/bottom borders')
     parser.add_argument('--dpi', type=int, default=300, choices=[72, 150, 300], 
                         help='Output resolution in DPI: 72 (preview), 150 (medium), 300 (high-res print quality, default)')
+    parser.add_argument('--watermark', action='store_true', help='Overlay a semi-transparent PREVIEW watermark on the output')
     parser.add_argument('--list-themes', action='store_true', help='List all available themes')
     
     args = parser.parse_args()
@@ -542,7 +591,7 @@ Examples:
         
         create_poster(display_city, args.country, coords, args.distance, output_file, 
                      orientation=args.orientation, title=args.title, full_borders=args.full_borders,
-                     title_pos=args.title_pos, dpi=args.dpi)
+                     title_pos=args.title_pos, dpi=args.dpi, watermark=args.watermark)
         
         print("\n" + "=" * 50)
         print("✓ Poster generation complete!")

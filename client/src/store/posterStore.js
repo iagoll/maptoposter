@@ -1,8 +1,10 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import apiService from '../services/api'
 import sseService from '../services/sseService'
-import { defaultFormValues } from '../services/utils'
+import { defaultFormValues, LOCALE_CITY_DEFAULTS } from '../services/utils'
+import { useSettingsStore } from './settingsStore'
+import { THEMES } from '../data/themes'
 
 export const usePosterStore = defineStore('poster', () => {
   // State
@@ -46,18 +48,36 @@ export const usePosterStore = defineStore('poster', () => {
     }
   })
 
-  // Actions
-  const loadThemes = async () => {
-    loadingThemes.value = true
-    try {
-      themes.value = await apiService.getThemes()
-    } catch (error) {
-      showSnackbar('Failed to load themes', 'error')
-      console.error('Error loading themes:', error)
-    } finally {
-      loadingThemes.value = false
-    }
+  // Themes are loaded synchronously from the local catalog — no API call needed.
+  themes.value = THEMES
+
+  // ── Language-based default city ────────────────────────────────────────────
+  // Initialise form from the saved language before anything renders.
+  const settingsStore = useSettingsStore()
+
+  function applyLocaleDefaults(locale) {
+    const d = LOCALE_CITY_DEFAULTS[locale] || LOCALE_CITY_DEFAULTS.en
+    // Only update if the user hasn't already typed something custom
+    formData.value.city    = d.city
+    formData.value.country = d.country
+    // Expose map centre so CreateView can reposition the Leaflet map
+    mapLocaleCenter.value  = { lat: d.lat, lng: d.lng, zoom: d.zoom }
   }
+
+  const mapLocaleCenter = ref(null)
+
+  // Apply immediately on store creation
+  applyLocaleDefaults(settingsStore.language)
+
+  // Re-apply whenever the user switches language
+  watch(() => settingsStore.language, (lang) => {
+    applyLocaleDefaults(lang)
+  })
+
+  // Actions
+  // loadThemes is a no-op kept for backwards compatibility; themes are now
+  // loaded synchronously from client/src/data/themes.js.
+  const loadThemes = () => { /* themes already populated at store init */ }
 
   const loadPosters = async () => {
     loadingPosters.value = true
@@ -80,7 +100,7 @@ export const usePosterStore = defineStore('poster', () => {
     try {
       // Prepare request body
       const requestBody = {
-        country: formData.value.country,
+        country: formData.value.subtitle || formData.value.country,
         theme: formData.value.theme,
         distance: formData.value.distance,
         orientation: formData.value.orientation,
@@ -184,7 +204,8 @@ export const usePosterStore = defineStore('poster', () => {
     posters,
     loadingPosters,
     snackbar,
-    
+    mapLocaleCenter,
+
     // Computed
     statusColor,
     

@@ -1,76 +1,66 @@
-const db = require('../database/db');
+const { pool } = require('../database/db');
 
 class Payment {
-  /**
-   * Create a new payment record
-   */
-  static create(data) {
+  static async findById(id) {
+    const { rows } = await pool.query(
+      'SELECT * FROM t_payment WHERE payment_id = $1',
+      [id]
+    );
+    return rows[0] || null;
+  }
+
+  static async findBySessionId(sessionId) {
+    const { rows } = await pool.query(
+      'SELECT * FROM t_payment WHERE stripe_session_id = $1',
+      [sessionId]
+    );
+    return rows[0] || null;
+  }
+
+  static async create(data) {
     const { userId, mapRequestId, stripeSessionId, amount, currency } = data;
-    const stmt = db.prepare(`
-      INSERT INTO payments (user_id, map_request_id, stripe_session_id, amount, currency)
-      VALUES (?, ?, ?, ?, ?)
-    `);
-    const result = stmt.run(userId, mapRequestId, stripeSessionId, amount, currency || 'usd');
-    return this.findById(result.lastInsertRowid);
+    const { rows } = await pool.query(
+      `INSERT INTO t_payment (user_id, map_request_id, stripe_session_id, amount, currency)
+       VALUES ($1, $2, $3, $4, $5)
+       RETURNING payment_id`,
+      [userId, mapRequestId, stripeSessionId, amount, currency || 'usd']
+    );
+    return this.findById(rows[0].payment_id);
   }
 
-  /**
-   * Find by ID
-   */
-  static findById(id) {
-    const stmt = db.prepare('SELECT * FROM payments WHERE id = ?');
-    return stmt.get(id);
-  }
-
-  /**
-   * Find by Stripe session ID
-   */
-  static findBySessionId(sessionId) {
-    const stmt = db.prepare('SELECT * FROM payments WHERE stripe_session_id = ?');
-    return stmt.get(sessionId);
-  }
-
-  /**
-   * Update payment status
-   */
-  static updateStatus(sessionId, status, paymentIntentId = null) {
-    const stmt = db.prepare(`
-      UPDATE payments 
-      SET status = ?, 
-          stripe_payment_intent_id = ?,
-          paid_at = CASE WHEN ? = 'completed' THEN CURRENT_TIMESTAMP ELSE paid_at END
-      WHERE stripe_session_id = ?
-    `);
-    stmt.run(status, paymentIntentId, status, sessionId);
+  static async updateStatus(sessionId, status, paymentIntentId = null) {
+    await pool.query(
+      `UPDATE t_payment
+       SET status                   = $1,
+           stripe_payment_intent_id = $2,
+           ts_paid = CASE WHEN $1 = 'completed' THEN (NOW() AT TIME ZONE 'UTC') ELSE ts_paid END
+       WHERE stripe_session_id = $3`,
+      [status, paymentIntentId, sessionId]
+    );
     return this.findBySessionId(sessionId);
   }
 
-  /**
-   * Check if payment is completed
-   */
-  static isCompleted(userId, mapRequestId) {
-    const stmt = db.prepare(`
-      SELECT COUNT(*) as count
-      FROM payments
-      WHERE user_id = ? AND map_request_id = ? AND status = 'completed'
-    `);
-    const result = stmt.get(userId, mapRequestId);
-    return result.count > 0;
+  static async isCompleted(userId, mapRequestId) {
+    const { rows } = await pool.query(
+      `SELECT COUNT(*) AS count
+       FROM t_payment
+       WHERE user_id = $1 AND map_request_id = $2 AND status = 'completed'`,
+      [userId, mapRequestId]
+    );
+    return parseInt(rows[0].count, 10) > 0;
   }
 
-  /**
-   * Get user's payments
-   */
-  static findByUserId(userId, limit = 10) {
-    const stmt = db.prepare(`
-      SELECT p.*, m.city, m.country, m.theme
-      FROM payments p
-      JOIN map_requests m ON p.map_request_id = m.id
-      WHERE p.user_id = ?
-      ORDER BY p.created_at DESC
-      LIMIT ?
-    `);
-    return stmt.all(userId, limit);
+  static async findByUserId(userId, limit = 10) {
+    const { rows } = await pool.query(
+      `SELECT p.*, m.city, m.country, m.theme
+       FROM t_payment p
+       JOIN t_map_request m ON p.map_request_id = m.map_request_id
+       WHERE p.user_id = $1
+       ORDER BY p.ts_created DESC
+       LIMIT $2`,
+      [userId, limit]
+    );
+    return rows;
   }
 }
 

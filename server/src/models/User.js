@@ -1,56 +1,46 @@
-const db = require('../database/db');
+const { pool } = require('../database/db');
 
 class User {
-  /**
-   * Find user by Firebase UID
-   */
-  static findByFirebaseUid(firebaseUid) {
-    const stmt = db.prepare('SELECT * FROM users WHERE firebase_uid = ?');
-    return stmt.get(firebaseUid);
+  static async findByFirebaseUid(firebaseUid) {
+    const { rows } = await pool.query(
+      'SELECT * FROM t_user WHERE firebase_uid = $1',
+      [firebaseUid]
+    );
+    return rows[0] || null;
   }
 
-  /**
-   * Create a new user
-   */
-  static create(data) {
+  static async findById(id) {
+    const { rows } = await pool.query(
+      'SELECT * FROM t_user WHERE user_id = $1',
+      [id]
+    );
+    return rows[0] || null;
+  }
+
+  static async create(data) {
     const { firebaseUid, email, displayName, photoUrl } = data;
-    const stmt = db.prepare(`
-      INSERT INTO users (firebase_uid, email, display_name, photo_url)
-      VALUES (?, ?, ?, ?)
-    `);
-    const result = stmt.run(firebaseUid, email, displayName, photoUrl);
-    return this.findById(result.lastInsertRowid);
+    const { rows } = await pool.query(
+      `INSERT INTO t_user (firebase_uid, email, display_name, photo_url)
+       VALUES ($1, $2, $3, $4)
+       RETURNING user_id`,
+      [firebaseUid, email, displayName || null, photoUrl || null]
+    );
+    return this.findById(rows[0].user_id);
   }
 
-  /**
-   * Find user by ID
-   */
-  static findById(id) {
-    const stmt = db.prepare('SELECT * FROM users WHERE id = ?');
-    return stmt.get(id);
+  static async updateLastLogin(firebaseUid) {
+    await pool.query(
+      `UPDATE t_user SET ts_last_login = (NOW() AT TIME ZONE 'UTC') WHERE firebase_uid = $1`,
+      [firebaseUid]
+    );
   }
 
-  /**
-   * Update last login
-   */
-  static updateLastLogin(firebaseUid) {
-    const stmt = db.prepare(`
-      UPDATE users 
-      SET last_login = CURRENT_TIMESTAMP 
-      WHERE firebase_uid = ?
-    `);
-    stmt.run(firebaseUid);
-  }
-
-  /**
-   * Find or create user
-   */
-  static findOrCreate(data) {
-    let user = this.findByFirebaseUid(data.firebaseUid);
+  static async findOrCreate(data) {
+    let user = await this.findByFirebaseUid(data.firebaseUid);
     if (!user) {
-      user = this.create(data);
+      user = await this.create(data);
     } else {
-      this.updateLastLogin(data.firebaseUid);
+      await this.updateLastLogin(data.firebaseUid);
     }
     return user;
   }

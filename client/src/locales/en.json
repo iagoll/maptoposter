@@ -82,13 +82,48 @@
     "close": "Close"
   },
   "about": {
+    "eyebrow": "About",
     "title": "About Map Poster Generator",
     "description": "Create beautiful, customizable map posters of any city in the world using OpenStreetMap data.",
-    "features": "Features",
-    "themes": "17+ Beautiful Themes",
-    "global": "Global Coverage",
+    "themes": "22+ Beautiful Themes",
+    "themesDesc": "22 professionally designed themes from minimalist noir to neon cyberpunk.",
     "customizable": "Fully Customizable",
-    "realtime": "Real-time Generation"
+    "customizableDesc": "Orientation, radius, title position, borders — full control over every detail.",
+    "global": "Global Coverage",
+    "globalDesc": "Any city, town or village on Earth. Powered by OpenStreetMap.",
+    "featuresTitle": "Features",
+    "tipsTitle": "Tips",
+    "builtWithTitle": "Built with",
+    "creditsTitle": "Credits",
+    "creditsText": "Map data © OpenStreetMap contributors, available under the Open Database License (ODbL).",
+    "featureList": [
+      "22+ professionally designed themes",
+      "Portrait, landscape, square, mobile, banner and widescreen orientations",
+      "Interactive map mode — pan and zoom to frame any area",
+      "Direct coordinate input for precise locations",
+      "Real-time generation progress via live logs",
+      "High-resolution output — 300 DPI, print-ready",
+      "Flexible title positioning (6 positions)",
+      "Custom title and subtitle override"
+    ],
+    "tips": [
+      {
+        "title": "Distance",
+        "body": "Smaller distances (4–8 km) work best for dense city centres. Larger distances (20–50 km) capture entire metro areas."
+      },
+      {
+        "title": "Custom titles",
+        "body": "Use the title and subtitle fields to put any text on the poster — great when city names are long or you want a personal label."
+      },
+      {
+        "title": "Full borders",
+        "body": "Enable \"full borders\" to remove the gradient fade and show edge-to-edge maps — ideal for banner and widescreen formats."
+      },
+      {
+        "title": "Coordinates",
+        "body": "Use coordinates for precise locations, remote areas, or places not recognised by city name search."
+      }
+    ]
   },
   "welcome": {
     "title": "Welcome!",

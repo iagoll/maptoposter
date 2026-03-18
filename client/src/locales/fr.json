@@ -82,13 +82,48 @@
     "close": "Fermer"
   },
   "about": {
+    "eyebrow": "À propos",
     "title": "À Propos du Générateur d'Affiches de Cartes",
     "description": "Créez de belles affiches de cartes personnalisables de n'importe quelle ville du monde en utilisant les données d'OpenStreetMap.",
-    "features": "Fonctionnalités",
-    "themes": "Plus de 17 Beaux Thèmes",
-    "global": "Couverture Mondiale",
+    "themes": "Plus de 22 Beaux Thèmes",
+    "themesDesc": "22 thèmes conçus professionnellement, du noir minimaliste au neon cyberpunk.",
     "customizable": "Entièrement Personnalisable",
-    "realtime": "Génération en Temps Réel"
+    "customizableDesc": "Orientation, rayon, position du titre, bordures — contrôle total sur chaque détail.",
+    "global": "Couverture Mondiale",
+    "globalDesc": "N'importe quelle ville ou village de la Terre. Propulsé par OpenStreetMap.",
+    "featuresTitle": "Fonctionnalités",
+    "tipsTitle": "Conseils",
+    "builtWithTitle": "Développé avec",
+    "creditsTitle": "Crédits",
+    "creditsText": "Données cartographiques © contributeurs OpenStreetMap, disponibles sous la licence Open Database License (ODbL).",
+    "featureList": [
+      "Plus de 22 thèmes conçus professionnellement",
+      "Orientations : portrait, paysage, carré, mobile, bannière et écran large",
+      "Mode carte interactif — faites glisser et zoomez pour cadrer n'importe quelle zone",
+      "Saisie directe de coordonnées pour des emplacements précis",
+      "Progression de génération en temps réel via journaux en direct",
+      "Sortie haute résolution — 300 DPI, prête à imprimer",
+      "Positionnement de titre flexible (6 positions)",
+      "Titre et sous-titre personnalisés"
+    ],
+    "tips": [
+      {
+        "title": "Distance",
+        "body": "Les petites distances (4–8 km) conviennent mieux aux centres-villes denses. Les grandes distances (20–50 km) capturent des zones métropolitaines entières."
+      },
+      {
+        "title": "Titres personnalisés",
+        "body": "Utilisez les champs titre et sous-titre pour mettre n'importe quel texte sur l'affiche — idéal quand les noms de ville sont longs ou pour un label personnel."
+      },
+      {
+        "title": "Bordures complètes",
+        "body": "Activez \"bordures complètes\" pour supprimer le dégradé et afficher des cartes bord à bord — idéal pour les formats bannière et écran large."
+      },
+      {
+        "title": "Coordonnées",
+        "body": "Utilisez les coordonnées pour des emplacements précis, des zones éloignées ou des lieux non reconnus par la recherche de nom de ville."
+      }
+    ]
   },
   "welcome": {
     "title": "Bienvenue !",

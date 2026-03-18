@@ -82,13 +82,48 @@
     "close": "Fechar"
   },
   "about": {
+    "eyebrow": "Sobre",
     "title": "Sobre o Gerador de Pôsteres de Mapas",
     "description": "Crie pôsteres de mapas bonitos e personalizáveis de qualquer cidade do mundo usando dados do OpenStreetMap.",
-    "features": "Recursos",
-    "themes": "Mais de 17 Temas Bonitos",
-    "global": "Cobertura Global",
+    "themes": "Mais de 22 Temas Bonitos",
+    "themesDesc": "22 temas projetados profissionalmente, do noir minimalista ao neon cyberpunk.",
     "customizable": "Totalmente Personalizável",
-    "realtime": "Geração em Tempo Real"
+    "customizableDesc": "Orientação, raio, posição do título, bordas — controle total sobre cada detalhe.",
+    "global": "Cobertura Global",
+    "globalDesc": "Qualquer cidade, vila ou aldeia do planeta. Desenvolvido com OpenStreetMap.",
+    "featuresTitle": "Recursos",
+    "tipsTitle": "Dicas",
+    "builtWithTitle": "Desenvolvido com",
+    "creditsTitle": "Créditos",
+    "creditsText": "Dados do mapa © contribuidores do OpenStreetMap, disponíveis sob a Licença de Base de Dados Aberta (ODbL).",
+    "featureList": [
+      "Mais de 22 temas projetados profissionalmente",
+      "Orientações: retrato, paisagem, quadrado, mobile, banner e widescreen",
+      "Modo de mapa interativo — arraste e amplie para enquadrar qualquer área",
+      "Entrada direta de coordenadas para localizações precisas",
+      "Progresso de geração em tempo real via registros ao vivo",
+      "Saída em alta resolução — 300 DPI, pronto para impressão",
+      "Posicionamento de título flexível (6 posições)",
+      "Título e subtítulo personalizados"
+    ],
+    "tips": [
+      {
+        "title": "Distância",
+        "body": "Distâncias menores (4–8 km) funcionam melhor para centros urbanos densos. Distâncias maiores (20–50 km) capturam áreas metropolitanas inteiras."
+      },
+      {
+        "title": "Títulos personalizados",
+        "body": "Use os campos de título e subtítulo para colocar qualquer texto no pôster — ótimo quando os nomes de cidade são longos ou você quer um rótulo pessoal."
+      },
+      {
+        "title": "Bordas completas",
+        "body": "Ative \"bordas completas\" para remover o degradê e exibir mapas de ponta a ponta — ideal para formatos banner e widescreen."
+      },
+      {
+        "title": "Coordenadas",
+        "body": "Use coordenadas para localizações precisas, áreas remotas ou lugares não reconhecidos pela pesquisa de nome de cidade."
+      }
+    ]
   },
   "welcome": {
     "title": "Bem-vindo!",

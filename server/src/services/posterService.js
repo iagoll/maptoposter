@@ -25,7 +25,7 @@ const generateJobId = () => {
  * @returns {Array} Command arguments
  */
 const buildCommandArgs = (config) => {
-  const { city, country, theme, distance, orientation, coords, title, titlePos, fullBorders } = config;
+  const { city, country, theme, distance, orientation, coords, title, titlePos, fullBorders, dpi, watermark } = config;
   
   const args = [scriptPath];
   
@@ -38,6 +38,8 @@ const buildCommandArgs = (config) => {
   if (title) args.push('--title', title);
   if (titlePos) args.push('--title-pos', titlePos);
   if (fullBorders) args.push('--full-borders');
+  if (dpi) args.push('--dpi', dpi.toString());
+  if (watermark) args.push('--watermark');
   
   return args;
 };

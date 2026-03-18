@@ -82,13 +82,48 @@
     "close": "Schließen"
   },
   "about": {
+    "eyebrow": "Über uns",
     "title": "Über den Karten-Poster-Generator",
     "description": "Erstellen Sie schöne, anpassbare Karten-Poster von jeder Stadt der Welt mit OpenStreetMap-Daten.",
-    "features": "Funktionen",
-    "themes": "Über 17 Schöne Themen",
-    "global": "Globale Abdeckung",
+    "themes": "Über 22 Schöne Themen",
+    "themesDesc": "22 professionell gestaltete Themen, von minimalistischem Noir bis Neon Cyberpunk.",
     "customizable": "Vollständig Anpassbar",
-    "realtime": "Echtzeit-Generierung"
+    "customizableDesc": "Ausrichtung, Radius, Titelposition, Ränder — volle Kontrolle über jedes Detail.",
+    "global": "Globale Abdeckung",
+    "globalDesc": "Jede Stadt, jedes Dorf auf der Erde. Angetrieben von OpenStreetMap.",
+    "featuresTitle": "Funktionen",
+    "tipsTitle": "Tipps",
+    "builtWithTitle": "Entwickelt mit",
+    "creditsTitle": "Quellenangaben",
+    "creditsText": "Kartendaten © OpenStreetMap-Mitwirkende, verfügbar unter der Open Database License (ODbL).",
+    "featureList": [
+      "Über 22 professionell gestaltete Themen",
+      "Ausrichtungen: Hochformat, Querformat, Quadrat, Mobil, Banner und Breitbild",
+      "Interaktiver Kartenmodus — verschieben und zoomen Sie, um jeden Bereich einzurahmen",
+      "Direkte Koordinateneingabe für genaue Standorte",
+      "Echtzeit-Generierungsfortschritt über Live-Protokolle",
+      "Hochauflösende Ausgabe — 300 DPI, druckfertig",
+      "Flexible Titelpositionierung (6 Positionen)",
+      "Benutzerdefinierter Titel und Untertitel"
+    ],
+    "tips": [
+      {
+        "title": "Entfernung",
+        "body": "Kleinere Abstände (4–8 km) eignen sich am besten für dichte Stadtzentren. Größere Abstände (20–50 km) erfassen ganze Ballungsgebiete."
+      },
+      {
+        "title": "Benutzerdefinierte Titel",
+        "body": "Verwenden Sie die Titel- und Untertitelfelder, um beliebigen Text auf das Poster zu setzen — ideal bei langen Stadtnamen oder für persönliche Beschriftungen."
+      },
+      {
+        "title": "Volle Ränder",
+        "body": "Aktivieren Sie \"volle Ränder\", um den Verlauf zu entfernen und Karten ohne Rahmen anzuzeigen — ideal für Banner- und Breitbildformate."
+      },
+      {
+        "title": "Koordinaten",
+        "body": "Verwenden Sie Koordinaten für genaue Standorte, abgelegene Gebiete oder Orte, die nicht per Stadtnamen gefunden werden."
+      }
+    ]
   },
   "welcome": {
     "title": "Willkommen!",
