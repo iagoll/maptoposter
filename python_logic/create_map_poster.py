@@ -257,15 +257,15 @@ def create_poster(city, country, point, dist, output_file, orientation='vertical
     print(f"\nGenerating map for {city}, {country}...")
     
     # Progress bar for data fetching
-    with tqdm(total=3, desc="Fetching map data", unit="step", bar_format='{l_bar}{bar}| {n_fmt}/{total_fmt}') as pbar:
+    with tqdm(total=3, desc="\nFetching map data", unit="step", bar_format='{l_bar}{bar}| {n_fmt}/{total_fmt}') as pbar:
         # 1. Fetch Street Network
-        pbar.set_description("Downloading street network")
+        pbar.set_description("\nDownloading street network")
         G = ox.graph_from_point(point, dist=dist, dist_type='bbox', network_type='all')
         pbar.update(1)
         time.sleep(0.5)  # Rate limit between requests
         
         # 2. Fetch Water Features
-        pbar.set_description("Downloading water features")
+        pbar.set_description("\nDownloading water features")
         try:
             water = ox.features_from_point(point, tags={'natural': 'water', 'waterway': 'riverbank'}, dist=dist)
         except:
@@ -274,17 +274,17 @@ def create_poster(city, country, point, dist, output_file, orientation='vertical
         time.sleep(0.3)
         
         # 3. Fetch Parks
-        pbar.set_description("Downloading parks/green spaces")
+        pbar.set_description("\nDownloading parks/green spaces")
         try:
             parks = ox.features_from_point(point, tags={'leisure': 'park', 'landuse': 'grass'}, dist=dist)
         except:
             parks = None
         pbar.update(1)
     
-    print("✓ All data downloaded successfully!")
+    print("\n✓ All data downloaded successfully!")
     
     # 2. Setup Plot
-    print("Rendering map...")
+    print("\nRendering map...")
     # Set figure size based on orientation
     FIGSIZE_MAP = {
         'vertical':   (12, 16),    # 3:4    — classic poster
@@ -308,7 +308,7 @@ def create_poster(city, country, point, dist, output_file, orientation='vertical
         parks.plot(ax=ax, facecolor=THEME['parks'], edgecolor='none', zorder=2)
     
     # Layer 2: Roads with hierarchy coloring
-    print("Applying road hierarchy colors...")
+    print("\nApplying road hierarchy colors...")
     edge_colors = get_edge_colors_by_type(G)
     edge_widths = get_edge_widths_by_type(G)
     
@@ -383,10 +383,10 @@ def create_poster(city, country, point, dist, output_file, orientation='vertical
             fontproperties=font_attr, zorder=11)
 
     # 5. Save
-    print(f"Saving to {output_file}...")
+    print(f"\nSaving to {output_file}...")
     plt.savefig(output_file, dpi=dpi, facecolor=THEME['bg'])
     plt.close()
-    print(f"✓ Done! Poster saved as {output_file} at {dpi} DPI")
+    print(f"\n✓ Done! Poster saved as {output_file} at {dpi} DPI")
 
     if watermark:
         apply_watermark(output_file)

@@ -4,8 +4,6 @@
       <v-btn
         v-bind="props"
         variant="text"
-        :prepend-icon="mobile ? undefined : 'mdi-translate'"
-        :icon="mobile ? 'mdi-translate' : undefined"
       >
         <template v-if="!mobile">
           <span class="language-flag">{{ currentLanguageFlag }}</span>

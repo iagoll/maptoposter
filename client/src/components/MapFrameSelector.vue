@@ -6,6 +6,12 @@
       class="map-container"
       :style="{ height: `${mapContainerH}px` }"
     >
+      <!-- Colour wash from selected theme (above tiles, pointer-events none) -->
+      <div
+        class="map-theme-tint"
+        :style="mapThemeTintStyle"
+        aria-hidden="true"
+      />
       <!-- Vignette panels (4 absolutely-positioned rects) -->
       <div class="vignette" :style="vigTopStyle" />
       <div class="vignette" :style="vigBottomStyle" />
@@ -84,6 +90,20 @@ const THEME_FILTERS = {
   warm_beige:      'sepia(42%) saturate(85%) brightness(103%)',
   widescreen:      'none',
 };
+
+/** Build rgba() from #RGB / #RRGGBB for theme overlays */
+function hexToRgba(hex, alpha) {
+  if (!hex || typeof hex !== 'string') return `rgba(0,0,0,0)`;
+  let h = hex.replace('#', '').trim();
+  if (h.length === 3) h = h.split('').map(c => c + c).join('');
+  if (h.length !== 6) return `rgba(0,0,0,0)`;
+  const n = parseInt(h, 16);
+  if (Number.isNaN(n)) return `rgba(0,0,0,0)`;
+  const r = (n >> 16) & 255;
+  const g = (n >> 8) & 255;
+  const b = n & 255;
+  return `rgba(${r},${g},${b},${alpha})`;
+}
 
 import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
 import markerIcon   from 'leaflet/dist/images/marker-icon.png';
@@ -202,6 +222,28 @@ const vigRightStyle = computed(() => ({
   transition: 'background 0.4s ease',
 }));
 
+// Wash OSM tiles toward the poster palette (bg / water / road) — pairs with THEME_FILTERS
+const mapThemeTintStyle = computed(() => {
+  if (!props.themeColors) {
+    return { display: 'none' };
+  }
+  const { bg, road, water } = props.themeColors;
+  const w = water || bg;
+  const rd = road || bg;
+  return {
+    position: 'absolute',
+    inset: 0,
+    zIndex: 320,
+    pointerEvents: 'none',
+    background: [
+      `radial-gradient(ellipse 92% 70% at 50% 46%, ${hexToRgba(rd, 0.16)} 0%, transparent 62%)`,
+      `linear-gradient(185deg, ${hexToRgba(bg, 0.24)} 0%, transparent 38%, transparent 62%, ${hexToRgba(w, 0.26)} 100%)`,
+    ].join(', '),
+    mixBlendMode: 'soft-light',
+    transition: 'background 0.45s ease, opacity 0.35s ease',
+  };
+});
+
 // ── Map state ──────────────────────────────────────────────────────────────────
 let leafletMap = null;
 
@@ -230,10 +272,13 @@ const formattedDistance = computed(() => {
   return d >= 1000 ? `${(d / 1000).toFixed(1)} km` : `${d} m`;
 });
 
-function applyThemeFilter(themeId) {
+function applyMapTheme() {
   if (!leafletMap) return;
+  const themeId = props.themeColors?.id;
   const pane = leafletMap.getPanes().tilePane;
   if (pane) pane.style.filter = THEME_FILTERS[themeId] || 'none';
+  const el = leafletMap.getContainer();
+  el.style.backgroundColor = props.themeColors?.bg || '#cbd5e0';
 }
 
 function syncCenter() {
@@ -282,8 +327,7 @@ onMounted(async () => {
   setTimeout(() => {
     leafletMap?.invalidateSize();
     syncCenter();
-    // Apply the current theme filter after tiles are loaded
-    applyThemeFilter(props.themeColors?.id);
+    applyMapTheme();
   }, 150);
 });
 
@@ -316,10 +360,11 @@ watch(
   }
 );
 
-// Apply theme filter whenever the selected theme changes
+// Tile filter + Leaflet base colour when the selected theme changes
 watch(
-  () => props.themeColors?.id,
-  (themeId) => applyThemeFilter(themeId),
+  () => props.themeColors,
+  () => applyMapTheme(),
+  { deep: true },
 );
 </script>
 
@@ -338,6 +383,11 @@ watch(
   width: 100%;
   overflow: hidden;
   transition: height 0.3s ease;
+  isolation: isolate;
+}
+
+.map-theme-tint {
+  border-radius: inherit;
 }
 
 /* Vignette panels */
